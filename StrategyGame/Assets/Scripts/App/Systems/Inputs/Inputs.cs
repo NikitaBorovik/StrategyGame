@@ -9,13 +9,22 @@ namespace App.Systems.Inputs
         private BuildingInteractor processor;
         [SerializeField]
         private GameObject building;
+        [SerializeField]
+        private MouseOptionSelector mouseSelector;
+        private MouseOption mouseOption;
         public void Init(Grid worldGrid, Camera camera, GameObject selectedCellBorder)
         {
-            processor = new BuildingInteractor(worldGrid, camera, building, selectedCellBorder);
+            processor = new BuildingInteractor(worldGrid, camera, selectedCellBorder);
+            mouseOption = mouseSelector.SelectedMouseOption;
         }
         void Update()
         {
+            Debug.Log(mouseOption);
             ProceedMouseInput();
+            if(mouseOption != mouseSelector.SelectedMouseOption)
+            {
+                ProceedMouseOption(mouseSelector.SelectedMouseOption);
+            }
         }
 
         private void ProceedMouseInput()
@@ -25,6 +34,32 @@ namespace App.Systems.Inputs
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 processor.OnLeftButton();
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                mouseSelector.SelectedMouseOption = MouseOption.Idle;
+            }
+        }
+
+        private void ProceedMouseOption(MouseOption option)
+        {
+            mouseOption = mouseSelector.SelectedMouseOption;
+            switch (option)
+            {
+                case MouseOption.Building:
+                    processor.BuildingState(mouseSelector.SelectedBuilding);
+                    break;
+                case MouseOption.Upgrading:
+                    //TODO Implement
+                    break;
+                case MouseOption.Destroying:
+                    //TODO Implement
+                    break;
+                case MouseOption.Idle:
+                    processor.IdleState();
+                    break;
+                default: 
+                    break;
             }
         }
     }

@@ -1,4 +1,5 @@
 using App;
+using App.World.Buildings.BuildingsSO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,20 +13,24 @@ namespace App.Systems.Inputs
         private Camera camera;
         private GameObject selectedCellBorder;
 
+        private BuildingState buildingState;
+        private IdleState idleState;
+
         public Grid WorldGrid { get => worldGrid;}
         public Camera Camera { get => camera;}
         public GameObject SelectedCellBorder { get => selectedCellBorder;}
 
         public event Action OnClick;
         public event Action OnMouseMoved;
-        public BuildingInteractor(Grid worldGrid, Camera camera, GameObject building, GameObject selectedCellBorder)
+        public BuildingInteractor(Grid worldGrid, Camera camera, GameObject selectedCellBorder)
         {
             this.worldGrid = worldGrid;
             this.camera = camera;
             this.selectedCellBorder = selectedCellBorder;
-            BuildingState buildingState = new BuildingState(this, building);
+            buildingState = new BuildingState(this);
+            idleState = new IdleState();
             stateMachne = new StateMachine();
-            stateMachne.Init(buildingState);
+            stateMachne.Init(idleState);
         }
         public void OnLeftButton()
         {
@@ -35,6 +40,17 @@ namespace App.Systems.Inputs
         public void OnMouseMove()
         {
             OnMouseMoved?.Invoke();
+        }
+
+        public void BuildingState(BuildingKindSO building)
+        {
+            buildingState.Building = building;
+            stateMachne.ChangeState(buildingState);
+        }
+
+        public void IdleState()
+        {
+            stateMachne.ChangeState(idleState);
         }
     }
 }
