@@ -99,4 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normal: {fileID: 21300000, guid: f4de4f724ce77174b8aa7f51380b7157, type: 3}
   red: {fileID: 21300000, guid: 2cb63d8caa88c2b4ca96989a211aece7, type: 3}
-  renderer: {fileID: 6631741013950102258}
+  cellRenderer: {fileID: 6631741013950102258}

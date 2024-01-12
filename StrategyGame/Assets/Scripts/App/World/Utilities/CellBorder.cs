@@ -9,17 +9,17 @@ public class CellBorder : MonoBehaviour
     [SerializeField]
     private Sprite red;
     [SerializeField]
-    private SpriteRenderer renderer;
+    private SpriteRenderer cellRenderer;
     
     public void IndcateCanBuild(bool value)
     {
         if (value)
         {
-            renderer.sprite = normal;
+            cellRenderer.sprite = normal;
         }
         else
         {
-            renderer.sprite = red;
+            cellRenderer.sprite = red;
         }
     }
 }

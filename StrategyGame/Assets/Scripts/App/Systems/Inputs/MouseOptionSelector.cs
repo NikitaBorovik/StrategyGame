@@ -8,7 +8,15 @@ namespace App.Systems.Inputs
     {
         private BuildingKindSO selectedBuilding;
         private MouseOption selectedMouseOption = MouseOption.Idle;
+        private IMouseOptionHandler mouseInputHandler;
+        public void SetParameters(MouseOption option, BuildingKindSO building)
+        {
+            this.SelectedMouseOption = option;
+            this.SelectedBuilding = building;
+            MouseInputHandler?.ProceedMouseOption(SelectedMouseOption);
+        }
 
+        public IMouseOptionHandler MouseInputHandler { get => mouseInputHandler; set => mouseInputHandler = value; }
         public BuildingKindSO SelectedBuilding { get => selectedBuilding; set => selectedBuilding = value; }
         public MouseOption SelectedMouseOption { get => selectedMouseOption; set => selectedMouseOption = value; }
     }

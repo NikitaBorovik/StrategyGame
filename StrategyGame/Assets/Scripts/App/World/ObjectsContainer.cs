@@ -8,12 +8,12 @@ namespace App.World
         [SerializeField]
         private Grid worldGrid;
         [SerializeField]
-        private Camera camera;
+        private Camera mainCamera;
         [SerializeField]
         private GameObject selectedCellBorder;
 
         public Grid WorldGrid { get => worldGrid;}
-        public Camera Camera { get => camera;}
+        public Camera MainCamera { get => mainCamera;}
         public GameObject SelectedCellBorder { get => selectedCellBorder;}
     }
 }

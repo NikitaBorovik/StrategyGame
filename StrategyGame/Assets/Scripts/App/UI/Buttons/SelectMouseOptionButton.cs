@@ -15,8 +15,7 @@ namespace App.UI.Buttons
 
         public void SelectOption()
         {
-            optionSelector.SelectedMouseOption = option;
-            optionSelector.SelectedBuilding = building;
+            optionSelector.SetParameters(option,building);
         }
     }
 }

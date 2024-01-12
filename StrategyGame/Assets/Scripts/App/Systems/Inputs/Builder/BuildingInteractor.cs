@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace App.Systems.Inputs
+namespace App.Systems.Inputs.Builder
 {
     public class BuildingInteractor
     {
@@ -14,6 +14,7 @@ namespace App.Systems.Inputs
         private GameObject selectedCellBorder;
 
         private BuildingState buildingState;
+        private DestroyingState destroyingState;
         private IdleState idleState;
 
         public Grid WorldGrid { get => worldGrid;}
@@ -28,6 +29,7 @@ namespace App.Systems.Inputs
             this.camera = camera;
             this.selectedCellBorder = selectedCellBorder;
             buildingState = new BuildingState(this);
+            destroyingState = new DestroyingState(this);
             idleState = new IdleState();
             stateMachne = new StateMachine();
             stateMachne.Init(idleState);
@@ -46,6 +48,11 @@ namespace App.Systems.Inputs
         {
             buildingState.Building = building;
             stateMachne.ChangeState(buildingState);
+        }
+
+        public void DestroyingState()
+        {
+            stateMachne.ChangeState(destroyingState);
         }
 
         public void IdleState()

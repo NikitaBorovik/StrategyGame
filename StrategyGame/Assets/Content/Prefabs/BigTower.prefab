@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3915297203288180540}
   - component: {fileID: 4778633486071229748}
   - component: {fileID: -8484683511412444861}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BigTower
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace App.Systems.Inputs
+namespace App.Systems.Inputs.Builder
 {
     public class BuildingState : IState
     {
@@ -58,16 +58,8 @@ namespace App.Systems.Inputs
             {
                 Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 pos = grid.CellToWorld(grid.WorldToCell(mousePosition));
-                bool newCanBuild = true;
-                if(building.size == 2) // TODO implement normally!!!
-                {
-                   newCanBuild = !Physics2D.BoxCast(new Vector2(pos.x + grid.cellSize.x, pos.y + grid.cellSize.y), new Vector2(1.5f, 1.5f), 0f, Vector2.zero);
-                }
-                else if(building.size == 3)
-                {
-                   newCanBuild = !Physics2D.BoxCast(new Vector2(pos.x + grid.cellSize.x * 1.5f, pos.y + grid.cellSize.y * 1.5f), new Vector2(2.5f, 2.5f), 0f, Vector2.zero);
-                }
-                 
+                bool newCanBuild = !Physics2D.BoxCast(new Vector2(pos.x + grid.cellSize.x * 0.5f * building.size, pos.y + grid.cellSize.y * 0.5f * building.size), new Vector2(building.size / 2 , building.size / 2), 0f, Vector2.zero, LayerMask.GetMask("Building"));
+
                 if(canBuild != newCanBuild)
                 {
                     canBuild = newCanBuild;

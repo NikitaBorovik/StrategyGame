@@ -1,30 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using App.Systems.Inputs.Builder;
 using UnityEngine;
 
 namespace App.Systems.Inputs
 {
-    public class Inputs : MonoBehaviour
+    public class Inputs : MonoBehaviour, IMouseOptionHandler
     {
         private BuildingInteractor processor;
         [SerializeField]
         private GameObject building;
         [SerializeField]
         private MouseOptionSelector mouseSelector;
-        private MouseOption mouseOption;
+
         public void Init(Grid worldGrid, Camera camera, GameObject selectedCellBorder)
         {
             processor = new BuildingInteractor(worldGrid, camera, selectedCellBorder);
-            mouseOption = mouseSelector.SelectedMouseOption;
+            mouseSelector.MouseInputHandler = this;
         }
         void Update()
         {
-            Debug.Log(mouseOption);
             ProceedMouseInput();
-            if(mouseOption != mouseSelector.SelectedMouseOption)
-            {
-                ProceedMouseOption(mouseSelector.SelectedMouseOption);
-            }
         }
 
         private void ProceedMouseInput()
@@ -41,9 +35,8 @@ namespace App.Systems.Inputs
             }
         }
 
-        private void ProceedMouseOption(MouseOption option)
+        public void ProceedMouseOption(MouseOption option)
         {
-            mouseOption = mouseSelector.SelectedMouseOption;
             switch (option)
             {
                 case MouseOption.Building:
@@ -53,7 +46,7 @@ namespace App.Systems.Inputs
                     //TODO Implement
                     break;
                 case MouseOption.Destroying:
-                    //TODO Implement
+                    processor.DestroyingState();
                     break;
                 case MouseOption.Idle:
                     processor.IdleState();
@@ -62,6 +55,9 @@ namespace App.Systems.Inputs
                     break;
             }
         }
+
+        
+
     }
 }
 

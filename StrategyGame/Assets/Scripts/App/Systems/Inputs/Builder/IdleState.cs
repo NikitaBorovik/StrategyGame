@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace App.Systems.Inputs
+namespace App.Systems.Inputs.Builder
 {
     public class IdleState : IState
     {
