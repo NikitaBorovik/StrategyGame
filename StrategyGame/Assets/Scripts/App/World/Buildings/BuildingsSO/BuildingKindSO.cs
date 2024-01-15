@@ -9,7 +9,7 @@ namespace App.World.Buildings.BuildingsSO
     {
         public GameObject prefab;
         public int size;
-
+        public Sprite sprite;
     }
 }
 

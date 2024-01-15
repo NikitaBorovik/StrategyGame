@@ -13,12 +13,14 @@ namespace App.Systems.Inputs.Builder
         private BuildingKindSO building;
         private Grid grid;
         private GameObject selectedCellBorder;
+        private GameObject previewBuilding;
         private bool canBuild = true;
         public BuildingState(BuildingInteractor buildingInteractor)
         {
             this.buildingInteractor = buildingInteractor;
             this.grid = buildingInteractor.WorldGrid;
             this.selectedCellBorder = buildingInteractor.SelectedCellBorder;
+            this.previewBuilding = buildingInteractor.PreviewBuilding;
         }
 
         public BuildingKindSO Building { get => building; set => building = value; }
@@ -26,6 +28,10 @@ namespace App.Systems.Inputs.Builder
         public void Enter()
         {
             selectedCellBorder.SetActive(true);
+            previewBuilding.SetActive(true);
+            SpriteRenderer spriteRenderer = previewBuilding.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = building.sprite;
+            spriteRenderer.color = new Color(255, 255, 255, 0.5f);
             buildingInteractor.OnClick += OnMouseClicked;
             buildingInteractor.OnMouseMoved += OnMouseMoved;
         }
@@ -33,6 +39,7 @@ namespace App.Systems.Inputs.Builder
         public void Exit()
         {
             selectedCellBorder.SetActive(false);
+            previewBuilding.SetActive(false);
             buildingInteractor.OnClick -= OnMouseClicked;
             buildingInteractor.OnMouseMoved -= OnMouseMoved;
         }
@@ -54,19 +61,18 @@ namespace App.Systems.Inputs.Builder
         }
         private void OnMouseMoved()
         {
-            if (selectedCellBorder.activeSelf)
-            {
-                Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
-                Vector3 pos = grid.CellToWorld(grid.WorldToCell(mousePosition));
-                bool newCanBuild = !Physics2D.BoxCast(new Vector2(pos.x + grid.cellSize.x * 0.5f * building.size, pos.y + grid.cellSize.y * 0.5f * building.size), new Vector2(building.size / 2 , building.size / 2), 0f, Vector2.zero, LayerMask.GetMask("Building"));
 
-                if(canBuild != newCanBuild)
-                {
-                    canBuild = newCanBuild;
-                    selectedCellBorder.GetComponent<CellBorder>().IndcateCanBuild(canBuild);
-                }
-                selectedCellBorder.transform.position = pos;
+            Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 pos = grid.CellToWorld(grid.WorldToCell(mousePosition));
+            bool newCanBuild = !Physics2D.BoxCast(new Vector2(pos.x + grid.cellSize.x * 0.5f * building.size, pos.y + grid.cellSize.y * 0.5f * building.size), new Vector2(building.size / 2, building.size / 2), 0f, Vector2.zero, LayerMask.GetMask("Building"));
+
+            if (canBuild != newCanBuild)
+            {
+                canBuild = newCanBuild;
+                selectedCellBorder.GetComponent<CellBorder>().IndcateCanBuild(canBuild);
             }
+            selectedCellBorder.transform.position = pos;
+            previewBuilding.transform.position = pos;
         }
     }
 }

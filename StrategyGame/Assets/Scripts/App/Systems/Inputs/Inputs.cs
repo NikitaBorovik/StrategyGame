@@ -11,9 +11,9 @@ namespace App.Systems.Inputs
         [SerializeField]
         private MouseOptionSelector mouseSelector;
 
-        public void Init(Grid worldGrid, Camera camera, GameObject selectedCellBorder)
+        public void Init(Grid worldGrid, Camera camera, GameObject selectedCellBorder, GameObject previewBuilding)
         {
-            processor = new BuildingInteractor(worldGrid, camera, selectedCellBorder);
+            processor = new BuildingInteractor(worldGrid, camera, selectedCellBorder,previewBuilding);
             mouseSelector.MouseInputHandler = this;
         }
         void Update()
