@@ -9,7 +9,7 @@ namespace App.Systems.Inputs.Builder
     public class BuildingInteractor
     {
         private StateMachine stateMachne;
-        private Grid worldGrid;
+        private GameObject worldGrid;
         private Camera camera;
         private GameObject selectedCellBorder;
         private GameObject previewBuilding;
@@ -18,14 +18,14 @@ namespace App.Systems.Inputs.Builder
         private DestroyingState destroyingState;
         private IdleState idleState;
 
-        public Grid WorldGrid { get => worldGrid;}
+        public GameObject WorldGrid { get => worldGrid;}
         public Camera Camera { get => camera;}
         public GameObject SelectedCellBorder { get => selectedCellBorder;}
         public GameObject PreviewBuilding { get => previewBuilding;}
 
         public event Action OnClick;
         public event Action OnMouseMoved;
-        public BuildingInteractor(Grid worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding)
+        public BuildingInteractor(GameObject worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding)
         {
             this.worldGrid = worldGrid;
             this.camera = camera;

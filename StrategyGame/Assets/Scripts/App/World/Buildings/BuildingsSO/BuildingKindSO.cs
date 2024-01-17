@@ -1,3 +1,4 @@
+using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace App.World.Buildings.BuildingsSO
     {
         public GameObject prefab;
         public int size;
+        public int attributeRange;
+        public CellAttachedAttribute attribute;
         public Sprite sprite;
     }
 }

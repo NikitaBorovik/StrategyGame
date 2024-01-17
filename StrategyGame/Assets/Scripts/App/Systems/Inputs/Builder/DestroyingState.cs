@@ -14,7 +14,7 @@ public class DestroyingState : IState
     public DestroyingState(BuildingInteractor buildingInteractor)
     {
         this.buildingInteractor = buildingInteractor;
-        this.grid = buildingInteractor.WorldGrid;
+        this.grid = buildingInteractor.WorldGrid.GetComponent<Grid>();
         this.selectedCellBorder = buildingInteractor.SelectedCellBorder;
     }
 

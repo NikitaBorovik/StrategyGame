@@ -11,7 +11,7 @@ namespace App.Systems.Inputs
         [SerializeField]
         private MouseOptionSelector mouseSelector;
 
-        public void Init(Grid worldGrid, Camera camera, GameObject selectedCellBorder, GameObject previewBuilding)
+        public void Init(GameObject worldGrid, Camera camera, GameObject selectedCellBorder, GameObject previewBuilding)
         {
             processor = new BuildingInteractor(worldGrid, camera, selectedCellBorder,previewBuilding);
             mouseSelector.MouseInputHandler = this;
@@ -32,6 +32,7 @@ namespace App.Systems.Inputs
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 mouseSelector.SelectedMouseOption = MouseOption.Idle;
+                ProceedMouseOption(mouseSelector.SelectedMouseOption);
             }
         }
 
