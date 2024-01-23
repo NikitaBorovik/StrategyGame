@@ -6,10 +6,10 @@ namespace App.Systems.Inputs
 {
     public class MouseOptionSelector : MonoBehaviour
     {
-        private BuildingKindSO selectedBuilding;
+        private GameObject selectedBuilding;
         private MouseOption selectedMouseOption = MouseOption.Idle;
         private IMouseOptionHandler mouseInputHandler;
-        public void SetParameters(MouseOption option, BuildingKindSO building)
+        public void SetParameters(MouseOption option, GameObject building)
         {
             this.SelectedMouseOption = option;
             this.SelectedBuilding = building;
@@ -17,7 +17,7 @@ namespace App.Systems.Inputs
         }
 
         public IMouseOptionHandler MouseInputHandler { get => mouseInputHandler; set => mouseInputHandler = value; }
-        public BuildingKindSO SelectedBuilding { get => selectedBuilding; set => selectedBuilding = value; }
+        public GameObject SelectedBuilding { get => selectedBuilding; set => selectedBuilding = value; }
         public MouseOption SelectedMouseOption { get => selectedMouseOption; set => selectedMouseOption = value; }
     }
     public enum MouseOption

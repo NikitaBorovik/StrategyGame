@@ -11,7 +11,8 @@ namespace App.Systems.Inputs.Builder
     public class BuildingState : IState
     {
         private BuildingInteractor buildingInteractor;
-        private BuildingKindSO building;
+        private GameObject building;
+        private BuildingData buildingData;
         private GameObject worldGrid;
         private Grid tilemap;
         private CellGrid cellGrid;
@@ -28,14 +29,15 @@ namespace App.Systems.Inputs.Builder
             this.cellGrid = worldGrid.GetComponent<CellGrid>();
         }
 
-        public BuildingKindSO Building { get => building; set => building = value; }
+        public GameObject Building { get => building; set => building = value; }
 
         public void Enter()
         {
+            buildingData = building.GetComponent<Building>().Data;
             selectedCellBorder.SetActive(true);
             previewBuilding.SetActive(true);
             SpriteRenderer spriteRenderer = previewBuilding.GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = building.sprite;
+            spriteRenderer.sprite = buildingData.sprite;
             spriteRenderer.color = new Color(255, 255, 255, 0.5f);
             buildingInteractor.OnClick += OnMouseClicked;
             buildingInteractor.OnMouseMoved += OnMouseMoved;
@@ -59,9 +61,9 @@ namespace App.Systems.Inputs.Builder
             {
                 Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
-                GameObject instantiatedBuilding = GameObject.Instantiate(Building.prefab);
-                instantiatedBuilding.transform.position = pos;
-                cellGrid.AddAttributeToCells(new Vector2((pos.x + 0.5f * building.size), (pos.y + 0.5f * building.size) ), building.attributeRange, building.attribute);
+                GameObject instantiatedBuilding = GameObject.Instantiate(building);
+                instantiatedBuilding.GetComponent<Building>().Init(pos, cellGrid);
+                
             }
             
         }
@@ -70,7 +72,18 @@ namespace App.Systems.Inputs.Builder
 
             Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
             Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
-            bool newCanBuild = !Physics2D.BoxCast(new Vector2(pos.x + tilemap.cellSize.x * 0.5f * building.size, pos.y + tilemap.cellSize.y * 0.5f * building.size), new Vector2(building.size / 2, building.size / 2), 0f, Vector2.zero, LayerMask.GetMask("Building"));
+            bool newCanBuild = true;//!Physics2D.BoxCast(new Vector2(pos.x + tilemap.cellSize.x * 0.5f * buildingData.size, pos.y + tilemap.cellSize.y * 0.5f * buildingData.size),new Vector2(buildingData.size / 2, buildingData.size / 2), 0f, Vector2.zero, LayerMask.GetMask("Building"));
+            
+
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(new Vector2(pos.x + tilemap.cellSize.x * 0.5f * buildingData.size, pos.y + tilemap.cellSize.y * 0.5f * buildingData.size), new Vector2(buildingData.size / 2, buildingData.size / 2), 0f, LayerMask.GetMask("Building"));
+            foreach(Collider2D collider in colliders)
+            {
+                if (collider.gameObject.layer == LayerMask.NameToLayer("Building"))
+                {
+                    newCanBuild = false;
+                    break;
+                }
+            }
 
             if (canBuild != newCanBuild)
             {

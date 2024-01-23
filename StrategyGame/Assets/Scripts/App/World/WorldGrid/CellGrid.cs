@@ -33,9 +33,9 @@ namespace App.World.WorldGrid
             }
         }
 
-        public void AddAttributeToCells(Vector2 towerPos, float towerRange, CellAttachedAttribute attribute)
+        public void AddAttributeToCells(Vector2 towerPos, float towerRange, DamageAttribute attribute)
         {
-            Debug.Log("Adding");
+            Debug.Log("Adding atribute");
             Vector2 localPos = towerPos - startPos;
             for (int i = 0; i < width; i++)
             {
@@ -43,23 +43,22 @@ namespace App.World.WorldGrid
                 {
                     int x = i + StartPos.x;
                     int y = j + StartPos.y;
-                    Debug.Log(x);
-                    Debug.Log(y);
                     if (Vector2.Distance(localPos, new Vector2(i + 0.5f,j + 0.5f)) < towerRange)
                     {
+                        Debug.Log("here");
                         Grid[i, j].Attributes[attribute]++;
                     }
                 }
             }
         }
-        public void RemoveAttributeFromCells(Vector2Int towerPos, float towerRange, CellAttachedAttribute attribute)
+        public void RemoveAttributeFromCells(Vector2 towerPos, float towerRange, DamageAttribute attribute)
         {
-            Vector2Int localPos = towerPos - startPos;
+            Vector2 localPos = towerPos - startPos;
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < heigth; j++)
                 {
-                    if (Vector2Int.Distance(localPos, new Vector2Int(i, j)) >= towerRange)
+                    if (Vector2.Distance(localPos, new Vector2(i + 0.5f, j + 0.5f)) <= towerRange)
                     {
                         if (Grid[i, j].Attributes[attribute] > 0)
                             Grid[i, j].Attributes[attribute]--;
@@ -78,13 +77,15 @@ namespace App.World.WorldGrid
                 {
                     int x = i + StartPos.x;
                     int y = j + StartPos.y;
-                    if (Grid[i, j].Attributes[CellAttachedAttribute.piercing] > 0)
+                    if (Grid[i, j].Attributes[DamageAttribute.piercing] > 0)
                     {
+                        Debug.Log("Red");
                         Gizmos.color = Color.red;
                         Gizmos.DrawLine(new Vector3(x, y, 0), new Vector3(x + 1, y + 1, 0));
                     }
-                    if (Grid[i, j].Attributes[CellAttachedAttribute.magic] > 0)
+                    if (Grid[i, j].Attributes[DamageAttribute.magic] > 0)
                     {
+                        Debug.Log("Blue");
                         Gizmos.color = Color.blue;
                         Gizmos.DrawLine(new Vector3(x, y + 1, 0), new Vector3(x + 1, y, 0));
                     }

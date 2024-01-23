@@ -9,7 +9,7 @@ namespace App.UI.Buttons
         [SerializeField]
         private MouseOptionSelector optionSelector;
         [SerializeField]
-        private BuildingKindSO building;
+        private GameObject building;
         [SerializeField]
         private MouseOption option;
 

@@ -47,7 +47,7 @@ namespace App.Systems.Inputs.Builder
             OnMouseMoved?.Invoke();
         }
 
-        public void BuildingState(BuildingKindSO building)
+        public void BuildingState(GameObject building)
         {
             buildingState.Building = building;
             stateMachne.ChangeState(buildingState);

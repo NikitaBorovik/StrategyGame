@@ -7,8 +7,6 @@ namespace App.Systems.Inputs
     {
         private BuildingInteractor processor;
         [SerializeField]
-        private GameObject building;
-        [SerializeField]
         private MouseOptionSelector mouseSelector;
 
         public void Init(GameObject worldGrid, Camera camera, GameObject selectedCellBorder, GameObject previewBuilding)

@@ -8,28 +8,29 @@ namespace App.World.WorldGrid
     {
         private int x;
         private int y;
-        private Dictionary<CellAttachedAttribute,int> attributes;
+        private Dictionary<DamageAttribute,int> attributes;
 
         public Cell(int x, int y)
         {
             this.X = x;
             this.Y = y;
-            this.attributes = new Dictionary<CellAttachedAttribute, int>();
-            attributes.Add(CellAttachedAttribute.piercing, 0);
-            attributes.Add(CellAttachedAttribute.bludgeoning, 0);
-            attributes.Add(CellAttachedAttribute.magic, 0);
+            this.attributes = new Dictionary<DamageAttribute, int>();
+            attributes.Add(DamageAttribute.piercing, 0);
+            attributes.Add(DamageAttribute.bludgeoning, 0);
+            attributes.Add(DamageAttribute.magic, 0);
         }
 
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
-        public Dictionary<CellAttachedAttribute, int> Attributes { get => attributes;}
+        public Dictionary<DamageAttribute, int> Attributes { get => attributes;}
     }
 
-    public enum CellAttachedAttribute
+    public enum DamageAttribute
     {
         piercing,
         bludgeoning,
         magic,
+        fortified,
     }
 }
 

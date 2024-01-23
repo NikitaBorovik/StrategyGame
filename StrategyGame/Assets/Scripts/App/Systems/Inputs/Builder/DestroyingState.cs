@@ -1,8 +1,10 @@
 using App;
 using App.Systems.Inputs.Builder;
+using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class DestroyingState : IState
 {
@@ -40,6 +42,7 @@ public class DestroyingState : IState
     {
         if(selectedBuilding != null)
         {
+            //TODO remove aattributes from surrounding cells
             GameObject.Destroy(selectedBuilding);
         }
     }
