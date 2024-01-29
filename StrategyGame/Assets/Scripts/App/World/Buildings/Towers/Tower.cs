@@ -32,9 +32,9 @@ namespace App.World.Buildings.Towers
             {
                 Debug.Log(s);
             }
-            Debug.Log(new Vector2((transform.position.x + 0.5f * Data.size), (transform.position.y + 0.5f * Data.size)));
-            Debug.Log(soldier.AttackRange);
-            Debug.Log(soldier.Attribute);
+            //Debug.Log(new Vector2((transform.position.x + 0.5f * Data.size), (transform.position.y + 0.5f * Data.size)));
+            //Debug.Log(soldier.AttackRange);
+            //Debug.Log(soldier.Attribute);
             cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * Data.size), (transform.position.y + 0.5f * Data.size)), soldier.AttackRange, soldier.Attribute);
         }
 

@@ -13,6 +13,7 @@ namespace App
         private Inputs inputs;
         private void Start()
         {
+
             inputs.Init(objectsContainer.WorldGrid, objectsContainer.MainCamera, objectsContainer.SelectedCellBorder, objectsContainer.PreviewBuilding);
         }
     }

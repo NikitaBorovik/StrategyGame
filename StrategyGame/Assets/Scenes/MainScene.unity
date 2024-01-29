@@ -750,6 +750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPos: {x: -22, y: -10}
   endPos: {x: 21, y: 9}
+  tilemap: {fileID: 1370546538}
 --- !u!1 &1427193847
 GameObject:
   m_ObjectHideFlags: 0
@@ -19372,6 +19373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2128021759}
   - component: {fileID: 2128021760}
+  - component: {fileID: 2128021761}
   m_Layer: 0
   m_Name: Inputs
   m_TagString: Untagged
@@ -19408,6 +19410,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSelector: {fileID: 569288595}
+  waypoint: {fileID: 4244255363203247076, guid: 3766f6f58db9adb49af895633e184369, type: 3}
+--- !u!114 &2128021761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128021758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b7a761ac0d5524e91312b3ab843c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3086727076797849615
 PrefabInstance:
   m_ObjectHideFlags: 0

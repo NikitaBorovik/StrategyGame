@@ -12,12 +12,15 @@ namespace App.World.WorldGrid
         private Vector2Int startPos;
         [SerializeField]
         private Vector2Int endPos;
+        [SerializeField]
+        private Grid tilemap;
         private int width;
         private int heigth;
 
         public Cell[,] Grid { get => grid; set => grid = value; }
         public Vector2Int StartPos { get => startPos; set => startPos = value; }
         public Vector2Int EndPos { get => endPos; set => endPos = value; }
+        public Grid Tilemap { get => tilemap;}
 
         private void Start()
         {
@@ -32,7 +35,12 @@ namespace App.World.WorldGrid
                 }
             }
         }
-
+        public Cell GetCellAt(int x, int y)
+        {
+            if(x < 0 || y < 0) return null;
+            if(x >= width || y >= heigth) return null;
+            return Grid[x, y];
+        }
         public void AddAttributeToCells(Vector2 towerPos, float towerRange, DamageAttribute attribute)
         {
             Debug.Log("Adding atribute");
@@ -45,7 +53,6 @@ namespace App.World.WorldGrid
                     int y = j + StartPos.y;
                     if (Vector2.Distance(localPos, new Vector2(i + 0.5f,j + 0.5f)) < towerRange)
                     {
-                        Debug.Log("here");
                         Grid[i, j].Attributes[attribute]++;
                     }
                 }
@@ -79,13 +86,13 @@ namespace App.World.WorldGrid
                     int y = j + StartPos.y;
                     if (Grid[i, j].Attributes[DamageAttribute.piercing] > 0)
                     {
-                        Debug.Log("Red");
+                        //Debug.Log("Red");
                         Gizmos.color = Color.red;
                         Gizmos.DrawLine(new Vector3(x, y, 0), new Vector3(x + 1, y + 1, 0));
                     }
                     if (Grid[i, j].Attributes[DamageAttribute.magic] > 0)
                     {
-                        Debug.Log("Blue");
+                        //Debug.Log("Blue");
                         Gizmos.color = Color.blue;
                         Gizmos.DrawLine(new Vector3(x, y + 1, 0), new Vector3(x + 1, y, 0));
                     }
