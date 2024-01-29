@@ -9,8 +9,8 @@ namespace App.World.WorldGrid
     {
         private int x;
         private int y;
-        private int g = int.MaxValue;
-        private int h = 0;
+        private float g = int.MaxValue;
+        private float h = 0;
         private Dictionary<DamageAttribute,int> attributes;
         private Cell parentCell;
 
@@ -26,9 +26,9 @@ namespace App.World.WorldGrid
         public Dictionary<DamageAttribute, int> Attributes { get => attributes;}
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
-        public int G { get => g; set => g = value; }
-        public int H { get => h; set => h = value; }
-        public int F { get => h + g;}
+        public float G { get => g; set => g = value; }
+        public float H { get => h; set => h = value; }
+        public float F { get => h + g;}
         public Cell ParentCell { get => parentCell; set => parentCell = value; }
 
         public int CompareTo(Cell other)

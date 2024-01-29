@@ -6,150 +6,159 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class GridPathfinding : MonoBehaviour
+namespace App.World.WorldGrid
 {
-    private CellGrid cellGrid;
-    private PQueue<Cell> openCells;
-    private HashSet<Cell> closedCells;
-    private bool canDraw = false;
-
-    public void Init(CellGrid grid)
+    public class GridPathfinding : MonoBehaviour
     {
-        this.cellGrid = grid;
-    }
+        private CellGrid cellGrid;
+        private PQueue<Cell> openCells;
+        private HashSet<Cell> closedCells;
+        private List<AttributeResistance> attachedResistances;
+        private bool canDraw = false;
+        private const int BASIC_ATTRIBUTE_WEIGHT = 10;
 
-    public Stack<Vector2> ProceedPathfinding(Vector2Int start, Vector2Int end)
-    {
-        openCells = new PQueue<Cell>();
-        closedCells = new HashSet<Cell>();
-        start -= cellGrid.StartPos; 
-        end -= cellGrid.StartPos;
-        
-        Cell firstOpen = cellGrid.GetCellAt(start.x, start.y);
-        Cell finish = cellGrid.GetCellAt(end.x, end.y);
-        
-
-        firstOpen.H = ShortestDistance(firstOpen, finish);
-        firstOpen.G = 0;
-
-        openCells.Enqueue(firstOpen);
-
-        while(!openCells.IsEmpty())
+        public void Init(CellGrid grid, List<AttributeResistance> resistances)
         {
-            //Debug.Log("----------");
-            //for (int i = 0; i < openCells.Count; i++)
-            //{
+            this.cellGrid = grid;
+            this.attachedResistances = new List<AttributeResistance>(resistances);
+        }
 
-            //    Debug.Log(openCells.container[i + 1].F);
+        public Stack<Vector3> ProceedPathfinding(Vector3 startF, Vector3 endF)
+        {
+            openCells = new PQueue<Cell>();
+            closedCells = new HashSet<Cell>();
 
-            //}
-            //Debug.Log("----------");
-            //Debug.Log(openCells);
-            Cell cell = openCells.Dequeue();
-            if(cell == finish) 
+            Vector3Int start = cellGrid.Tilemap.WorldToCell(startF);
+            Vector3Int end = cellGrid.Tilemap.WorldToCell(endF);
+
+            start -= cellGrid.StartPos;
+            end -= cellGrid.StartPos;
+
+            Cell firstOpen = cellGrid.GetCellAt(start.x, start.y);
+            Cell finish = cellGrid.GetCellAt(end.x, end.y);
+
+
+            firstOpen.H = ShortestDistance(firstOpen, finish);
+            firstOpen.G = 0;
+
+            openCells.Enqueue(firstOpen);
+
+            while (!openCells.IsEmpty())
             {
-                canDraw = true;
-                return BuildPath(cell);
-            }
-            closedCells.Add(cell);
-            List<Cell> surroundingCells = SurroundingCells(cell, finish);
-            if(surroundingCells.Count != 8)
-            {
-                Debug.Log("ERROR");
-            }
-            foreach(Cell neighbour in surroundingCells)
-            {
-                if (neighbour == null || closedCells.Contains(neighbour))
+                Cell cell = openCells.Dequeue();
+                if (cell == finish)
                 {
-                    continue;
+                    canDraw = true;
+                    return BuildPath(cell);
                 }
-                int newG = ShortestDistance(neighbour, cell) + cell.G;
-                foreach (DamageAttribute attribute in neighbour.Attributes.Keys)
+                closedCells.Add(cell);
+                List<Cell> surroundingCells = SurroundingCells(cell, finish);
+                if (surroundingCells.Count != 8)
                 {
-                    newG += neighbour.Attributes[attribute] * 15; // TODO change
+                    Debug.Log("ERROR");
                 }
-                if(newG < neighbour.G)
+                foreach (Cell neighbour in surroundingCells)
                 {
-                    
-                    if (!openCells.Contains(neighbour))
+                    if (neighbour == null || closedCells.Contains(neighbour))
                     {
-                        neighbour.G = newG;
-                        neighbour.ParentCell = cell;
-                        neighbour.H = ShortestDistance(neighbour, finish);
-                        openCells.Enqueue(neighbour);
+                        continue;
                     }
-                    else
+                    float newG = ShortestDistance(neighbour, cell) + cell.G;
+                    newG = AddWeightsFromCell(newG, neighbour);
+                    if (newG < neighbour.G)
                     {
-                        Debug.Log("dead");
+
+                        if (!openCells.Contains(neighbour))
+                        {
+                            neighbour.G = newG;
+                            neighbour.ParentCell = cell;
+                            neighbour.H = ShortestDistance(neighbour, finish);
+                            openCells.Enqueue(neighbour);
+                        }
+                        else
+                        {
+                            Debug.Log("dead");
+                        }
                     }
                 }
             }
+            return null;
         }
-        return null;
-    }
-    private Stack<Vector2> BuildPath(Cell finish)
-    {
-        var path = new Stack<Vector2>();
-        Cell current = finish;
-        while(current.ParentCell != null)
+        private float AddWeightsFromCell(float to, Cell neighbour)
         {
-            //Debug.Log(current.F);
-            Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x,current.Y + cellGrid.StartPos.y, 0));
-            position.x += cellGrid.Tilemap.cellSize.x * 0.5f;
-            position.y += cellGrid.Tilemap.cellSize.y * 0.5f;
-            path.Push(position);
-            current = current.ParentCell;
-        }
-        return path;
-    } 
-    private int ShortestDistance(Cell cell1, Cell cell2)
-    {
-        int distanceX = Mathf.Abs(cell1.X - cell2.X);
-        int distanceY = Mathf.Abs(cell1.Y - cell2.Y);
-        return 10 * Mathf.Abs(distanceX - distanceY) + 14 * Mathf.Min(distanceX, distanceY);
-    }
-
-    private List<Cell> SurroundingCells(Cell cell, Cell finish)
-    {
-        List<Cell> surroundingCells = new List<Cell>();
-        for(int i = -1; i <= 1; i++)
-        {
-            for (int j = -1; j <= 1; j++)
+            foreach (DamageAttribute attribute in neighbour.Attributes.Keys)
             {
-                Cell neighbour = cellGrid.GetCellAt(cell.X + i, cell.Y + j);
-                if(neighbour == null || neighbour == cell)
+                float multiplier = 1f;
+                foreach(AttributeResistance attributeResistance in attachedResistances)
                 {
-                    continue;
+                    if (attributeResistance.attribute == attribute)
+                        multiplier -= attributeResistance.resistance;
                 }
-
-                surroundingCells.Add(neighbour);
+                to += neighbour.Attributes[attribute] * BASIC_ATTRIBUTE_WEIGHT * multiplier;
             }
+            return to;
         }
-        return surroundingCells;
-    }
-    void OnDrawGizmos()
-    {
-        if (!Application.isPlaying)
-            return;
-        if (canDraw)
+        private Stack<Vector3> BuildPath(Cell finish)
         {
-            foreach (Cell current in closedCells)
+            var path = new Stack<Vector3>();
+            Cell current = finish;
+            while (current.ParentCell != null)
             {
-                Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));
-                //position.x += cellGrid.Tilemap.cellSize.x * 0.5f;
-                //position.y += cellGrid.Tilemap.cellSize.y * 0.5f;
-                Handles.Label(position, current.F.ToString());
+                Vector3 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y, 0));
+                position.x += cellGrid.Tilemap.cellSize.x * 0.5f;
+                position.y += cellGrid.Tilemap.cellSize.y * 0.5f;
+                path.Push(position);
+                current = current.ParentCell;
             }
-            for(int i = 0; i < openCells.Count; i++)
-            {
-                Cell current = openCells.container[i + 1];
-                Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));
-                //position.x += cellGrid.Tilemap.cellSize.x * 0.5f;
-                //position.y += cellGrid.Tilemap.cellSize.y * 0.5f;
-                Handles.Label(position, current.F.ToString());
-            }
+            return path;
         }
-        
-        
+        private float ShortestDistance(Cell cell1, Cell cell2)
+        {
+            int distanceX = Mathf.Abs(cell1.X - cell2.X);
+            int distanceY = Mathf.Abs(cell1.Y - cell2.Y);
+            return Mathf.Abs(distanceX - distanceY) + 1.4f * Mathf.Min(distanceX, distanceY);
+        }
+
+        private List<Cell> SurroundingCells(Cell cell, Cell finish)
+        {
+            List<Cell> surroundingCells = new List<Cell>();
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    Cell neighbour = cellGrid.GetCellAt(cell.X + i, cell.Y + j);
+                    if (neighbour == null || neighbour == cell)
+                    {
+                        continue;
+                    }
+
+                    surroundingCells.Add(neighbour);
+                }
+            }
+            return surroundingCells;
+        }
+        void OnDrawGizmos()
+        {
+            if (!Application.isPlaying)
+                return;
+            if (canDraw)
+            {
+                Debug.Log("Draw");
+                foreach (Cell current in closedCells)
+                {
+                    Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));
+                    Handles.Label(position, current.F.ToString());
+                }
+                for (int i = 0; i < openCells.Count; i++)
+                {
+                    Cell current = openCells.container[i + 1];
+                    Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));
+                    Handles.Label(position, current.F.ToString());
+                }
+            }
+
+
+        }
     }
+
 }

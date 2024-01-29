@@ -9,42 +9,60 @@ namespace App.World.WorldGrid
     {
         private Cell[,] grid;
         [SerializeField]
-        private Vector2Int startPos;
+        private Vector3Int startPos;
         [SerializeField]
-        private Vector2Int endPos;
+        private Vector3Int endPos;
         [SerializeField]
         private Grid tilemap;
         private int width;
         private int heigth;
 
         public Cell[,] Grid { get => grid; set => grid = value; }
-        public Vector2Int StartPos { get => startPos; set => startPos = value; }
-        public Vector2Int EndPos { get => endPos; set => endPos = value; }
+        public Vector3Int StartPos { get => startPos; set => startPos = value; }
+        public Vector3Int EndPos { get => endPos; set => endPos = value; }
         public Grid Tilemap { get => tilemap;}
 
-        private void Start()
+        private void Awake()
         {
             this.width = EndPos.x - StartPos.x;
             this.heigth = EndPos.y - StartPos.y;
+            Debug.Log("End " + EndPos);
+            Debug.Log("Start " + StartPos);
             Grid = new Cell[width, heigth];
             for (int i = 0; i < width; i++)
             {
-                for(int j = 0; j < heigth; j++)
+                for (int j = 0; j < heigth; j++)
                 {
                     Grid[i, j] = new Cell(i, j);
                 }
             }
         }
+        //private void Start()
+        //{
+        //    this.width = EndPos.x - StartPos.x;
+        //    this.heigth = EndPos.y - StartPos.y;
+        //    Debug.Log("End " + EndPos);
+        //    Debug.Log("Start " + StartPos);
+        //    Grid = new Cell[width, heigth];
+        //    for (int i = 0; i < width; i++)
+        //    {
+        //        for(int j = 0; j < heigth; j++)
+        //        {
+        //            Grid[i, j] = new Cell(i, j);
+        //        }
+        //    }
+        //}
         public Cell GetCellAt(int x, int y)
         {
             if(x < 0 || y < 0) return null;
-            if(x >= width || y >= heigth) return null;
+            if (x >= width || y >= heigth) return null;
+          
             return Grid[x, y];
         }
-        public void AddAttributeToCells(Vector2 towerPos, float towerRange, DamageAttribute attribute)
+        public void AddAttributeToCells(Vector3 towerPos, float towerRange, DamageAttribute attribute)
         {
             Debug.Log("Adding atribute");
-            Vector2 localPos = towerPos - startPos;
+            Vector3 localPos = towerPos - startPos;
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < heigth; j++)
@@ -58,9 +76,9 @@ namespace App.World.WorldGrid
                 }
             }
         }
-        public void RemoveAttributeFromCells(Vector2 towerPos, float towerRange, DamageAttribute attribute)
+        public void RemoveAttributeFromCells(Vector3 towerPos, float towerRange, DamageAttribute attribute)
         {
-            Vector2 localPos = towerPos - startPos;
+            Vector3 localPos = towerPos - startPos;
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < heigth; j++)

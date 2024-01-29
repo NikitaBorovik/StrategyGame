@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace App.Systems.Inputs.Builder
+namespace App.World.Enemies.States
 {
-    public class IdleState : IState
+    public class EnemyIdleState : IState
     {
+        //TODO call Idle animations
         public void Enter()
         {
         }
@@ -15,9 +16,9 @@ namespace App.Systems.Inputs.Builder
         {
         }
 
-        void IState.Update()
+        public void Update()
         {
         }
     }
-
 }
+

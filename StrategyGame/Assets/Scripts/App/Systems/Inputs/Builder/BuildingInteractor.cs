@@ -16,7 +16,7 @@ namespace App.Systems.Inputs.Builder
 
         private BuildingState buildingState;
         private DestroyingState destroyingState;
-        private IdleState idleState;
+        private InputIdleState idleState;
 
         public GameObject WorldGrid { get => worldGrid;}
         public Camera Camera { get => camera;}
@@ -33,7 +33,7 @@ namespace App.Systems.Inputs.Builder
             this.previewBuilding = previewBuilding;
             buildingState = new BuildingState(this);
             destroyingState = new DestroyingState(this);
-            idleState = new IdleState();
+            idleState = new InputIdleState();
             stateMachne = new StateMachine();
             stateMachne.Init(idleState);
         }
