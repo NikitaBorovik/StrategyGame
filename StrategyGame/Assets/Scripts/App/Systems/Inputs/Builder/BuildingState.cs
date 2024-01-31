@@ -62,8 +62,15 @@ namespace App.Systems.Inputs.Builder
                 Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
                 GameObject instantiatedBuilding = GameObject.Instantiate(building);
-                instantiatedBuilding.GetComponent<Building>().Init(pos, cellGrid);
-                
+                var buildingScript = instantiatedBuilding.GetComponent<Building>();
+                buildingScript.Init(pos, cellGrid);
+
+                var interfaceBuilding = buildingScript as IToggleAttackRangeVision;
+                if (interfaceBuilding != null)
+                {
+                    buildingInteractor.BuildingsWithAttackRange.Add(interfaceBuilding);
+                }
+                Debug.Log(buildingInteractor.BuildingsWithAttackRange.Count);
             }
             
         }
@@ -72,7 +79,7 @@ namespace App.Systems.Inputs.Builder
 
             Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
             Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
-            bool newCanBuild = true;//!Physics2D.BoxCast(new Vector2(pos.x + tilemap.cellSize.x * 0.5f * buildingData.size, pos.y + tilemap.cellSize.y * 0.5f * buildingData.size),new Vector2(buildingData.size / 2, buildingData.size / 2), 0f, Vector2.zero, LayerMask.GetMask("Building"));
+            bool newCanBuild = true;
             
 
             Collider2D[] colliders = Physics2D.OverlapBoxAll(new Vector2(pos.x + tilemap.cellSize.x * 0.5f * buildingData.size, pos.y + tilemap.cellSize.y * 0.5f * buildingData.size), new Vector2(buildingData.size / 2, buildingData.size / 2), 0f, LayerMask.GetMask("Building"));

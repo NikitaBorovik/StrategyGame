@@ -29,7 +29,8 @@ namespace App.Systems.Inputs
         }
         void Update()
         {
-            ProceedMouseInput();
+            ProceedMouseInputPress();
+            ProcessKeyboardInput();
             //if (Input.GetKeyDown(KeyCode.Q))
             //{
             //    Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -56,12 +57,11 @@ namespace App.Systems.Inputs
             //        }
             //    }
             //}
-            
+
         }
 
-        private void ProceedMouseInput()
+        private void ProceedMouseInputPress()
         {
-            if(processor != null)
             processor.OnMouseMove();
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -74,6 +74,16 @@ namespace App.Systems.Inputs
             }
         }
 
+        private void ProcessKeyboardInput()
+        {
+            if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.LeftAlt))
+            {
+                Debug.Log("Alt");
+                processor.OnAltButtonHold();
+            }
+
+        }
+
         public void ProceedMouseOption(MouseOption option)
         {
             switch (option)
@@ -82,7 +92,7 @@ namespace App.Systems.Inputs
                     processor.BuildingState(mouseSelector.SelectedBuilding);
                     break;
                 case MouseOption.Upgrading:
-                    //TODO Implement
+                    processor.UpgradingState();
                     break;
                 case MouseOption.Destroying:
                     processor.DestroyingState();
