@@ -1,4 +1,5 @@
 using App;
+using App.World;
 using App.World.Buildings.BuildingsSO;
 using App.World.WorldGrid;
 using System.ComponentModel.Design;
@@ -19,12 +20,14 @@ namespace App.Systems.Inputs.Builder
         private GameObject selectedCellBorder;
         private GameObject previewBuilding;
         private bool canBuild = true;
-        public BuildingState(BuildingInteractor buildingInteractor)
+        private ObjectPool objectPool;
+        public BuildingState(BuildingInteractor buildingInteractor, ObjectPool objectPool)
         {
             this.buildingInteractor = buildingInteractor;
             this.worldGrid = buildingInteractor.WorldGrid;
             this.selectedCellBorder = buildingInteractor.SelectedCellBorder;
             this.previewBuilding = buildingInteractor.PreviewBuilding;
+            this.objectPool = objectPool;
             this.tilemap = worldGrid.GetComponent<Grid>();
             this.cellGrid = worldGrid.GetComponent<CellGrid>();
         }
@@ -57,20 +60,28 @@ namespace App.Systems.Inputs.Builder
 
         private void OnMouseClicked()
         {
+            if(buildingInteractor.PlayerMoney.Money < buildingData.price)
+            {
+                //TODO PLAY SOUND
+                return;
+            }
             if (canBuild)
             {
                 Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
-                GameObject instantiatedBuilding = GameObject.Instantiate(building);
-                var buildingScript = instantiatedBuilding.GetComponent<Building>();
-                buildingScript.Init(pos, cellGrid);
+
+                GameObject toBuild = objectPool.GetObjectFromPool(building.GetComponent<Building>().PoolObjectID, building, pos).GetGameObject();
+                
+                var buildingScript = toBuild.GetComponent<Building>();
+                toBuild.GetComponent<Building>().Init(pos, cellGrid, buildingInteractor.PlayerMoney);
+
+                buildingInteractor.PlayerMoney.Money -= buildingScript.Data.price;
 
                 var interfaceBuilding = buildingScript as IToggleAttackRangeVision;
                 if (interfaceBuilding != null)
                 {
                     buildingInteractor.BuildingsWithAttackRange.Add(interfaceBuilding);
                 }
-                Debug.Log(buildingInteractor.BuildingsWithAttackRange.Count);
             }
             
         }

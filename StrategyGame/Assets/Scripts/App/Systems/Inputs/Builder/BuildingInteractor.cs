@@ -1,7 +1,6 @@
-using App;
-using App.World.Buildings.BuildingsSO;
+using App.Systems.MoneySystem;
+using App.World;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace App.Systems.Inputs.Builder
@@ -14,6 +13,7 @@ namespace App.Systems.Inputs.Builder
         private GameObject selectedCellBorder;
         private GameObject previewBuilding;
         private List<IToggleAttackRangeVision> buildingsWithAttackRange;
+        private PlayerMoney playerMoney;
 
         private BuildingState buildingState;
         private DestroyingState destroyingState;
@@ -25,20 +25,22 @@ namespace App.Systems.Inputs.Builder
         public GameObject SelectedCellBorder { get => selectedCellBorder;}
         public GameObject PreviewBuilding { get => previewBuilding;}
         public List<IToggleAttackRangeVision> BuildingsWithAttackRange { get => buildingsWithAttackRange; }
+        public PlayerMoney PlayerMoney { get => playerMoney;}
 
         public event Action OnClick;
         public event Action OnMouseMoved;
         public event Action OnAltHold;
-        public BuildingInteractor(GameObject worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding)
+        public BuildingInteractor(GameObject worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding,ObjectPool objectPool, PlayerMoney playerMoney)
         {
             this.worldGrid = worldGrid;
             this.camera = camera;
             this.selectedCellBorder = selectedCellBorder;
             this.previewBuilding = previewBuilding;
+            this.playerMoney = playerMoney;
 
             buildingsWithAttackRange = new List<IToggleAttackRangeVision>();
-            buildingState = new BuildingState(this);
-            destroyingState = new DestroyingState(this);
+            buildingState = new BuildingState(this,objectPool);
+            destroyingState = new DestroyingState(this,objectPool);
             idleState = new InputIdleState();
             upgradingState = new UpgradingState(this);
             stateMachne = new StateMachine();

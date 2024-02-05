@@ -1,5 +1,6 @@
 using App;
 using App.Systems.Inputs.Builder;
+using App.World;
 using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,12 +13,14 @@ public class DestroyingState : IState
     private Grid grid;
     private GameObject selectedCellBorder;
     private GameObject selectedBuilding;
+    private ObjectPool objectPool;
     RaycastHit2D raycastHit;
-    public DestroyingState(BuildingInteractor buildingInteractor)
+    public DestroyingState(BuildingInteractor buildingInteractor, ObjectPool objectPool)
     {
         this.buildingInteractor = buildingInteractor;
         this.grid = buildingInteractor.WorldGrid.GetComponent<Grid>();
         this.selectedCellBorder = buildingInteractor.SelectedCellBorder;
+        this.objectPool = objectPool;
     }
 
     public void Enter()
@@ -41,14 +44,15 @@ public class DestroyingState : IState
     {
         if(selectedBuilding != null)
         {
-            //TODO remove aattributes from surrounding cells
             var interfaceBuilding = selectedBuilding.GetComponent<Building>() as IToggleAttackRangeVision;
 
             if (interfaceBuilding != null)
                 buildingInteractor.BuildingsWithAttackRange.Remove(interfaceBuilding);
 
             Debug.Log(buildingInteractor.BuildingsWithAttackRange.Count);
-            GameObject.Destroy(selectedBuilding);
+            buildingInteractor.PlayerMoney.Money += selectedBuilding.GetComponent<Building>().Data.price;
+            objectPool.ReturnToPool(selectedBuilding.GetComponent<Building>());
+            
         }
     }
     private void OnMouseMoved() 
@@ -61,7 +65,11 @@ public class DestroyingState : IState
         if (raycastHit.collider == null)
         {
             if (selectedBuilding != null)
+            {
                 selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
+                selectedBuilding.GetComponent<Building>().Clickable = true;
+            }
+                
             selectedBuilding = null;
             return;
         }
@@ -69,9 +77,10 @@ public class DestroyingState : IState
         if(selectedBuilding != raycastHit.collider.gameObject)
         {
             if(selectedBuilding != null) 
-            selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255,255,255,1f);
+                selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255,255,255,1f);
             selectedBuilding = raycastHit.collider.gameObject;
             selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 0.5f);
+            selectedBuilding.GetComponent<Building>().Clickable = false;
         }
         
     }

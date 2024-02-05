@@ -8,9 +8,13 @@ namespace App.World.Buildings.BuildingsSO
     [CreateAssetMenu(fileName = "BuildingDataSO", menuName = "Scriptable Objects/Buildings/Building Data")]
     public class BuildingData : ScriptableObject
     {
+        public int price;
+        public int upgradePrice;
         public int size;
         public float health;
         public Sprite sprite;
+        public string poolObjectID;
+       // public GameObject prefab;
     }
 
 }
