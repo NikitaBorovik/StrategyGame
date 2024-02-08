@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1128746324803347168}
   - component: {fileID: 4549064893011961614}
-  - component: {fileID: 1539232986277810914}
   - component: {fileID: 4456877065072960370}
+  - component: {fileID: 3448494269835954396}
   m_Layer: 6
-  m_Name: Wall
+  m_Name: Spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3abf0a84c5a5ba54496a6a33437dc522, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7aaca004cdbb27498d58d6b1cf253fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &1539232986277810914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5813655089326591303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c005c5784742ab48a84e2bce187bf30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicData: {fileID: 11400000, guid: ff76129d35e2902448434d2268407e3a, type: 2}
-  extendedData: {fileID: 11400000, guid: 2443ed81463d74b4aac5281f53c3cfcc, type: 2}
 --- !u!61 &4456877065072960370
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -145,3 +131,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3448494269835954396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813655089326591303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8827f25b273810042b922a75966553aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicData: {fileID: 11400000, guid: 878fc619630c845499af3c236ebdb781, type: 2}
+  extendedData: {fileID: 11400000, guid: ca05a450e82392a4a9585fec2ee8b660, type: 2}

@@ -114,6 +114,11 @@ namespace App.World.WorldGrid
                         Gizmos.color = Color.blue;
                         Gizmos.DrawLine(new Vector3(x, y + 1, 0), new Vector3(x + 1, y, 0));
                     }
+                    if (Grid[i, j].Attributes[DamageAttribute.fortified] > 0)
+                    {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawLine(new Vector3(x , y + 0.5f, 0), new Vector3(x + 1, y + 0.5f, 0));
+                    }
                 }
             }
         }

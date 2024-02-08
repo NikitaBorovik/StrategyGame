@@ -48,9 +48,8 @@ public class DestroyingState : IState
 
             if (interfaceBuilding != null)
                 buildingInteractor.BuildingsWithAttackRange.Remove(interfaceBuilding);
-
-            Debug.Log(buildingInteractor.BuildingsWithAttackRange.Count);
-            buildingInteractor.PlayerMoney.Money += selectedBuilding.GetComponent<Building>().Data.price;
+            var build = selectedBuilding.GetComponent<Building>();
+            buildingInteractor.PlayerMoney.Money += (int)(build.BasicData.price * (build.Health - build.CurrentHealth) / build.Health);
             objectPool.ReturnToPool(selectedBuilding.GetComponent<Building>());
             
         }

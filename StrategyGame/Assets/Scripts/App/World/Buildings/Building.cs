@@ -9,18 +9,23 @@ using UnityEngine;
 public abstract class Building : MonoBehaviour, IObjectPoolItem
 {
     [SerializeField]
-    private BuildingData data;
-    protected int level;
-    protected bool clickable = true;
+    private BuildingData basicData;
+    private int level;
+    private float health;
+    private float currentHealth;
+    private bool clickable = true;
     protected CellGrid cellGrid;
     protected ObjectPool objectPool;
     protected PlayerMoney playerMoney;
+    
 
-    public BuildingData Data { get => data;}
-    public int Level { get => level;}
+    public BuildingData BasicData { get => basicData;}
+    public int Level { get => level; set => level = value; }
     public bool Clickable { get => clickable; set => clickable = value; }
 
-    public virtual string PoolObjectID { get => Data.poolObjectID; }
+    public virtual string PoolObjectID { get => BasicData.poolObjectID; }
+    public float Health { get => health; set => health = value; }
+    public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
 
     public virtual void Init(Vector2 position, CellGrid cellGrid, PlayerMoney playerMoney)
     {
@@ -28,18 +33,21 @@ public abstract class Building : MonoBehaviour, IObjectPoolItem
         this.playerMoney = playerMoney;
         transform.position = position;
         level = 0;
+        health = basicData.health;
     }
 
-    public virtual void Upgrade()
+    public abstract void Upgrade();
+
+    public virtual void Repair()
     {
-        if (playerMoney.Money < data.upgradePrice)
+        if (playerMoney.Money < basicData.upgradePrice)
         {
-            //TODO PLAY SOME SOUND
+            //TODO play music
             return;
         }
-        playerMoney.Money -= data.upgradePrice;
+        else playerMoney.Money -= basicData.upgradePrice;
+        currentHealth = health;
     }
-
     public void GetFromPool(ObjectPool pool)
     {
         objectPool = pool;
