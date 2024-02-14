@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55289bbcb2ccd464b83d3f59bce3f315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 7fa0b86b7aec5e246a405445809508a0, type: 2}
+  basicData: {fileID: 11400000, guid: 7fa0b86b7aec5e246a405445809508a0, type: 2}
   selectWarriorButtons: {fileID: 2490053913967832752}
   maxSoldiersNumber: 3
   soldierPrice: 10

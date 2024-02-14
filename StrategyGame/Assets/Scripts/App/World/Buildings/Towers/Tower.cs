@@ -49,13 +49,18 @@ namespace App.World.Buildings.Towers
                 return;
             }
             soldiers.Add(soldier);
-            cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * Data.size), (transform.position.y + 0.5f * Data.size)), soldier.AttackRange, soldier.Attribute);
+            cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * BasicData.size), (transform.position.y + 0.5f * BasicData.size)), soldier.AttackRange, soldier.Attribute);
             playerMoney.Money -= soldierPrice;
         }
 
         public override void Upgrade()
         {
-            base.Upgrade();
+            if (playerMoney.Money < BasicData.upgradePrice)
+            {
+                //TODO PLAY SOME SOUND
+                return;
+            }
+            playerMoney.Money -= BasicData.upgradePrice;
             UpgradeTower();
             UpgradeSoldiers();
         }
@@ -71,7 +76,8 @@ namespace App.World.Buildings.Towers
         }
         private void UpgradeTower()
         {
-            level++;
+            Level++;
+            CurrentHealth = Health;
             foreach (GameObject obj in objectsToReveal)
                 obj.SetActive(false);
             objectsToReveal[Level - 1].SetActive(true);
@@ -106,7 +112,7 @@ namespace App.World.Buildings.Towers
         {
             foreach (Soldier soldier in soldiers)
             {
-                cellGrid.RemoveAttributeFromCells(new Vector2((transform.position.x + 0.5f * Data.size), (transform.position.y + 0.5f * Data.size)), soldier.AttackRange, soldier.Attribute);
+                cellGrid.RemoveAttributeFromCells(new Vector2((transform.position.x + 0.5f * BasicData.size), (transform.position.y + 0.5f * BasicData.size)), soldier.AttackRange, soldier.Attribute);
             }
             foreach (GameObject obj in objectsToReveal)
                 obj.SetActive(false);

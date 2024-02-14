@@ -22,6 +22,7 @@ namespace App.World.WorldGrid
             attributes.Add(DamageAttribute.piercing, 0);
             attributes.Add(DamageAttribute.bludgeoning, 0);
             attributes.Add(DamageAttribute.magic, 0);
+            attributes.Add(DamageAttribute.fortified, 0);
         }
         public Dictionary<DamageAttribute, int> Attributes { get => attributes;}
         public int X { get => x; set => x = value; }

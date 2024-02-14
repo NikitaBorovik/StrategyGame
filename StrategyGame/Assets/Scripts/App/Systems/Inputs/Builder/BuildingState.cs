@@ -37,10 +37,11 @@ namespace App.Systems.Inputs.Builder
 
         public void Enter()
         {
-            buildingData = building.GetComponent<Building>().Data;
+            buildingData = building.GetComponent<Building>().BasicData;
             selectedCellBorder.SetActive(true);
             previewBuilding.SetActive(true);
             SpriteRenderer spriteRenderer = previewBuilding.GetComponent<SpriteRenderer>();
+            Debug.Log(buildingData.sprite);
             spriteRenderer.sprite = buildingData.sprite;
             spriteRenderer.color = new Color(255, 255, 255, 0.5f);
             buildingInteractor.OnClick += OnMouseClicked;
@@ -76,7 +77,7 @@ namespace App.Systems.Inputs.Builder
                 var buildingScript = toBuild.GetComponent<Building>();
                 toBuild.GetComponent<Building>().Init(pos, cellGrid, buildingInteractor.PlayerMoney);
 
-                buildingInteractor.PlayerMoney.Money -= buildingScript.Data.price;
+                buildingInteractor.PlayerMoney.Money -= buildingScript.BasicData.price;
 
                 var interfaceBuilding = buildingScript as IToggleAttackRangeVision;
                 if (interfaceBuilding != null)

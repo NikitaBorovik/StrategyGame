@@ -31,6 +31,8 @@ public class UpgradingState : IState
         selectedCellBorder.SetActive(false);
         buildingInteractor.OnClick -= OnMouseClicked;
         buildingInteractor.OnMouseMoved -= OnMouseMoved;
+        if (selectedBuilding != null)
+            selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
     }
 
     public void Update()
@@ -43,7 +45,14 @@ public class UpgradingState : IState
         {
             var buildingScript = selectedBuilding.GetComponent<Building>();
             if(buildingScript.Level < 2)
-                selectedBuilding.GetComponent<Building>().Upgrade();
+            {
+                buildingScript.Upgrade();
+            }
+            else
+            {
+                buildingScript.Repair();
+            }
+                
         }
     }
     private void OnMouseMoved()

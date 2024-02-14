@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438f1be12cc06784995f15218994c6f8, type: 3}
-  m_Name: CastleTest
+  m_Name: BasicSpikesDataSO
   m_EditorClassIdentifier: 
-  size: 3
-  health: 0
-  sprite: {fileID: 21300000, guid: e96debe2b2ebe7249a36eb7cbedef50e, type: 3}
-  poolObjectID: MainCastle
+  price: 25
+  upgradePrice: 25
+  size: 1
+  health: 10
+  sprite: {fileID: 21300000, guid: a7aaca004cdbb27498d58d6b1cf253fc, type: 3}
+  poolObjectID: Spikes
