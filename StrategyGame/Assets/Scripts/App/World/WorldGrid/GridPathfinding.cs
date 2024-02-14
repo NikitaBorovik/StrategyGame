@@ -4,10 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace App.World.WorldGrid
 {
+    //TODO REMOVE MONO
     public class GridPathfinding : MonoBehaviour
     {
         private CellGrid cellGrid;
@@ -128,9 +130,11 @@ namespace App.World.WorldGrid
                 {
                     Cell neighbour = cellGrid.GetCellAt(cell.X + i, cell.Y + j);
                     if (neighbour == null || neighbour == cell)
-                    {
                         continue;
-                    }
+                    
+                    Tile tile = (Tile)cellGrid.Tilemap.GetComponentInChildren<Tilemap>().GetTile(new Vector3Int(cell.X + i + cellGrid.StartPos.x, cell.Y + j + cellGrid.StartPos.y));
+                    if (tile != null && cellGrid.RestrictedTiles.Contains(tile))
+                        continue;
 
                     surroundingCells.Add(neighbour);
                 }
@@ -143,7 +147,6 @@ namespace App.World.WorldGrid
                 return;
             if (canDraw)
             {
-                Debug.Log("Draw");
                 foreach (Cell current in closedCells)
                 {
                     Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));

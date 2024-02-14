@@ -6,6 +6,7 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace App.Systems.Inputs.Builder
 {
@@ -102,7 +103,10 @@ namespace App.Systems.Inputs.Builder
                     break;
                 }
             }
-
+            if (OverlapRestrictedTiles(new Vector3Int((int)pos.x, (int)pos.y)))
+            {
+                newCanBuild = false;
+            }
             if (canBuild != newCanBuild)
             {
                 canBuild = newCanBuild;
@@ -110,6 +114,25 @@ namespace App.Systems.Inputs.Builder
             }
             selectedCellBorder.transform.position = pos;
             previewBuilding.transform.position = pos;
+        }
+
+        private bool OverlapRestrictedTiles(Vector3Int leftBottomPos)
+        {
+            for(int i = 0; i < buildingData.size; i++)
+            {
+                for(int j = 0; j < buildingData.size; j++)
+                {
+                    Tile tile = (Tile)cellGrid.Tilemap.GetComponentInChildren<Tilemap>().GetTile(new Vector3Int(leftBottomPos.x + j, leftBottomPos.y + i));
+                    if (tile == null)
+                    {
+                        Debug.Log("Unexistent tile");
+                        return true;
+                    }
+                    if (cellGrid.RestrictedTiles.Contains(tile))
+                        return true;
+                }
+            }
+            return false;
         }
     }
 }

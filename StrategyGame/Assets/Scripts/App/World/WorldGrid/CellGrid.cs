@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 namespace App.World.WorldGrid
@@ -14,6 +15,8 @@ namespace App.World.WorldGrid
         private Vector3Int endPos;
         [SerializeField]
         private Grid tilemap;
+        [SerializeField]
+        private List<Tile> restrictedTiles;
         private int width;
         private int heigth;
 
@@ -21,6 +24,7 @@ namespace App.World.WorldGrid
         public Vector3Int StartPos { get => startPos; set => startPos = value; }
         public Vector3Int EndPos { get => endPos; set => endPos = value; }
         public Grid Tilemap { get => tilemap;}
+        public List<Tile> RestrictedTiles { get => restrictedTiles;}
 
         private void Awake()
         {
