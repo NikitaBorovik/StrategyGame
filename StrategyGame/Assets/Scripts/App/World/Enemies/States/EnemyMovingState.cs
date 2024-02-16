@@ -11,26 +11,28 @@ namespace App.World.Enemies.States
         private GridPathfinding pathfinding;
         private Stack<Vector3> way;
         private Vector3 currentWaypoint;
-        private Transform target;
         private Enemy enemy;
+        private bool atFinalPoint = false;
+        private Vector3 actualTargetPosition;
         public EnemyMovingState(Enemy enemy)
         {
             this.pathfinding = enemy.Pathfinding;
-            this.target = enemy.PrimaryTarget.transform;
+            actualTargetPosition = enemy.PrimaryTarget.transform.position + new Vector3(1.5f, 1.5f, 0f);
             this.enemy = enemy;
+
         }
         public void Enter()
         {
-            way = pathfinding.ProceedPathfinding(enemy.transform.position, target.position + new Vector3(1.5f, 1.5f, 0f));
+            atFinalPoint = false;
+            way = pathfinding.ProceedPathfinding(enemy.transform.position, actualTargetPosition);
             if(way != null && way.Count != 0)
             {
                 currentWaypoint = way.Pop();
             }
             else
             {
-                currentWaypoint = target.transform.position;
+                currentWaypoint = actualTargetPosition;
             }
-            Debug.Log("Way " + way.Count);
         }
 
         public void Exit()
@@ -40,6 +42,8 @@ namespace App.World.Enemies.States
 
         public void Update()
         {
+            if (atFinalPoint)
+                return;
             if (Vector3.Distance(enemy.transform.position, currentWaypoint) > enemy.Data.attackRange)
             {
                // Debug.Log("1");
@@ -50,15 +54,16 @@ namespace App.World.Enemies.States
                // Debug.Log("2");
                 currentWaypoint = way.Pop();
             }
-            else if(currentWaypoint != target.transform.position)
+            else if(currentWaypoint != actualTargetPosition)
             {
               //  Debug.Log("3");
-                currentWaypoint = target.transform.position;
+                currentWaypoint = actualTargetPosition;
             }
             else
             {
               //  Debug.Log("4");
                 enemy.Rigidbody.velocity = Vector2.zero;
+                atFinalPoint = true;
             }
         }
     }

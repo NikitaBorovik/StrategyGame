@@ -1,3 +1,4 @@
+using App.Systems.BattleWaveSystem;
 using App.Systems.Inputs;
 using App.Systems.Inputs.Builder;
 using App.Systems.MoneySystem;
@@ -14,6 +15,10 @@ namespace App
         [SerializeField]
         private Inputs inputs;
         [SerializeField]
+        private SpawnerSystem spawnerSystem;
+        [SerializeField]
+        private BattleWaveSystem battleWaveSystem;
+        [SerializeField]
         private PlayerMoney playerMoney;
         [SerializeField]
         private ObjectPool objectPool;
@@ -22,6 +27,8 @@ namespace App
         {
             buildingInteractor = new BuildingInteractor(objectsContainer.WorldGrid, objectsContainer.MainCamera, objectsContainer.SelectedCellBorder, objectsContainer.PreviewBuilding, objectPool, playerMoney);
             inputs.Init(buildingInteractor);
+            spawnerSystem.Init(objectPool, objectsContainer.EnemyPrimaryTarget, battleWaveSystem);
+            battleWaveSystem.Init(spawnerSystem);
         }
     }
 }

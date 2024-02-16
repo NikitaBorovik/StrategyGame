@@ -72,7 +72,7 @@ namespace App.Systems.Inputs.Builder
                 Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
 
-                GameObject toBuild = objectPool.GetObjectFromPool(building.GetComponent<Building>().PoolObjectID, building, pos).GetGameObject();
+                GameObject toBuild = objectPool.GetObjectFromPool(building.GetComponent<Building>().PoolObjectID, building).GetGameObject();
                 
                 var buildingScript = toBuild.GetComponent<Building>();
                 toBuild.GetComponent<Building>().Init(pos, cellGrid, buildingInteractor.PlayerMoney);

@@ -13,20 +13,20 @@ namespace App.World
             appObjectPool = new Dictionary<string, Queue<IObjectPoolItem>>();
         }
 
-        public IObjectPoolItem GetObjectFromPool(string objectType, GameObject objectToInstantiate, Vector3 pos, Transform parent = null)
+        public IObjectPoolItem GetObjectFromPool(string objectType, GameObject objectToInstantiate, Transform parent = null)
         {
             IObjectPoolItem result = null;
             if (!appObjectPool.ContainsKey(objectType))
             {
                 Queue<IObjectPoolItem> newObjectsQueue = new Queue<IObjectPoolItem>();
                 appObjectPool.Add(objectType, newObjectsQueue);
-                result = CreateObject(objectToInstantiate, pos, parent);
+                result = CreateObject(objectToInstantiate, Vector3.zero, parent);
                 result.GetFromPool(this);
                 return result;
             }
             if (appObjectPool[objectType].Count == 0)
             {
-                result = CreateObject(objectToInstantiate, pos, parent);
+                result = CreateObject(objectToInstantiate, Vector3.zero, parent);
                 result.GetFromPool(this);
                 return result;
             }

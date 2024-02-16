@@ -25,8 +25,7 @@ namespace App.World.WorldGrid
         public Vector3Int EndPos { get => endPos; set => endPos = value; }
         public Grid Tilemap { get => tilemap;}
         public List<Tile> RestrictedTiles { get => restrictedTiles;}
-
-        private void Awake()
+        public void ResetData()
         {
             this.width = EndPos.x - StartPos.x;
             this.heigth = EndPos.y - StartPos.y;

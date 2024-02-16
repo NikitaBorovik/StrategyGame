@@ -27,6 +27,8 @@ namespace App.World.WorldGrid
 
         public Stack<Vector3> ProceedPathfinding(Vector3 startF, Vector3 endF)
         {
+            cellGrid.ResetData();
+
             openCells = new PQueue<Cell>();
             closedCells = new HashSet<Cell>();
 
@@ -55,10 +57,6 @@ namespace App.World.WorldGrid
                 }
                 closedCells.Add(cell);
                 List<Cell> surroundingCells = SurroundingCells(cell, finish);
-                if (surroundingCells.Count != 8)
-                {
-                    Debug.Log("ERROR");
-                }
                 foreach (Cell neighbour in surroundingCells)
                 {
                     if (neighbour == null || closedCells.Contains(neighbour))
@@ -79,7 +77,7 @@ namespace App.World.WorldGrid
                         }
                         else
                         {
-                            Debug.Log("dead");
+                            //Debug.Log("dead");
                         }
                     }
                 }
@@ -141,27 +139,27 @@ namespace App.World.WorldGrid
             }
             return surroundingCells;
         }
-        void OnDrawGizmos()
-        {
-            if (!Application.isPlaying)
-                return;
-            if (canDraw)
-            {
-                foreach (Cell current in closedCells)
-                {
-                    Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));
-                    Handles.Label(position, current.F.ToString());
-                }
-                for (int i = 0; i < openCells.Count; i++)
-                {
-                    Cell current = openCells.container[i + 1];
-                    Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));
-                    Handles.Label(position, current.F.ToString());
-                }
-            }
+        //void OnDrawGizmos()
+        //{
+        //    if (!Application.isPlaying)
+        //        return;
+        //    if (canDraw)
+        //    {
+        //        foreach (Cell current in closedCells)
+        //        {
+        //            Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));
+        //            Handles.Label(position, current.F.ToString());
+        //        }
+        //        for (int i = 0; i < openCells.Count; i++)
+        //        {
+        //            Cell current = openCells.container[i + 1];
+        //            Vector2 position = cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + cellGrid.StartPos.x, current.Y + cellGrid.StartPos.y + 1, 5));
+        //            Handles.Label(position, current.F.ToString());
+        //        }
+        //    }
 
 
-        }
+        //}
     }
 
 }

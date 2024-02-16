@@ -19,3 +19,4 @@ MonoBehaviour:
   resistances:
   - attribute: 0
     resistance: 0.5
+  poolType: skeleton
