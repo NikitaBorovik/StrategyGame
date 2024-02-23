@@ -26,7 +26,7 @@ namespace App.World.Buildings.Towers
                 GameObject instantiatedSoldier = GameObject.Instantiate(soldier.gameObject);
                 instantiatedSoldier.transform.parent = parentTower.gameObject.transform;
                 instantiatedSoldier.transform.position = parentTower.SoldierPlaces[parentTower.SoldiersNumber].position;
-                instantiatedSoldier.GetComponent<Soldier>().Init();
+                instantiatedSoldier.GetComponent<Soldier>().Init(parentTower.CurrentTarget);
                 parentTower.AddSoldier(instantiatedSoldier.GetComponent<Soldier>());
                 parentTower.SoldiersNumber++;
             }

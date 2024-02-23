@@ -1,8 +1,7 @@
-using App;
 using App.Systems.BattleWaveSystem;
+using App.World.Buildings.Towers;
 using App.World.Enemies.States;
 using App.World.WorldGrid;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,9 +15,11 @@ namespace App.World.Enemies
         private Rigidbody2D rigidbody;
         private Transform primaryTarget;
         private ObjectPool objectPool;
+        private List<INotifyEnemyDied> notifyDiedlist;
 
         [SerializeField]
         private EnemyDataSO data;
+
 
         private EnemyMovingState movingState;
 
@@ -29,18 +30,19 @@ namespace App.World.Enemies
 
         public string PoolObjectID => data.poolType;
 
+        public List<INotifyEnemyDied> NotifyDiedlist { get => notifyDiedlist; set => notifyDiedlist = value; }
+
         public virtual void Init(Transform primaryTarget, INotifyEnemyDied notifyDied, Vector3 position)
         {
             transform.position = position;
             this.primaryTarget = primaryTarget;
-            this.notifyDied = notifyDied;
+            notifyDiedlist = new List<INotifyEnemyDied> { notifyDied };
             rigidbody = GetComponent<Rigidbody2D>();
             stateMachine = new StateMachine();
             pathfinding = GetComponent<GridPathfinding>();
             pathfinding.Init(FindObjectOfType<CellGrid>(), Data.resistances);
             movingState = new EnemyMovingState(this);
             stateMachine.Init(movingState);
-            
         }
         private void Update()
         {
@@ -65,7 +67,10 @@ namespace App.World.Enemies
         }
         public void Die()
         {
-            notifyDied.NotifyEnemyDied();
+            foreach(INotifyEnemyDied notifyEnemyDied in notifyDiedlist)
+            {
+                notifyEnemyDied.NotifyEnemyDied(this);
+            }
         }
     }
 

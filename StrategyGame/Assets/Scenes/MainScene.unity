@@ -220,7 +220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawningPoints:
   - {x: -16, y: 4, z: 0}
-  - {x: 16, y: 4, z: 0}
 --- !u!1 &569288594
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +383,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 8.05
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1540,8 +1539,8 @@ MonoBehaviour:
   waves:
   - subwaves:
     - enemy: {fileID: 6417425441953374073, guid: 584f61c6955378a4891d1bd895123b2f, type: 3}
-      enemyNumber: 6
-      spawnDelay: 0.5
+      enemyNumber: 1
+      spawnDelay: 0
     waveDelay: 1
 --- !u!1 &1982468685 stripped
 GameObject:

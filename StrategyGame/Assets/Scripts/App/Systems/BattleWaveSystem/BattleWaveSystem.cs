@@ -1,3 +1,4 @@
+using App.World.Enemies;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -20,7 +21,7 @@ namespace App.Systems.BattleWaveSystem
             StartCoroutine(SpawnAllWaves());
         }
 
-        public void NotifyEnemyDied()
+        public void NotifyEnemyDied(Enemy enemy)
         {
             if(--enemies <= 0 && currentWaveNumber > waves.Count)
             {
