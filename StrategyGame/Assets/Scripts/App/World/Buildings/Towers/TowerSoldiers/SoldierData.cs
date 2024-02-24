@@ -11,6 +11,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         public float attackRange;
         public float damage;
         public float attackSpeed;
+        public float projectileSpeed;
         public float levelAttackRangeMultiplier;
         public float levelDamageMultiplier;
         public float levelAttackSpeedMultiplier;

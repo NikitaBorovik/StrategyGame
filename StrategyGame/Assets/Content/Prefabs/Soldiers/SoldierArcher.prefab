@@ -121,3 +121,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 50b2c2935e37b6d4bb01d6d94fea847f, type: 2}
   animator: {fileID: 5911685500855884815}
+  projectilePrefab: {fileID: 6909769722762929113, guid: 40e5817aa3652a640bbb936cafe4f028, type: 3}

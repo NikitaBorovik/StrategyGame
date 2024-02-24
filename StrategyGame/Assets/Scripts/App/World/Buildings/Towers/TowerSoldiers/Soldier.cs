@@ -3,6 +3,7 @@ using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace App.World.Buildings.Towers.TowerSoldiers
 {
@@ -12,6 +13,8 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         private SoldierData data;
         [SerializeField]
         private Animator animator;
+        [SerializeField]
+        private GameObject projectilePrefab;
         private float attackDamage;
         private float attackRange;
         private float attackSpeed;
@@ -21,6 +24,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         private float angleBetweenTargetAndThis = 0;
         private DamageAttribute attribute;
         private Enemy currentTarget;
+        private ObjectPool objectPool;
 
         public float AttackDamage { get => attackDamage; set => attackDamage = value; }
         public float AttackRange { get => attackRange; set => attackRange = value; }
@@ -53,6 +57,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
             Attribute = data.attribute;
             initialised = true;
             this.currentTarget = currentTarget;
+            objectPool = FindObjectOfType<ObjectPool>();
         }
 
         public void LevelUp()
@@ -63,9 +68,17 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         }
         public void Attack()
         {
-
+            Projectile projectileScript = projectilePrefab.GetComponent<Projectile>();
+            if (projectilePrefab == null)
+            {
+                print("Can`t find projectile attached to soldier");
+            }
+            Projectile instantiatedProjectile = objectPool.GetObjectFromPool(projectileScript.PoolObjectID, projectilePrefab)
+                .GetGameObject().GetComponent<Projectile>();
+            instantiatedProjectile.Init(currentTarget.transform, transform.position, data.projectileSpeed, data.damage, data.attribute);
+            RefreshCanAttack();
         }
-        public void RefreshCanAttack()
+        private void RefreshCanAttack()
         {
             Debug.Log("Refreshed");
             attacking = false;
