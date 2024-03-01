@@ -14,7 +14,6 @@ namespace App.World.Buildings.Towers
         private Tower parent;
         private void OnMouseDown()
         {
-            Debug.Log("Click");
             if (parent.Clickable)
             {
                 Animator animator = selectWarriorButtons.GetComponent<Animator>();

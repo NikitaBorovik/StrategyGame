@@ -3,6 +3,7 @@ using App.Systems.Inputs;
 using App.Systems.Inputs.Builder;
 using App.Systems.MoneySystem;
 using App.World;
+using App.World.WorldGrid;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -27,7 +28,7 @@ namespace App
         {
             buildingInteractor = new BuildingInteractor(objectsContainer.WorldGrid, objectsContainer.MainCamera, objectsContainer.SelectedCellBorder, objectsContainer.PreviewBuilding, objectPool, playerMoney);
             inputs.Init(buildingInteractor);
-            spawnerSystem.Init(objectPool, objectsContainer.EnemyPrimaryTarget, battleWaveSystem);
+            spawnerSystem.Init(objectPool, objectsContainer.EnemyPrimaryTarget,objectsContainer.WorldGrid.GetComponent<CellGrid>(), battleWaveSystem, buildingInteractor);
             battleWaveSystem.Init(spawnerSystem);
         }
     }

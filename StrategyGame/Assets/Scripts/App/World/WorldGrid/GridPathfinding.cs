@@ -9,26 +9,26 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace App.World.WorldGrid
 {
-    //TODO REMOVE MONO
-    public class GridPathfinding : MonoBehaviour
+    
+    public class GridPathfinding 
     {
         private CellGrid cellGrid;
         private PQueue<Cell> openCells;
         private HashSet<Cell> closedCells;
         private List<AttributeResistance> attachedResistances;
         private bool canDraw = false;
-        private const int BASIC_ATTRIBUTE_WEIGHT = 10;
+        private const int BASIC_ATTRIBUTE_WEIGHT = 1;
 
-        public void Init(CellGrid grid, List<AttributeResistance> resistances)
+        public GridPathfinding(CellGrid grid)
         {
             this.cellGrid = grid;
-            this.attachedResistances = new List<AttributeResistance>(resistances);
         }
 
-        public Stack<Vector3> ProceedPathfinding(Vector3 startF, Vector3 endF)
+        public Stack<Vector3> ProceedPathfinding(Vector3 startF, Vector3 endF, List<AttributeResistance> resistances)
         {
+            Debug.Log("Processing");
             cellGrid.ResetData();
-
+            attachedResistances = new List<AttributeResistance>(resistances);
             openCells = new PQueue<Cell>();
             closedCells = new HashSet<Cell>();
 
@@ -64,6 +64,7 @@ namespace App.World.WorldGrid
                         continue;
                     }
                     float newG = ShortestDistance(neighbour, cell) + cell.G;
+                    
                     newG = AddWeightsFromCell(newG, neighbour);
                     if (newG < neighbour.G)
                     {

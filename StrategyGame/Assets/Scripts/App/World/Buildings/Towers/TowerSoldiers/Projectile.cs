@@ -1,9 +1,11 @@
 using App.Systems.BattleWaveSystem;
 using App.World;
+using App.World.Enemies;
 using App.World.Enemies.States;
 using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IObjectPoolItem
@@ -21,12 +23,27 @@ public class Projectile : MonoBehaviour, IObjectPoolItem
 
     private void Update()
     {
+        if (target == null)
+        {
+            objectPool.ReturnToPool(this);
+        }
         rb.velocity = (target.position - transform.position).normalized * velocity;
         transform.right = (target.position - transform.position).normalized;
         if ((target.position - transform.position).magnitude < 0.1f)
         {
-            objectPool.ReturnToPool(this);
-            print("Hit enemy");
+            HitTarget();
+        }
+    }
+
+    private void HitTarget()
+    {
+        objectPool.ReturnToPool(this);
+        Health health = target.GetComponent<Health>();
+        if (health == null)
+            Debug.Log("Hitting target without health component");
+        else
+        {
+            health.TakeDamage(damage);
         }
     }
 

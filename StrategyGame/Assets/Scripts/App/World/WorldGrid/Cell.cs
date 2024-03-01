@@ -9,7 +9,7 @@ namespace App.World.WorldGrid
     {
         private int x;
         private int y;
-        private float g = int.MaxValue;
+        private float g = 100000;
         private float h = 0;
         private Dictionary<DamageAttribute,int> attributes;
         private Cell parentCell;
@@ -23,6 +23,12 @@ namespace App.World.WorldGrid
             attributes.Add(DamageAttribute.bludgeoning, 0);
             attributes.Add(DamageAttribute.magic, 0);
             attributes.Add(DamageAttribute.fortified, 0);
+        }
+        public void ResetValues()
+        {
+            parentCell = null;
+            G = Single.PositiveInfinity;
+            h = 0;
         }
         public Dictionary<DamageAttribute, int> Attributes { get => attributes;}
         public int X { get => x; set => x = value; }

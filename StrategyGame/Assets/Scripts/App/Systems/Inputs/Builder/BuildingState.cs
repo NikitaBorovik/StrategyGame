@@ -72,14 +72,14 @@ namespace App.Systems.Inputs.Builder
                 Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
 
-                GameObject toBuild = objectPool.GetObjectFromPool(building.GetComponent<Building>().PoolObjectID, building).GetGameObject();
+                Building toBuild = objectPool.GetObjectFromPool(building.GetComponent<Building>().PoolObjectID, building).GetGameObject().GetComponent<Building>();
                 
-                var buildingScript = toBuild.GetComponent<Building>();
-                toBuild.GetComponent<Building>().Init(pos, cellGrid, buildingInteractor.PlayerMoney);
+                toBuild.Init(pos, cellGrid, buildingInteractor.PlayerMoney);
+                toBuild.notifyGridWeightChanged += buildingInteractor.OnBuildingComplete;
+                buildingInteractor.PlayerMoney.Money -= toBuild.BasicData.price;
+                buildingInteractor.OnBuildingComplete();
 
-                buildingInteractor.PlayerMoney.Money -= buildingScript.BasicData.price;
-
-                var interfaceBuilding = buildingScript as IToggleAttackRangeVision;
+                var interfaceBuilding = toBuild as IToggleAttackRangeVision;
                 if (interfaceBuilding != null)
                 {
                     buildingInteractor.BuildingsWithAttackRange.Add(interfaceBuilding);

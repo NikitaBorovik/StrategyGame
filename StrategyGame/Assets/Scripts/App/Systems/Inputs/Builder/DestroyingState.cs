@@ -51,7 +51,7 @@ public class DestroyingState : IState
             var build = selectedBuilding.GetComponent<Building>();
             buildingInteractor.PlayerMoney.Money += (int)(build.BasicData.price * (build.Health - build.CurrentHealth) / build.Health);
             objectPool.ReturnToPool(selectedBuilding.GetComponent<Building>());
-            
+            build.notifyGridWeightChanged -= buildingInteractor.OnBuildingComplete;
         }
     }
     private void OnMouseMoved() 

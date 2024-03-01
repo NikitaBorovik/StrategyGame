@@ -24,7 +24,7 @@ namespace App.World.Enemies.States
         public void Enter()
         {
             atFinalPoint = false;
-            way = pathfinding.ProceedPathfinding(enemy.transform.position, actualTargetPosition);
+            way = pathfinding.ProceedPathfinding(enemy.transform.position, actualTargetPosition, enemy.Data.resistances);
             if(way != null && way.Count != 0)
             {
                 currentWaypoint = way.Pop();
@@ -46,23 +46,19 @@ namespace App.World.Enemies.States
                 return;
             if (Vector3.Distance(enemy.transform.position, currentWaypoint) > enemy.Data.attackRange)
             {
-               // Debug.Log("1");
-                enemy.Rigidbody.velocity = (currentWaypoint - enemy.transform.position).normalized * enemy.Data.speed;
+                enemy.RigidBody.velocity = (currentWaypoint - enemy.transform.position).normalized * enemy.Data.speed;
             }
             else if (way != null && way.Count != 0)
             {
-               // Debug.Log("2");
                 currentWaypoint = way.Pop();
             }
             else if(currentWaypoint != actualTargetPosition)
             {
-              //  Debug.Log("3");
                 currentWaypoint = actualTargetPosition;
             }
             else
             {
-              //  Debug.Log("4");
-                enemy.Rigidbody.velocity = Vector2.zero;
+                enemy.RigidBody.velocity = Vector2.zero;
                 atFinalPoint = true;
             }
         }

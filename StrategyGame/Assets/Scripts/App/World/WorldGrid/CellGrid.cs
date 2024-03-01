@@ -25,18 +25,26 @@ namespace App.World.WorldGrid
         public Vector3Int EndPos { get => endPos; set => endPos = value; }
         public Grid Tilemap { get => tilemap;}
         public List<Tile> RestrictedTiles { get => restrictedTiles;}
-        public void ResetData()
+        private void Start()
         {
             this.width = EndPos.x - StartPos.x;
             this.heigth = EndPos.y - StartPos.y;
-            Debug.Log("End " + EndPos);
-            Debug.Log("Start " + StartPos);
             Grid = new Cell[width, heigth];
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < heigth; j++)
                 {
                     Grid[i, j] = new Cell(i, j);
+                }
+            }
+        }
+        public void ResetData()
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < heigth; j++)
+                {
+                    Grid[i, j].ResetValues();
                 }
             }
         }
@@ -64,7 +72,6 @@ namespace App.World.WorldGrid
         }
         public void AddAttributeToCells(Vector3 towerPos, float towerRange, DamageAttribute attribute)
         {
-            Debug.Log("Adding atribute");
             Vector3 localPos = towerPos - startPos;
             for (int i = 0; i < width; i++)
             {
@@ -122,6 +129,7 @@ namespace App.World.WorldGrid
                         Gizmos.color = Color.red;
                         Gizmos.DrawLine(new Vector3(x , y + 0.5f, 0), new Vector3(x + 1, y + 0.5f, 0));
                     }
+
                 }
             }
         }

@@ -8,10 +8,14 @@ public class TowerEnemyDetector : MonoBehaviour
 {
     [SerializeField]
     private Tower parent;
+    [SerializeField]
+    private CircleCollider2D collider2D;
+
+    public CircleCollider2D Collider2D { get => collider2D; set => collider2D = value; }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-        Debug.Log("Enter");
         if (enemy != null)
         {
             parent.DetectedEnemies.Add(enemy);

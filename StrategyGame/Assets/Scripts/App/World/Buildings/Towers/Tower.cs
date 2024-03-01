@@ -27,8 +27,14 @@ namespace App.World.Buildings.Towers
         [SerializeField]
         private GameObject attackRangeField;
         [SerializeField]
+        private TowerEnemyDetector enemyDetector;
+        [SerializeField]
         private List<GameObject> objectsToReveal;
-        
+        [SerializeField]
+        private float attackRange;
+        [SerializeField]
+        private float levelAttackRangeMultiplier;
+        private float curAttackRange;
         private int soldiersNumber = 0;
         
         private List<Soldier> soldiers = new List<Soldier>();
@@ -46,6 +52,12 @@ namespace App.World.Buildings.Towers
             base.Init(position, cellGrid, playerMoney);
             soldiers = new List<Soldier>();
             DetectedEnemies = new List<Enemy>();
+            curAttackRange = attackRange;
+            enemyDetector.Collider2D.radius = curAttackRange;
+            attackRangeField.transform.localScale = new Vector3(curAttackRange, curAttackRange, 1);
+            cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 1f ),
+                (transform.position.y + 1f)), 1f, DamageAttribute.fortified);
+            Debug.Log(notifyGridWeightChanged);
         }
 
         public void AddSoldier(Soldier soldier)
@@ -56,9 +68,16 @@ namespace App.World.Buildings.Towers
                 return;
             }
             soldiers.Add(soldier);
+            for(int i = 0; i < Level; i++)
+            {
+                soldier.LevelUp();
+            }
+
             cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * BasicData.size), 
-                (transform.position.y + 0.5f * BasicData.size)), soldier.AttackRange, soldier.Attribute);
+                (transform.position.y + 0.5f * BasicData.size)), curAttackRange, soldier.Attribute);
             playerMoney.Money -= soldierPrice;
+            Debug.Log(notifyGridWeightChanged);
+            notifyGridWeightChanged?.Invoke();
         }
 
         public override void Upgrade()
@@ -94,9 +113,27 @@ namespace App.World.Buildings.Towers
         {
             Level++;
             CurrentHealth = Health;
+
             foreach (GameObject obj in objectsToReveal)
                 obj.SetActive(false);
             objectsToReveal[Level - 1].SetActive(true);
+
+            foreach (Soldier soldier in soldiers)
+            {
+                cellGrid.RemoveAttributeFromCells(new Vector2((transform.position.x + 0.5f * BasicData.size),
+                (transform.position.y + 0.5f * BasicData.size)), curAttackRange, soldier.Attribute);
+            }
+
+            curAttackRange *= levelAttackRangeMultiplier;
+
+            foreach (Soldier soldier in soldiers)
+            {
+                cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * BasicData.size),
+                (transform.position.y + 0.5f * BasicData.size)), curAttackRange, soldier.Attribute);
+            }
+            enemyDetector.Collider2D.radius = curAttackRange;
+            attackRangeField.transform.localScale = new Vector3(curAttackRange, curAttackRange,1);
+
         }
 
         private void UpgradeSoldiers()
@@ -107,29 +144,15 @@ namespace App.World.Buildings.Towers
             }
         }
 
-        //private void OnMouseDown()
-        //{
-        //    if (Clickable)
-        //    {       
-        //        Animator animator = selectWarriorButtons.GetComponent<Animator>();
-        //        if (selectWarriorButtons.activeSelf)
-        //        {
-        //            animator.SetBool("IsVisible", false);
-        //        }
-        //        else
-        //        {
-        //            selectWarriorButtons.SetActive(true);
-        //            animator.SetBool("IsVisible", true);
-        //        }
-        //    }
-            
-        //}
+
         private void OnDisable()
         {
+            cellGrid.RemoveAttributeFromCells(new Vector2((transform.position.x + 1f),
+                (transform.position.y + 1f)), 1f, DamageAttribute.fortified);
             foreach (Soldier soldier in soldiers)
             {
                 cellGrid.RemoveAttributeFromCells(new Vector2((transform.position.x + 0.5f * BasicData.size), 
-                    (transform.position.y + 0.5f * BasicData.size)), soldier.AttackRange, soldier.Attribute);
+                    (transform.position.y + 0.5f * BasicData.size)), curAttackRange, soldier.Attribute);
             }
             foreach (GameObject obj in objectsToReveal)
                 obj.SetActive(false);
@@ -138,40 +161,11 @@ namespace App.World.Buildings.Towers
                 //TODO ADD OBJECT POOL
                 GameObject.Destroy(soldier.gameObject);
             }
+            curAttackRange = attackRange;
             soldiersNumber = 0;
+            notifyGridWeightChanged?.Invoke();
+            
         }
-        //private void OnTriggerEnter2D(Collider2D collision)
-        //{
-        //    Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-        //    Debug.Log("Enter");
-        //    if(enemy != null)
-        //    {
-        //        DetectedEnemies.Add(enemy);
-        //        if (CurrentTarget == null)
-        //        {
-        //            CurrentTarget = enemy;
-        //            RefreshSoldiersTarget();
-        //        }
-        //    }
-        //}
-        //private void OnTriggerExit2D(Collider2D collision)
-        //{
-        //    Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-        //    if(enemy != null)
-        //    {
-        //        enemy.NotifyDiedlist.Remove(this);
-        //        DetectedEnemies.Remove(enemy);
-        //        if(DetectedEnemies.Count != 0)
-        //        {
-        //            currentTarget = DetectedEnemies[0];
-        //        }
-        //        else
-        //        {
-        //            currentTarget = null;
-        //        }
-        //        RefreshSoldiersTarget();
-        //    }
-        //}
 
         public void RefreshSoldiersTarget()
         {

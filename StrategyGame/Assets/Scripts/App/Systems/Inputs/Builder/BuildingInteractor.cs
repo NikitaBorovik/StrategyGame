@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace App.Systems.Inputs.Builder
 {
-    public class BuildingInteractor
+    public class BuildingInteractor : INotifyBuilt
     {
         private StateMachine stateMachne;
         private GameObject worldGrid;
@@ -30,6 +30,7 @@ namespace App.Systems.Inputs.Builder
         public event Action OnClick;
         public event Action OnMouseMoved;
         public event Action OnAltHold;
+        public event Action OnBuilt;
         public BuildingInteractor(GameObject worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding,ObjectPool objectPool, PlayerMoney playerMoney)
         {
             this.worldGrid = worldGrid;
@@ -63,6 +64,11 @@ namespace App.Systems.Inputs.Builder
             OnAltHold?.Invoke();
         }
 
+        public void OnBuildingComplete()
+        {
+            OnBuilt?.Invoke();
+        }
+
         public void BuildingState(GameObject building)
         {
             buildingState.Building = building;
@@ -84,6 +90,16 @@ namespace App.Systems.Inputs.Builder
             stateMachne.ChangeState(idleState);
         }
 
+        public void Subscribe(Action action)
+        {
+            OnBuilt += action;
+        }
+
+        public void Unsubscribe(Action action)
+        {
+            OnBuilt -= action;
+        }
+
         private void ToggleTowerRangeVision()
         {
             foreach(IToggleAttackRangeVision building in BuildingsWithAttackRange)
@@ -91,5 +107,7 @@ namespace App.Systems.Inputs.Builder
                 building.ToggleAttackRangeVision();
             }
         }
+
+
     }
 }

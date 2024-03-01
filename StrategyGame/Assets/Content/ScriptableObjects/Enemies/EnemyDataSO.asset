@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3249b27b01689794ab12ffd233dbfbc9, type: 3}
   m_Name: EnemyDataSO
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 100
   damage: 0
-  speed: 0.5
+  speed: 1
   attackRange: 1
   resistances:
   - attribute: 0

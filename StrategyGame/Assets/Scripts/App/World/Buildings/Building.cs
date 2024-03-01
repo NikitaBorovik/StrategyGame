@@ -2,6 +2,7 @@ using App.Systems.MoneySystem;
 using App.World;
 using App.World.Buildings.BuildingsSO;
 using App.World.WorldGrid;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,7 @@ public abstract class Building : MonoBehaviour, IObjectPoolItem
     public virtual string PoolObjectID { get => BasicData.poolObjectID; }
     public float Health { get => health; set => health = value; }
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
+    public Action notifyGridWeightChanged;
 
     public virtual void Init(Vector2 position, CellGrid cellGrid, PlayerMoney playerMoney)
     {
