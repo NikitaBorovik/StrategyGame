@@ -20,7 +20,7 @@ namespace App
             State.Exit();
 
             State = newState;
-            newState.Enter();
+            State.Enter();
         }
     }
 }

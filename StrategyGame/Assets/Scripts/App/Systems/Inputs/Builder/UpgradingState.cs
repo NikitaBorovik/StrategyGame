@@ -1,7 +1,6 @@
 using App;
 using App.Systems.Inputs.Builder;
-using System.Collections;
-using System.Collections.Generic;
+using App.World.Buildings.PlaceableBuildings;
 using UnityEngine;
 
 public class UpgradingState : IState
@@ -43,7 +42,7 @@ public class UpgradingState : IState
     {
         if (selectedBuilding != null)
         {
-            var buildingScript = selectedBuilding.GetComponent<Building>();
+            var buildingScript = selectedBuilding.GetComponent<PlaceableBuilding>();
             if(buildingScript.Level < 2)
             {
                 buildingScript.Upgrade();
@@ -67,7 +66,7 @@ public class UpgradingState : IState
             if (selectedBuilding != null)
             {
                 selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
-                selectedBuilding.GetComponent<Building>().Clickable = true;
+                selectedBuilding.GetComponent<PlaceableBuilding>().Clickable = true;
             }
                 
             selectedBuilding = null;
@@ -79,13 +78,13 @@ public class UpgradingState : IState
             if (selectedBuilding != null)
                 selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
             selectedBuilding = raycastHit.collider.gameObject;
-            selectedBuilding.GetComponent<Building>().Clickable = false;
+            selectedBuilding.GetComponent<PlaceableBuilding>().Clickable = false;
         }
 
         if (selectedBuilding == null)
             return;
 
-        if (selectedBuilding.GetComponent<Building>().Level < 2)
+        if (selectedBuilding.GetComponent<PlaceableBuilding>().Level < 2)
         {
             selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 0, 0.5f);
         }

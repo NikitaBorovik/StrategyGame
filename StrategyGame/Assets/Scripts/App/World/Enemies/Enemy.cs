@@ -2,12 +2,13 @@ using App.Systems.BattleWaveSystem;
 using App.World.Buildings.Towers;
 using App.World.Enemies.States;
 using App.World.WorldGrid;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace App.World.Enemies
 {
-    public  class Enemy : MonoBehaviour, IObjectPoolItem, IDestroyable
+    public class Enemy : MonoBehaviour, IObjectPoolItem, IDestroyable
     {
         private INotifyEnemyDied notifyDied;
         private INotifyBuilt notifyBuilt;
@@ -27,18 +28,24 @@ namespace App.World.Enemies
         [SerializeField]
         private Rigidbody2D rigidBody;
 
+        [SerializeField]
+        private Animator animator;
+
         private EnemyMovingState movingState;
+        private EnemyAttackState attackState;
+        private EnemyDyingState dyingState;
 
         public Transform PrimaryTarget { get => primaryTarget;}
         public GridPathfinding Pathfinding { get => pathfinding;}
         public EnemyDataSO Data { get => data;}
         public Rigidbody2D RigidBody { get => rigidBody;}
+        public Animator Animator { get => animator; set => animator = value; }
 
         public string PoolObjectID => data.poolType;
 
         public List<INotifyEnemyDied> NotifyDiedlist { get => notifyDiedlist; set => notifyDiedlist = value; }
         public Health EnemyHealth { get => enemyHealth; set => enemyHealth = value; }
-
+     
         public virtual void Init(Transform primaryTarget, INotifyEnemyDied notifyDied, INotifyBuilt notifyBuilt,GridPathfinding pathfinding, Vector3 position)
         {
             transform.position = position;
@@ -49,12 +56,28 @@ namespace App.World.Enemies
             notifyDiedlist = new List<INotifyEnemyDied> { notifyDied };
             stateMachine = new StateMachine();
             movingState = new EnemyMovingState(this);
+            attackState = new EnemyAttackState(this);
+            dyingState = new EnemyDyingState(this);
 
             EnemyHealth.MaxHP = data.maxHealth;
             EnemyHealth.CurHP = EnemyHealth.MaxHP;
 
             stateMachine.Init(movingState);
-            notifyBuilt.Subscribe(MovingState);
+            notifyBuilt.Subscribe(GoToMovingState);
+        }
+        private void Attack()
+        {
+            if(stateMachine.State == attackState)
+                attackState.Attack();
+        }
+        private void Die()
+        {
+            notifyBuilt.Unsubscribe(GoToMovingState);
+            foreach (INotifyEnemyDied notifyEnemyDied in notifyDiedlist)
+            {
+                notifyEnemyDied.NotifyEnemyDied(this);
+            }
+            objectPool.ReturnToPool(this);
         }
         private void Update()
         {
@@ -62,13 +85,21 @@ namespace App.World.Enemies
         }
         private void OnDisable()
         {
-            notifyBuilt.Unsubscribe(MovingState);
+            notifyBuilt.Unsubscribe(GoToMovingState);
         }
-        public void Attack() { }
 
-        public void MovingState()
+        public void GoToMovingState()
         {
             stateMachine.ChangeState(movingState);
+        }
+        public void GoToDyingState()
+        {
+            stateMachine.ChangeState(dyingState);
+        }
+        public void GoToAttackState(Vector3 attackTargetPosition)
+        {
+            attackState.AttackTargetPosition = attackTargetPosition;
+            stateMachine.ChangeState(attackState);
         }
 
         public void GetFromPool(ObjectPool pool)
@@ -88,12 +119,19 @@ namespace App.World.Enemies
         }
         public void DestroySequence()
         {
-            notifyBuilt.Unsubscribe(MovingState);
-            foreach (INotifyEnemyDied notifyEnemyDied in notifyDiedlist)
+            GoToDyingState();
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!Application.isPlaying)
+                return;
+            if (movingState.CurrentWaypoint != null)
             {
-                notifyEnemyDied.NotifyEnemyDied(this);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(transform.position, movingState.CurrentWaypoint);
             }
-            objectPool.ReturnToPool(this);
+                
         }
     }
 

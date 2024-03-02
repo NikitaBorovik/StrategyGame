@@ -1,5 +1,4 @@
 using App.Systems.Inputs;
-using App.World.Buildings.BuildingsSO;
 using UnityEngine;
 
 namespace App.UI.Buttons

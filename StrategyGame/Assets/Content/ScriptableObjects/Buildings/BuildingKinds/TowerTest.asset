@@ -15,6 +15,6 @@ MonoBehaviour:
   price: 25
   upgradePrice: 25
   size: 2
-  health: 20
+  health: 100
   sprite: {fileID: 21300000, guid: 0c4b0a9d6b412e04da10235aa410850a, type: 3}
   poolObjectID: Tower

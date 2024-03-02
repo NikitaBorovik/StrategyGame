@@ -1,10 +1,9 @@
 using App;
 using App.World;
-using App.World.Buildings.BuildingsSO;
+using App.World.Buildings.PlaceableBuildings;
+using App.World.Buildings.PlaceableBuildings.BuildingsSO;
+using App.World.Buildings.PlaceableBuildings.Towers;
 using App.World.WorldGrid;
-using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -37,7 +36,7 @@ namespace App.Systems.Inputs.Builder
 
         public void Enter()
         {
-            buildingData = building.GetComponent<Building>().BasicData;
+            buildingData = building.GetComponent<PlaceableBuilding>().BasicData;
             selectedCellBorder.SetActive(true);
             previewBuilding.SetActive(true);
             SpriteRenderer spriteRenderer = previewBuilding.GetComponent<SpriteRenderer>();
@@ -72,7 +71,7 @@ namespace App.Systems.Inputs.Builder
                 Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
 
-                Building toBuild = objectPool.GetObjectFromPool(building.GetComponent<Building>().PoolObjectID, building).GetGameObject().GetComponent<Building>();
+                PlaceableBuilding toBuild = objectPool.GetObjectFromPool(building.GetComponent<PlaceableBuilding>().PoolObjectID, building).GetGameObject().GetComponent<PlaceableBuilding>();
                 
                 toBuild.Init(pos, cellGrid, buildingInteractor.PlayerMoney);
                 toBuild.notifyGridWeightChanged += buildingInteractor.OnBuildingComplete;

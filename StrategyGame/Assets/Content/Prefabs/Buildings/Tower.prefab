@@ -339,6 +339,7 @@ GameObject:
   - component: {fileID: 122158162129321857}
   - component: {fileID: 2268994663440552425}
   - component: {fileID: 8165025847183083355}
+  - component: {fileID: -686269460299807576}
   m_Layer: 6
   m_Name: Tower
   m_TagString: Untagged
@@ -480,6 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicData: {fileID: 11400000, guid: 7fa0b86b7aec5e246a405445809508a0, type: 2}
+  healthComponent: {fileID: -686269460299807576}
   maxSoldiersNumber: 3
   soldierPrice: 10
   soldierPlaces:
@@ -505,6 +507,18 @@ SortingGroup:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &-686269460299807576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967606375147645333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072be59a91a8c734d8a42e6cbc08fee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2154246152893479140
 GameObject:
   m_ObjectHideFlags: 0

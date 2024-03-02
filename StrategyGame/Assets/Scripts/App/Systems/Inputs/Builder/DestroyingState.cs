@@ -1,8 +1,8 @@
 using App;
 using App.Systems.Inputs.Builder;
 using App.World;
-using App.World.WorldGrid;
-using System.Collections;
+using App.World.Buildings.PlaceableBuildings;
+using App.World.Buildings.PlaceableBuildings.Towers;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -44,13 +44,13 @@ public class DestroyingState : IState
     {
         if(selectedBuilding != null)
         {
-            var interfaceBuilding = selectedBuilding.GetComponent<Building>() as IToggleAttackRangeVision;
+            var interfaceBuilding = selectedBuilding.GetComponent<PlaceableBuilding>() as IToggleAttackRangeVision;
 
             if (interfaceBuilding != null)
                 buildingInteractor.BuildingsWithAttackRange.Remove(interfaceBuilding);
-            var build = selectedBuilding.GetComponent<Building>();
-            buildingInteractor.PlayerMoney.Money += (int)(build.BasicData.price * (build.Health - build.CurrentHealth) / build.Health);
-            objectPool.ReturnToPool(selectedBuilding.GetComponent<Building>());
+            var build = selectedBuilding.GetComponent<PlaceableBuilding>();
+            buildingInteractor.PlayerMoney.Money += (int)(build.BasicData.price * build.HealthComponent.CurHP / build.HealthComponent.MaxHP);
+            objectPool.ReturnToPool(selectedBuilding.GetComponent<PlaceableBuilding>());
             build.notifyGridWeightChanged -= buildingInteractor.OnBuildingComplete;
         }
     }
@@ -66,7 +66,7 @@ public class DestroyingState : IState
             if (selectedBuilding != null)
             {
                 selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
-                selectedBuilding.GetComponent<Building>().Clickable = true;
+                selectedBuilding.GetComponent<PlaceableBuilding>().Clickable = true;
             }
                 
             selectedBuilding = null;
@@ -79,7 +79,7 @@ public class DestroyingState : IState
                 selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255,255,255,1f);
             selectedBuilding = raycastHit.collider.gameObject;
             selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 0.5f);
-            selectedBuilding.GetComponent<Building>().Clickable = false;
+            selectedBuilding.GetComponent<PlaceableBuilding>().Clickable = false;
         }
         
     }
