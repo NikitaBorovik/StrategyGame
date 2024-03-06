@@ -19,6 +19,7 @@ namespace App.World.Enemies.States
         }
         public void Enter()
         {
+            Debug.Log("Entered attack state");
             SetEnterAnimationParameters();
             RaycastHit2D raycast = Physics2D.Raycast(parent.transform.position, AttackTargetPosition - parent.transform.position, parent.Data.attackRange, LayerMask.GetMask("BuildingPhysicalCollider"));
             if (!raycast)
@@ -42,20 +43,24 @@ namespace App.World.Enemies.States
 
         public void Update()
         {
-            if(targetHealth == null || !targetHealth.isActiveAndEnabled)
-                parent.GoToMovingState();
+            //if (!targetHealth.isActiveAndEnabled)
+            //    targetHealth = null;
+            //if(targetHealth == null)
+            //    parent.GoToMovingState();
         }
 
         public void Attack()
         {
-            if (targetHealth != null && targetHealth.isActiveAndEnabled)
-                targetHealth.TakeDamage(parent.Data.damage);
-            RaycastHit2D raycast = Physics2D.Raycast(parent.transform.position, AttackTargetPosition - parent.transform.position, parent.Data.attackRange, LayerMask.GetMask("BuildingPhysicalCollider"));
+            RaycastHit2D raycast = Physics2D.Raycast(parent.transform.position, (AttackTargetPosition - parent.transform.position).normalized, parent.Data.attackRange, LayerMask.GetMask("BuildingPhysicalCollider"));
             if (!raycast)
             {
                 Debug.Log("No collision detected");
                 parent.GoToMovingState();
+                return;
             }
+            targetHealth = raycast.collider.GetComponentInParent<Health>();
+            if (targetHealth != null && targetHealth.isActiveAndEnabled)
+                targetHealth.TakeDamage(parent.Data.damage);
         }
 
 

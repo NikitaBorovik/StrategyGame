@@ -145,6 +145,7 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
 
         private void OnDisable()
         {
+            transform.position = new Vector3(10000, 10000, 0);
             cellGrid.RemoveAttributeFromCells(new Vector2((transform.position.x + 1f),
                 (transform.position.y + 1f)), 1f, DamageAttribute.fortified);
             foreach (Soldier soldier in soldiers)

@@ -135,10 +135,27 @@ namespace App.World.WorldGrid
                     if (tile != null && cellGrid.RestrictedTiles.Contains(tile))
                         continue;
 
+                    if(i == j || i == -j)
+                    {
+                        if (!CanMoveDiagonally(cell, i, j))
+                            continue;
+                    }
+
                     surroundingCells.Add(neighbour);
                 }
             }
             return surroundingCells;
+        }
+
+        private bool CanMoveDiagonally(Cell cell ,int i, int j)
+        {
+            Tile neighbour1 = (Tile)cellGrid.Tilemap.GetComponentInChildren<Tilemap>().GetTile(new Vector3Int(cell.X + i + cellGrid.StartPos.x, cell.Y + cellGrid.StartPos.y));
+            Tile neighbour2 = (Tile)cellGrid.Tilemap.GetComponentInChildren<Tilemap>().GetTile(new Vector3Int(cell.X + cellGrid.StartPos.x, cell.Y + j + cellGrid.StartPos.y));
+            if (neighbour1 != null && cellGrid.RestrictedTiles.Contains(neighbour1))
+                return false;
+            if (neighbour2 != null && cellGrid.RestrictedTiles.Contains(neighbour2))
+                return false;
+            return true;
         }
         //void OnDrawGizmos()
         //{

@@ -47,15 +47,16 @@ namespace App.World.Enemies.States
 
         public void Update()
         {
-            RaycastHit2D raycast = Physics2D.Raycast(parent.transform.position, CurrentWaypoint - parent.transform.position, parent.Data.attackRange, LayerMask.GetMask("BuildingPhysicalCollider"));
-            if (raycast.collider != null)
+            RaycastHit2D raycast = Physics2D.Raycast(parent.transform.position, (CurrentWaypoint - parent.transform.position).normalized, parent.Data.attackRange, LayerMask.GetMask("BuildingPhysicalCollider"));
+            if (raycast)
             {
+                Debug.Log(raycast.collider.gameObject.name);
                 parent.GoToAttackState(CurrentWaypoint);
                 return;
             }
             if (atFinalPoint)
                 return;
-            if (Vector3.Distance(parent.transform.position, CurrentWaypoint) > parent.Data.attackRange)
+            if (Vector3.Distance(parent.transform.position, CurrentWaypoint) > 0.1f)
             {
                 parent.RigidBody.velocity = (CurrentWaypoint - parent.transform.position).normalized * parent.Data.speed;
             }

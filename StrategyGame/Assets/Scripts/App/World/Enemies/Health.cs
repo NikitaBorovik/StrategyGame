@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -14,9 +15,11 @@ namespace App.World.Enemies
         private List<SpriteRenderer> deletable;
         private Coroutine blinking;
         private float blinkingDuration = 0.1f;
+        private Action onHpChanged;
 
         public float CurHP { get => curHP; set => curHP = value; }
         public float MaxHP { get => maxHP; set => maxHP = value; }
+        public Action OnHpChanged { get => onHpChanged; set => onHpChanged = value; }
 
         public void Awake()
         {
@@ -37,6 +40,7 @@ namespace App.World.Enemies
                     destroyable.DestroySequence();
             }
             Blink();
+            OnHpChanged?.Invoke();
         }
 
         private IEnumerator BlinkCoroutine()

@@ -16,5 +16,5 @@ MonoBehaviour:
   upgradePrice: 25
   size: 1
   health: 10
-  sprite: {fileID: 21300000, guid: a7aaca004cdbb27498d58d6b1cf253fc, type: 3}
+  sprite: {fileID: 21300000, guid: 1bbc1516ce57fbd4aaa3a9edac11475c, type: 3}
   poolObjectID: Spikes

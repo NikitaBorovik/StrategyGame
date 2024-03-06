@@ -8,6 +8,7 @@ namespace App.World.Buildings.PlaceableBuildings.Spikes
     public class SpikesDataSO : ScriptableObject
     {
         public float damage;
+        public float timeBetweenAttacks;
         public float levelUpDamageMultiplier;
         public List<Sprite> spritesForLevels;
     }
