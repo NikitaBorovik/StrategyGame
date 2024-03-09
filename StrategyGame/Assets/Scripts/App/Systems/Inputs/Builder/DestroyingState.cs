@@ -35,6 +35,8 @@ public class DestroyingState : IState
         selectedCellBorder.SetActive(false);
         buildingInteractor.OnClick -= OnMouseClicked;
         buildingInteractor.OnMouseMoved -= OnMouseMoved;
+        if (selectedBuilding != null)
+            selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
     }
 
     public void Update()

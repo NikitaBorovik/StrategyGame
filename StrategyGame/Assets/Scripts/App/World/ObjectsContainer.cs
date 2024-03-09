@@ -1,3 +1,4 @@
+using App.World.Cameras;
 using UnityEngine;
 
 
@@ -9,6 +10,8 @@ namespace App.World
         private GameObject worldGrid;
         [SerializeField]
         private Camera mainCamera;
+        [SerializeField] 
+        private CameraController cameraController;
         [SerializeField]
         private GameObject selectedCellBorder;
         [SerializeField]
@@ -21,6 +24,7 @@ namespace App.World
         public GameObject SelectedCellBorder { get => selectedCellBorder;}
         public GameObject PreviewBuilding { get => previewBuilding;}
         public Transform EnemyPrimaryTarget { get => enemyPrimaryTarget; }
+        public CameraController CameraController { get => cameraController;}
     }
 }
 
