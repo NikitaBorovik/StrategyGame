@@ -1,4 +1,5 @@
 using App.Systems.Inputs.Builder;
+using App.UI;
 using App.World;
 using App.World.WorldGrid;
 using UnityEngine;
@@ -12,16 +13,18 @@ namespace App.Systems.Inputs
         private MouseOptionSelector mouseSelector;
         [SerializeField]
         private GameObject waypoint;
+        private PauseController pauseController;
 
         ////TMP TEST
         //private Vector2 pos1;
         //private Vector2 pos2;
         //private GameObject worldGrid;
 
-        public void Init(BuildingInteractor buildingInteractor)
+        public void Init(BuildingInteractor buildingInteractor, PauseController pauseController)
         {
             processor = buildingInteractor;
             mouseSelector.MouseInputHandler = this;
+            this.pauseController = pauseController;
         }
         void Update()
         {
@@ -48,10 +51,12 @@ namespace App.Systems.Inputs
         {
             if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.LeftAlt))
             {
-                Debug.Log("Alt");
                 processor.OnAltButtonHold();
             }
-
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseController.TogglePause();
+            }
         }
 
         public void ProceedMouseOption(MouseOption option)

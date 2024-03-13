@@ -1,3 +1,4 @@
+using App.UI;
 using UnityEngine;
 
 
@@ -15,12 +16,15 @@ namespace App.World
         private GameObject previewBuilding;
         [SerializeField]
         private Transform enemyPrimaryTarget;
+        [SerializeField]
+        private PauseController pauser;
 
         public GameObject WorldGrid { get => worldGrid;}
         public Camera MainCamera { get => mainCamera;}
         public GameObject SelectedCellBorder { get => selectedCellBorder;}
         public GameObject PreviewBuilding { get => previewBuilding;}
         public Transform EnemyPrimaryTarget { get => enemyPrimaryTarget; }
+        public PauseController Pauser { get => pauser;}
     }
 }
 
