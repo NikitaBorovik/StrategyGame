@@ -1,3 +1,4 @@
+using App.Systems.MoneySystem;
 using App.World.Enemies;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace App.Systems.BattleWaveSystem
         private SpawnerSystem spawnerSystem;
         private int enemies;
         private int currentWaveNumber;
+        private PlayerMoney playerMoney;
         [SerializeField]
         private List<Wave> waves;
-        public void Init(SpawnerSystem spawnerSystem)
+        public void Init(SpawnerSystem spawnerSystem, PlayerMoney playerMoney)
         {
             this.spawnerSystem = spawnerSystem;
+            this.playerMoney = playerMoney;
             enemies = 0;
             currentWaveNumber = 0;
             StartCoroutine(SpawnAllWaves());
@@ -23,6 +26,7 @@ namespace App.Systems.BattleWaveSystem
 
         public void NotifyEnemyDied(Enemy enemy)
         {
+            playerMoney.Money += enemy.Data.bounty;
             if(--enemies <= 0 && currentWaveNumber > waves.Count)
             {
                 Debug.Log("You won!");

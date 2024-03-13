@@ -27,9 +27,13 @@ namespace App
         private void Start()
         {
             buildingInteractor = new BuildingInteractor(objectsContainer.WorldGrid, objectsContainer.MainCamera, objectsContainer.SelectedCellBorder, objectsContainer.PreviewBuilding, objectPool, playerMoney);
+<<<<<<< HEAD
             inputs.Init(buildingInteractor, objectsContainer.Pauser);
+=======
+            inputs.Init(buildingInteractor,objectsContainer.CameraController);
+>>>>>>> 2a41e8ca90f786803928936a44b40c084a2d8420
             spawnerSystem.Init(objectPool, objectsContainer.EnemyPrimaryTarget,objectsContainer.WorldGrid.GetComponent<CellGrid>(), battleWaveSystem, buildingInteractor);
-            battleWaveSystem.Init(spawnerSystem);
+            battleWaveSystem.Init(spawnerSystem, playerMoney);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace App.World.Enemies
 {
     public class Enemy : MonoBehaviour, IObjectPoolItem, IDestroyable
     {
-        private INotifyEnemyDied notifyDied;
         private INotifyBuilt notifyBuilt;
         private StateMachine stateMachine;
         private GridPathfinding pathfinding;
