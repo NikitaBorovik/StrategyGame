@@ -26,6 +26,7 @@ public class Projectile : MonoBehaviour, IObjectPoolItem
         if (target == null)
         {
             objectPool.ReturnToPool(this);
+            return;
         }
         rb.velocity = (target.position - transform.position).normalized * velocity;
         transform.right = (target.position - transform.position).normalized;

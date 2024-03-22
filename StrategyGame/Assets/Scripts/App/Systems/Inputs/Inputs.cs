@@ -1,6 +1,7 @@
 using App.Systems.Inputs.Builder;
 using App.UI;
 using App.World;
+using App.World.Cameras;
 using App.World.WorldGrid;
 using UnityEngine;
 
@@ -9,20 +10,16 @@ namespace App.Systems.Inputs
     public class Inputs : MonoBehaviour, IMouseOptionHandler
     {
         private BuildingInteractor processor;
+        private CameraController cameraController;
         [SerializeField]
         private MouseOptionSelector mouseSelector;
         [SerializeField]
         private GameObject waypoint;
         private PauseController pauseController;
-
-        ////TMP TEST
-        //private Vector2 pos1;
-        //private Vector2 pos2;
-        //private GameObject worldGrid;
-
-        public void Init(BuildingInteractor buildingInteractor, PauseController pauseController)
+        public void Init(BuildingInteractor buildingInteractor, CameraController cameraController, PauseController pauseController)
         {
             processor = buildingInteractor;
+            this.cameraController = cameraController;
             mouseSelector.MouseInputHandler = this;
             this.pauseController = pauseController;
         }
@@ -30,12 +27,12 @@ namespace App.Systems.Inputs
         {
             ProceedMouseInputPress();
             ProcessKeyboardInput();
-
+            ProcessMouseMoveInput();
         }
 
         private void ProceedMouseInputPress()
         {
-            processor.OnMouseMove();
+            
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 processor.OnLeftButton();
@@ -56,6 +53,27 @@ namespace App.Systems.Inputs
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 pauseController.TogglePause();
+            }
+        }
+
+        private void ProcessMouseMoveInput()
+        {
+            processor.OnMouseMove();
+            if (Input.mousePosition.x >= Screen.width - cameraController.CameraMovementZoneWidth)
+            {
+                cameraController.MoveCamera(CameraController.Direction.Right);
+            }
+            if (Input.mousePosition.x <= cameraController.CameraMovementZoneWidth)
+            {
+                cameraController.MoveCamera(CameraController.Direction.Left);
+            }
+            if (Input.mousePosition.y >= Screen.height + cameraController.CameraMovementZoneWidth)
+            {
+                cameraController.MoveCamera(CameraController.Direction.Down);
+            }
+            if (Input.mousePosition.y <= cameraController.CameraMovementZoneWidth)
+            {
+                cameraController.MoveCamera(CameraController.Direction.Up);
             }
         }
 

@@ -12,8 +12,10 @@ namespace App.World.Enemies
         public float damage;
         public float speed;
         public float attackRange;
+        public int bounty;
         public List<AttributeResistance> resistances;
         public string poolType;
+
     }
 
 }
