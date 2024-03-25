@@ -21,6 +21,8 @@ namespace App.World
         private Transform enemyPrimaryTarget;
         [SerializeField]
         private PauseController pauser;
+        [SerializeField]
+        private GameEndScreen victoryScreen;
 
         public GameObject WorldGrid { get => worldGrid;}
         public Camera MainCamera { get => mainCamera;}
@@ -29,6 +31,7 @@ namespace App.World
         public Transform EnemyPrimaryTarget { get => enemyPrimaryTarget; }
         public PauseController Pauser { get => pauser;}
         public CameraController CameraController { get => cameraController;}
+        public GameEndScreen VictoryScreen { get => victoryScreen;}
     }
 }
 

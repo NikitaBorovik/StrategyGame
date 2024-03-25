@@ -72,7 +72,7 @@ namespace App.Systems.Inputs.Builder
                 Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
 
                 PlaceableBuilding toBuild = objectPool.GetObjectFromPool(building.GetComponent<PlaceableBuilding>().PoolObjectID, building).GetGameObject().GetComponent<PlaceableBuilding>();
-                
+
                 toBuild.Init(pos, cellGrid, buildingInteractor.PlayerMoney);
                 toBuild.notifyGridWeightChanged += buildingInteractor.OnBuildingComplete;
                 buildingInteractor.PlayerMoney.Money -= toBuild.BasicData.price;

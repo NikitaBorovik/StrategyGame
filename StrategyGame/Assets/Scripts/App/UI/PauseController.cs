@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace App.UI
 {
@@ -16,6 +17,8 @@ namespace App.UI
 
         public void TogglePause()
         {
+            if (!this.isActiveAndEnabled)
+                return;
             overallShadow.GetComponent<Animator>().SetBool("isIdle", false);
             pauseBoard.GetComponent<Animator>().SetBool("isIdle", false);
             if (!IsPaused)

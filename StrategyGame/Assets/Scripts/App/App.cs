@@ -29,7 +29,7 @@ namespace App
             buildingInteractor = new BuildingInteractor(objectsContainer.WorldGrid, objectsContainer.MainCamera, objectsContainer.SelectedCellBorder, objectsContainer.PreviewBuilding, objectPool, playerMoney);
             inputs.Init(buildingInteractor,objectsContainer.CameraController, objectsContainer.Pauser);
             spawnerSystem.Init(objectPool, objectsContainer.EnemyPrimaryTarget,objectsContainer.WorldGrid.GetComponent<CellGrid>(), battleWaveSystem, buildingInteractor);
-            battleWaveSystem.Init(spawnerSystem, playerMoney);
+            battleWaveSystem.Init(spawnerSystem, playerMoney, objectsContainer.VictoryScreen);
         }
     }
 }

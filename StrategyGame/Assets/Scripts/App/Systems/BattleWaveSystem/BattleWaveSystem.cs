@@ -13,12 +13,18 @@ namespace App.Systems.BattleWaveSystem
         private int enemies;
         private int currentWaveNumber;
         private PlayerMoney playerMoney;
+        private GameEndScreen defeatScreen;
+        private GameEndScreen victoryScreen;
+
+
         [SerializeField]
         private List<Wave> waves;
-        public void Init(SpawnerSystem spawnerSystem, PlayerMoney playerMoney)
+
+        public void Init(SpawnerSystem spawnerSystem, PlayerMoney playerMoney, GameEndScreen victoryScreen)
         {
             this.spawnerSystem = spawnerSystem;
             this.playerMoney = playerMoney;
+            this.victoryScreen = victoryScreen;
             enemies = 0;
             currentWaveNumber = 0;
             StartCoroutine(SpawnAllWaves());
@@ -27,9 +33,12 @@ namespace App.Systems.BattleWaveSystem
         public void NotifyEnemyDied(Enemy enemy)
         {
             playerMoney.Money += enemy.Data.bounty;
-            if(--enemies <= 0 && currentWaveNumber > waves.Count)
+            Debug.Log(enemies);
+            Debug.Log(currentWaveNumber);
+            if(--enemies <= 0 && currentWaveNumber >= waves.Count)
             {
                 Debug.Log("You won!");
+                victoryScreen.EndGame();
             }
         }
 
@@ -38,6 +47,7 @@ namespace App.Systems.BattleWaveSystem
             for(int i = 0; i < waves.Count; i++)
             {
                 yield return SpawnWave(waves[i]);
+                currentWaveNumber++;
             }
         }
 

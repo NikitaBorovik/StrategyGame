@@ -26,6 +26,8 @@ namespace App.World.WorldGrid
 
         public Stack<Vector3> ProceedPathfinding(Vector3 startF, Vector3 endF, List<AttributeResistance> resistances)
         {
+            if (cellGrid == null)
+                return null;
             Debug.Log("Processing");
             cellGrid.ResetData();
             attachedResistances = new List<AttributeResistance>(resistances);
