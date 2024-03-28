@@ -131,6 +131,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 261960805728425884, guid: 93ef27cd2c804ac44b2df11e1b91e9af, type: 3}
+      propertyPath: optionSelector
+      value: 
+      objectReference: {fileID: 569288595}
+    - target: {fileID: 1964367369708120198, guid: 93ef27cd2c804ac44b2df11e1b91e9af, type: 3}
+      propertyPath: optionSelector
+      value: 
+      objectReference: {fileID: 569288595}
     - target: {fileID: 4965377537041654723, guid: 93ef27cd2c804ac44b2df11e1b91e9af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.4774634
@@ -171,10 +179,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7384925769729699839, guid: 93ef27cd2c804ac44b2df11e1b91e9af, type: 3}
+      propertyPath: optionSelector
+      value: 
+      objectReference: {fileID: 569288595}
     - target: {fileID: 7480345619206306278, guid: 93ef27cd2c804ac44b2df11e1b91e9af, type: 3}
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 7565453215005332986, guid: 93ef27cd2c804ac44b2df11e1b91e9af, type: 3}
+      propertyPath: optionSelector
+      value: 
+      objectReference: {fileID: 569288595}
+    - target: {fileID: 8420125979712451893, guid: 93ef27cd2c804ac44b2df11e1b91e9af, type: 3}
+      propertyPath: optionSelector
+      value: 
+      objectReference: {fileID: 569288595}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1276,9 +1296,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - subwaves:
-    - enemy: {fileID: 6417425441953374073, guid: 584f61c6955378a4891d1bd895123b2f, type: 3}
-      enemyNumber: 1
-      spawnDelay: 0
+    - enemy: {fileID: 6417425441953374073, guid: 3163baeebdd16224c9d5cc12cf9ac43e, type: 3}
+      enemyNumber: 2
+      spawnDelay: 2
     waveDelay: 1
 --- !u!1 &1982468685 stripped
 GameObject:

@@ -10,9 +10,9 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
         [SerializeField]
         private Tower parent;
         [SerializeField]
-        private CircleCollider2D collider2D;
+        private CircleCollider2D circleCollider2D;
 
-        public CircleCollider2D Collider2D { get => collider2D; set => collider2D = value; }
+        public CircleCollider2D Collider2D { get => circleCollider2D; set => circleCollider2D = value; }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

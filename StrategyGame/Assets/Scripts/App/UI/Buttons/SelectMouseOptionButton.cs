@@ -14,6 +14,7 @@ namespace App.UI.Buttons
 
         public void SelectOption()
         {
+            print("Click");
             optionSelector.SetParameters(option,building);
         }
     }

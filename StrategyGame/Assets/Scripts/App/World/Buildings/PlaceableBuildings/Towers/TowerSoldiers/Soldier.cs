@@ -21,7 +21,6 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         private bool initialised = false;
         private bool isIdle = false;
         private bool attacking = false;
-        private float angleBetweenTargetAndThis = 0;
         private DamageAttribute attribute;
         private Enemy currentTarget;
         private ObjectPool objectPool;

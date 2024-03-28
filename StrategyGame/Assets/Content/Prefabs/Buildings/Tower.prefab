@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 2268994663440552425}
-  collider2D: {fileID: 2068103576101533175}
+  circleCollider2D: {fileID: 2068103576101533175}
 --- !u!1 &1274034731268712023
 GameObject:
   m_ObjectHideFlags: 0

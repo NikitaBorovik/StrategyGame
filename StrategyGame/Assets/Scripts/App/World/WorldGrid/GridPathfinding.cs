@@ -16,7 +16,6 @@ namespace App.World.WorldGrid
         private PQueue<Cell> openCells;
         private HashSet<Cell> closedCells;
         private List<AttributeResistance> attachedResistances;
-        private bool canDraw = false;
         private const int BASIC_ATTRIBUTE_WEIGHT = 1;
 
         public GridPathfinding(CellGrid grid)
@@ -52,7 +51,6 @@ namespace App.World.WorldGrid
                 Cell cell = openCells.Dequeue();
                 if (cell == finish)
                 {
-                    canDraw = true;
                     return BuildPath(cell);
                 }
                 closedCells.Add(cell);
