@@ -25,3 +25,4 @@ MonoBehaviour:
   - attribute: 2
     resistance: 0.25
   poolType: golem
+  attackSound: {fileID: 8300000, guid: 314ff1c322ed73746ad29958119acec5, type: 3}

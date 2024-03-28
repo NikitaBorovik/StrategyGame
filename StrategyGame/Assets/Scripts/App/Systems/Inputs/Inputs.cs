@@ -9,14 +9,14 @@ namespace App.Systems.Inputs
 {
     public class Inputs : MonoBehaviour, IMouseOptionHandler
     {
-        private BuildingInteractor processor;
+        private BuildingSystem processor;
         private CameraController cameraController;
         [SerializeField]
         private MouseOptionSelector mouseSelector;
         [SerializeField]
         private GameObject waypoint;
         private PauseController pauseController;
-        public void Init(BuildingInteractor buildingInteractor, CameraController cameraController, PauseController pauseController)
+        public void Init(BuildingSystem buildingInteractor, CameraController cameraController, PauseController pauseController)
         {
             processor = buildingInteractor;
             this.cameraController = cameraController;

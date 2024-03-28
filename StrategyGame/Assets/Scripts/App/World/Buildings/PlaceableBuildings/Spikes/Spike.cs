@@ -28,12 +28,7 @@ namespace App.World.Buildings.PlaceableBuildings.Spikes
         }
         public override void Upgrade()
         {
-            if (playerMoney.Money < BasicData.upgradePrice)
-            {
-                //TODO Play Music
-                return;
-            }
-            playerMoney.Money -= BasicData.upgradePrice;
+            PlayerMoney.Money -= BasicData.upgradePrice;
             Level++;
             damage *= extendedData.levelUpDamageMultiplier;
             Debug.Log(HealthComponent);

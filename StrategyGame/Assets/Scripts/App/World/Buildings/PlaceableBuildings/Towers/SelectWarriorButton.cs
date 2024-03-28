@@ -52,8 +52,9 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
         {
 
             Tower parentTower = GetComponentInParent<Tower>();
-            if(parentTower.SoldierPlaces.Count <= parentTower.SoldiersNumber)
+            if(parentTower.SoldierPlaces.Count <= parentTower.SoldiersNumber || parentTower.PlayerMoney.Money < parentTower.SoldierPrice)
             {
+                parentTower.AudioSource.PlayOneShot(parentTower.AudioSource.clip);
                 return;
             }
             if (parentTower.MaxSoldiersNumber > parentTower.SoldiersNumber)

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace App.Systems.Inputs.Builder
 {
-    public class BuildingInteractor : INotifyBuilt
+    public class BuildingSystem : MonoBehaviour, INotifyBuilt
     {
         private StateMachine stateMachne;
         private GameObject worldGrid;
@@ -21,18 +21,28 @@ namespace App.Systems.Inputs.Builder
         private InputIdleState idleState;
         private UpgradingState upgradingState;
 
+        [SerializeField]
+        private AudioSource audioSource;
+        [SerializeField]
+        private AudioClip buildSound;
+        [SerializeField]
+        private AudioClip wrongActionSound;
+
         public GameObject WorldGrid { get => worldGrid;}
         public Camera Camera { get => camera;}
         public GameObject SelectedCellBorder { get => selectedCellBorder;}
         public GameObject PreviewBuilding { get => previewBuilding;}
         public List<IToggleAttackRangeVision> BuildingsWithAttackRange { get => buildingsWithAttackRange; }
         public PlayerMoney PlayerMoney { get => playerMoney;}
+        public AudioClip BuildSound { get => buildSound; set => buildSound = value; }
+        public AudioClip WrongActionSound { get => wrongActionSound;}
+        public AudioSource AudioSource { get => audioSource;}
 
         public event Action OnClick;
         public event Action OnMouseMoved;
         public event Action OnAltHold;
         public event Action OnBuilt;
-        public BuildingInteractor(GameObject worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding,ObjectPool objectPool, PlayerMoney playerMoney)
+        public void Init(GameObject worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding,ObjectPool objectPool, PlayerMoney playerMoney)
         {
             this.worldGrid = worldGrid;
             this.camera = camera;

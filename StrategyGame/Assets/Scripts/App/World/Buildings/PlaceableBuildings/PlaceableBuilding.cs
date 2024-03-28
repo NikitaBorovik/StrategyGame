@@ -16,8 +16,8 @@ namespace App.World.Buildings.PlaceableBuildings
         private bool clickable = true;
         protected CellGrid cellGrid;
         protected ObjectPool objectPool;
-        protected PlayerMoney playerMoney;
-        
+        private PlayerMoney playerMoney;
+
 
 
         public BuildingData BasicData { get => basicData; }
@@ -26,6 +26,7 @@ namespace App.World.Buildings.PlaceableBuildings
 
         public virtual string PoolObjectID { get => BasicData.poolObjectID; }
         public Health HealthComponent { get => healthComponent; set => healthComponent = value; }
+        public PlayerMoney PlayerMoney { get => playerMoney;}
 
         public Action notifyGridWeightChanged;
 
@@ -43,12 +44,12 @@ namespace App.World.Buildings.PlaceableBuildings
 
         public virtual void Repair()
         {
-            if (playerMoney.Money < basicData.upgradePrice)
+            if (PlayerMoney.Money < basicData.upgradePrice)
             {
                 //TODO play music
                 return;
             }
-            else playerMoney.Money -= basicData.upgradePrice;
+            else PlayerMoney.Money -= basicData.upgradePrice;
             healthComponent.CurHP = healthComponent.MaxHP;
         }
         public void GetFromPool(ObjectPool pool)

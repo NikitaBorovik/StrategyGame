@@ -9,13 +9,13 @@ using static UnityEditor.PlayerSettings;
 
 public class DestroyingState : IState
 {
-    private BuildingInteractor buildingInteractor;
+    private BuildingSystem buildingInteractor;
     private Grid grid;
     private GameObject selectedCellBorder;
     private GameObject selectedBuilding;
     private ObjectPool objectPool;
     RaycastHit2D raycastHit;
-    public DestroyingState(BuildingInteractor buildingInteractor, ObjectPool objectPool)
+    public DestroyingState(BuildingSystem buildingInteractor, ObjectPool objectPool)
     {
         this.buildingInteractor = buildingInteractor;
         this.grid = buildingInteractor.WorldGrid.GetComponent<Grid>();

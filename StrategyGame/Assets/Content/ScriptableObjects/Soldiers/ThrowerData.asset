@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cda07d2fee191dd498f6d9aed67010e2, type: 3}
-  m_Name: GunslingerData
+  m_Name: ThrowerData
   m_EditorClassIdentifier: 
-  attackRange: 5
   damage: 0
   attackSpeed: 0
   projectileSpeed: 5
-  levelAttackRangeMultiplier: 0
   levelDamageMultiplier: 0
   levelAttackSpeedMultiplier: 0
+  levelProjectileSpeedMultiplier: 0
   attribute: 1
+  attackSound: {fileID: 8300000, guid: f789e7f270e0c5f44be8d8bedbb5c998, type: 3}

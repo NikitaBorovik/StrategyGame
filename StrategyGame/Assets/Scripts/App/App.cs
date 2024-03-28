@@ -20,15 +20,17 @@ namespace App
         [SerializeField]
         private BattleWaveSystem battleWaveSystem;
         [SerializeField]
+        private BuildingSystem buildingSystem;
+        [SerializeField]
         private PlayerMoney playerMoney;
         [SerializeField]
         private ObjectPool objectPool;
-        private BuildingInteractor buildingInteractor;
+        
         private void Start()
         {
-            buildingInteractor = new BuildingInteractor(objectsContainer.WorldGrid, objectsContainer.MainCamera, objectsContainer.SelectedCellBorder, objectsContainer.PreviewBuilding, objectPool, playerMoney);
-            inputs.Init(buildingInteractor,objectsContainer.CameraController, objectsContainer.Pauser);
-            spawnerSystem.Init(objectPool, objectsContainer.EnemyPrimaryTarget,objectsContainer.WorldGrid.GetComponent<CellGrid>(), battleWaveSystem, buildingInteractor);
+            buildingSystem.Init(objectsContainer.WorldGrid, objectsContainer.MainCamera, objectsContainer.SelectedCellBorder, objectsContainer.PreviewBuilding, objectPool, playerMoney);
+            inputs.Init(buildingSystem,objectsContainer.CameraController, objectsContainer.Pauser);
+            spawnerSystem.Init(objectPool, objectsContainer.EnemyPrimaryTarget,objectsContainer.WorldGrid.GetComponent<CellGrid>(), battleWaveSystem, buildingSystem);
             battleWaveSystem.Init(spawnerSystem, playerMoney, objectsContainer.VictoryScreen);
         }
     }

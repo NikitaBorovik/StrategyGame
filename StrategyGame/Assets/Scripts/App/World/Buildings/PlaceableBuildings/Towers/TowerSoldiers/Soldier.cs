@@ -15,6 +15,8 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         private Animator animator;
         [SerializeField]
         private GameObject projectilePrefab;
+        [SerializeField]
+        private AudioSource audioSource;
         private float attackDamage;
         private float attackSpeed;
         private float projectileSpeed;
@@ -30,7 +32,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         public float ProjectileSpeed { get => projectileSpeed; set => projectileSpeed = value; }
         public DamageAttribute Attribute { get => attribute; set => attribute = value; }
         public Enemy CurrentTarget { get => currentTarget; set => currentTarget = value; }
-        
+        public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
 
         private void Update()
         {
@@ -68,6 +70,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         }
         public void Attack()
         {
+            audioSource.PlayOneShot(data.attackSound);
             Projectile projectileScript = projectilePrefab.GetComponent<Projectile>();
             if (projectilePrefab == null)
             {

@@ -20,15 +20,14 @@ namespace App.World.Enemies
 
         [SerializeField]
         private Health enemyHealth;
-
         [SerializeField]
         private EnemyDataSO data;
-
         [SerializeField]
         private Rigidbody2D rigidBody;
-
         [SerializeField]
         private Animator animator;
+        [SerializeField]
+        private AudioSource audioSource;
 
         private EnemyMovingState movingState;
         private EnemyAttackState attackState;
@@ -44,7 +43,8 @@ namespace App.World.Enemies
 
         public List<INotifyEnemyDied> NotifyDiedlist { get => notifyDiedlist; set => notifyDiedlist = value; }
         public Health EnemyHealth { get => enemyHealth; set => enemyHealth = value; }
-     
+        public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
+
         public virtual void Init(Transform primaryTarget, INotifyEnemyDied notifyDied, INotifyBuilt notifyBuilt,GridPathfinding pathfinding, Vector3 position)
         {
             transform.position = position;
@@ -119,18 +119,6 @@ namespace App.World.Enemies
         public void DestroySequence()
         {
             GoToDyingState();
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (!Application.isPlaying)
-                return;
-            if (movingState.CurrentWaypoint != null)
-            {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawLine(transform.position, movingState.CurrentWaypoint);
-            }
-                
         }
     }
 

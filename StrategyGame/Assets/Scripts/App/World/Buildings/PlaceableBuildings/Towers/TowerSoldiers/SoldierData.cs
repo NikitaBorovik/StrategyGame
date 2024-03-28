@@ -15,6 +15,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         public float levelAttackSpeedMultiplier;
         public float levelProjectileSpeedMultiplier;
         public DamageAttribute attribute;
+        public AudioClip attackSound;
     }
 }
 

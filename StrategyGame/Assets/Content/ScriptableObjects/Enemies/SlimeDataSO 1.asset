@@ -19,3 +19,4 @@ MonoBehaviour:
   bounty: 50
   resistances: []
   poolType: slime
+  attackSound: {fileID: 8300000, guid: e6f36955bca145046849872909bc2c18, type: 3}

@@ -24,12 +24,7 @@ namespace App.World.Buildings.PlaceableBuildings.Walls
         }
         public override void Upgrade()
         {
-            if (playerMoney.Money < BasicData.upgradePrice)
-            {
-                //TODO Play Music
-                return;
-            }
-            playerMoney.Money -= BasicData.upgradePrice;
+            PlayerMoney.Money -= BasicData.upgradePrice;
             Level++;
             HealthComponent.MaxHP *= extendedData.levelUpHpMultiplier;
             Debug.Log("health");

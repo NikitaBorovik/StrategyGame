@@ -51,6 +51,7 @@ namespace App.World.Enemies.States
 
         public void Attack()
         {
+            parent.AudioSource.PlayOneShot(parent.Data.attackSound);
             RaycastHit2D raycast = Physics2D.Raycast(parent.transform.position, (AttackTargetPosition - parent.transform.position).normalized, parent.Data.attackRange, LayerMask.GetMask("BuildingPhysicalCollider"));
             if (!raycast)
             {

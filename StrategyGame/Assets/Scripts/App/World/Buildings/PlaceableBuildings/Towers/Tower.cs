@@ -34,6 +34,8 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
         private float attackRange;
         [SerializeField]
         private float levelAttackRangeMultiplier;
+        [SerializeField]
+        private AudioSource audioSource;
         private float curAttackRange;
         private int soldiersNumber = 0;
         
@@ -46,6 +48,8 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
         public List<Transform> SoldierPlaces { get => soldierPlaces;}
         public Enemy CurrentTarget { get => currentTarget; set => currentTarget = value; }
         public List<Enemy> DetectedEnemies { get => detectedEnemies; set => detectedEnemies = value; }
+        public int SoldierPrice { get => soldierPrice;}
+        public AudioSource AudioSource { get => audioSource;}
 
         public override void Init(Vector2 position, CellGrid cellGrid, PlayerMoney playerMoney)
         {
@@ -61,11 +65,6 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
 
         public void AddSoldier(Soldier soldier)
         {
-            if(playerMoney.Money < soldierPrice)
-            {
-                //TODO PLAY SOME SOUND
-                return;
-            }
             soldiers.Add(soldier);
             for(int i = 0; i < Level; i++)
             {
@@ -74,18 +73,13 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
 
             cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * BasicData.size), 
                 (transform.position.y + 0.5f * BasicData.size)), curAttackRange, soldier.Attribute);
-            playerMoney.Money -= soldierPrice;
+            PlayerMoney.Money -= SoldierPrice;
             notifyGridWeightChanged?.Invoke();
         }
 
         public override void Upgrade()
         {
-            if (playerMoney.Money < BasicData.upgradePrice)
-            {
-                //TODO PLAY SOME SOUND
-                return;
-            }
-            playerMoney.Money -= BasicData.upgradePrice;
+            PlayerMoney.Money -= BasicData.upgradePrice;
             UpgradeTower();
             UpgradeSoldiers();
         }

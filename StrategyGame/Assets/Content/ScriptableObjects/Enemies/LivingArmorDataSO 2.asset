@@ -23,3 +23,4 @@ MonoBehaviour:
   - attribute: 0
     resistance: 0.25
   poolType: livingArmor
+  attackSound: {fileID: 8300000, guid: ebe19e3cc9bfaa84d98c9353ec2cee83, type: 3}

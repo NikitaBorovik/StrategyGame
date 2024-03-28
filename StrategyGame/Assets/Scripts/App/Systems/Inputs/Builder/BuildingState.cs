@@ -11,7 +11,7 @@ namespace App.Systems.Inputs.Builder
 {
     public class BuildingState : IState
     {
-        private BuildingInteractor buildingInteractor;
+        private BuildingSystem buildingSystem;
         private GameObject building;
         private BuildingData buildingData;
         private GameObject worldGrid;
@@ -21,9 +21,9 @@ namespace App.Systems.Inputs.Builder
         private GameObject previewBuilding;
         private bool canBuild = true;
         private ObjectPool objectPool;
-        public BuildingState(BuildingInteractor buildingInteractor, ObjectPool objectPool)
+        public BuildingState(BuildingSystem buildingInteractor, ObjectPool objectPool)
         {
-            this.buildingInteractor = buildingInteractor;
+            this.buildingSystem = buildingInteractor;
             this.worldGrid = buildingInteractor.WorldGrid;
             this.selectedCellBorder = buildingInteractor.SelectedCellBorder;
             this.previewBuilding = buildingInteractor.PreviewBuilding;
@@ -43,16 +43,16 @@ namespace App.Systems.Inputs.Builder
             Debug.Log(buildingData.sprite);
             spriteRenderer.sprite = buildingData.sprite;
             spriteRenderer.color = new Color(255, 255, 255, 0.5f);
-            buildingInteractor.OnClick += OnMouseClicked;
-            buildingInteractor.OnMouseMoved += OnMouseMoved;
+            buildingSystem.OnClick += OnMouseClicked;
+            buildingSystem.OnMouseMoved += OnMouseMoved;
         }
 
         public void Exit()
         {
             selectedCellBorder.SetActive(false);
             previewBuilding.SetActive(false);
-            buildingInteractor.OnClick -= OnMouseClicked;
-            buildingInteractor.OnMouseMoved -= OnMouseMoved;
+            buildingSystem.OnClick -= OnMouseClicked;
+            buildingSystem.OnMouseMoved -= OnMouseMoved;
         }
 
         public void Update()
@@ -61,35 +61,37 @@ namespace App.Systems.Inputs.Builder
 
         private void OnMouseClicked()
         {
-            if(buildingInteractor.PlayerMoney.Money < buildingData.price)
+            if(buildingSystem.PlayerMoney.Money < buildingData.price)
             {
-                //TODO PLAY SOUND
+                buildingSystem.AudioSource.PlayOneShot(buildingSystem.WrongActionSound);
                 return;
             }
             if (canBuild)
             {
-                Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePosition = buildingSystem.Camera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
 
                 PlaceableBuilding toBuild = objectPool.GetObjectFromPool(building.GetComponent<PlaceableBuilding>().PoolObjectID, building).GetGameObject().GetComponent<PlaceableBuilding>();
 
-                toBuild.Init(pos, cellGrid, buildingInteractor.PlayerMoney);
-                toBuild.notifyGridWeightChanged += buildingInteractor.OnBuildingComplete;
-                buildingInteractor.PlayerMoney.Money -= toBuild.BasicData.price;
-                buildingInteractor.OnBuildingComplete();
+                toBuild.Init(pos, cellGrid, buildingSystem.PlayerMoney);
+                toBuild.notifyGridWeightChanged += buildingSystem.OnBuildingComplete;
+                buildingSystem.PlayerMoney.Money -= toBuild.BasicData.price;
+                buildingSystem.OnBuildingComplete();
 
                 var interfaceBuilding = toBuild as IToggleAttackRangeVision;
                 if (interfaceBuilding != null)
                 {
-                    buildingInteractor.BuildingsWithAttackRange.Add(interfaceBuilding);
+                    buildingSystem.BuildingsWithAttackRange.Add(interfaceBuilding);
                 }
+
+                buildingSystem.AudioSource.PlayOneShot(buildingSystem.BuildSound);
             }
             
         }
         private void OnMouseMoved()
         {
 
-            Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePosition = buildingSystem.Camera.ScreenToWorldPoint(Input.mousePosition);
             Vector3 pos = tilemap.CellToWorld(tilemap.WorldToCell(mousePosition));
             bool newCanBuild = true;
             

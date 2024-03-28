@@ -15,6 +15,7 @@ namespace App.World.Enemies
         public int bounty;
         public List<AttributeResistance> resistances;
         public string poolType;
+        public AudioClip attackSound;
 
     }
 

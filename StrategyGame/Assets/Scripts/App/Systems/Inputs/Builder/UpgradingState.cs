@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class UpgradingState : IState
 {
-    private BuildingInteractor buildingInteractor;
+    private BuildingSystem buildingSystem;
     private Grid grid;
     private GameObject selectedCellBorder;
     private GameObject selectedBuilding;
     RaycastHit2D raycastHit;
 
-    public UpgradingState(BuildingInteractor buildingInteractor)
+    public UpgradingState(BuildingSystem buildingInteractor)
     {
-        this.buildingInteractor = buildingInteractor;
+        this.buildingSystem = buildingInteractor;
         this.grid = buildingInteractor.WorldGrid.GetComponent<Grid>();
         this.selectedCellBorder = buildingInteractor.SelectedCellBorder;
     }
@@ -21,15 +21,15 @@ public class UpgradingState : IState
     public void Enter()
     {
         selectedCellBorder.SetActive(true);
-        buildingInteractor.OnClick += OnMouseClicked;
-        buildingInteractor.OnMouseMoved += OnMouseMoved;
+        buildingSystem.OnClick += OnMouseClicked;
+        buildingSystem.OnMouseMoved += OnMouseMoved;
     }
 
     public void Exit()
     {
         selectedCellBorder.SetActive(false);
-        buildingInteractor.OnClick -= OnMouseClicked;
-        buildingInteractor.OnMouseMoved -= OnMouseMoved;
+        buildingSystem.OnClick -= OnMouseClicked;
+        buildingSystem.OnMouseMoved -= OnMouseMoved;
         if (selectedBuilding != null)
             selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
     }
@@ -43,6 +43,11 @@ public class UpgradingState : IState
         if (selectedBuilding != null)
         {
             var buildingScript = selectedBuilding.GetComponent<PlaceableBuilding>();
+            if(buildingScript.BasicData.upgradePrice > buildingSystem.PlayerMoney.Money)
+            {
+                buildingSystem.AudioSource.PlayOneShot(buildingSystem.WrongActionSound);
+                return;
+            }
             if(buildingScript.Level < 2)
             {
                 buildingScript.Upgrade();
@@ -56,7 +61,7 @@ public class UpgradingState : IState
     }
     private void OnMouseMoved()
     {
-        Vector2 mousePosition = buildingInteractor.Camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = buildingSystem.Camera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 pos = grid.CellToWorld(grid.WorldToCell(mousePosition));
         raycastHit = Physics2D.Raycast(new Vector2(mousePosition.x, mousePosition.y), Vector2.zero, 1f, LayerMask.GetMask("Building"));
         selectedCellBorder.transform.position = pos;

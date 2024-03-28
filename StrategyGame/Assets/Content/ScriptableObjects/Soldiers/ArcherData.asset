@@ -19,3 +19,4 @@ MonoBehaviour:
   levelAttackSpeedMultiplier: 5
   levelProjectileSpeedMultiplier: 2
   attribute: 0
+  attackSound: {fileID: 8300000, guid: 53fcdbee346d870419b193237d033c96, type: 3}
