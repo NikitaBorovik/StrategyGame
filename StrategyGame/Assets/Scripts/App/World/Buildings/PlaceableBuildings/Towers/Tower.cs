@@ -75,7 +75,6 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
             cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * BasicData.size), 
                 (transform.position.y + 0.5f * BasicData.size)), curAttackRange, soldier.Attribute);
             playerMoney.Money -= soldierPrice;
-            Debug.Log(notifyGridWeightChanged);
             notifyGridWeightChanged?.Invoke();
         }
 

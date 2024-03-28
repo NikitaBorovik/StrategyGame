@@ -7,10 +7,15 @@ using UnityEngine;
 
 namespace App.World.Buildings.PlaceableBuildings.Walls
 {
-    public class Wall : PlaceableBuilding
+    public class Wall : PlaceableBuilding, IDestroyable
     {
         [SerializeField]
         private WallDataSO extendedData;
+
+        public void DestroySequence()
+        {
+            objectPool.ReturnToPool(this);
+        }
 
         public override void Init(Vector2 position, CellGrid cellGrid, PlayerMoney playerMoney)
         {
@@ -34,7 +39,6 @@ namespace App.World.Buildings.PlaceableBuildings.Walls
         }
         private void OnDisable()
         {
-            Debug.Log("R");
             HealthComponent.MaxHP = BasicData.health;
             for(int i = 0; i <= Level; i++)
             {
