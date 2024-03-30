@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c39f3cfb05aef42ac1d183d7c803aa, type: 3}
+  m_Name: TutorialPage7
+  m_EditorClassIdentifier: 
+  tutorialPageImage: {fileID: 21300000, guid: d47b7a4f6613551488cbce5330d28015, type: 3}
+  tutorialPageInfo: You can see which types of damage are ineffective againsts pecific
+    enemy by the resistance icons above his body.

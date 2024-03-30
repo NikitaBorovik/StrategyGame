@@ -17,7 +17,20 @@ namespace App.World.Enemies
         private float blinkingDuration = 0.1f;
         private Action onHpChanged;
 
-        public float CurHP { get => curHP; set => curHP = value; }
+        public float CurHP 
+        {
+            get 
+            {
+                return curHP;
+            }
+            set
+            {
+                if(value < 0)
+                    curHP = 0;
+                else
+                    curHP = value;
+            }
+        }
         public float MaxHP { get => maxHP; set => maxHP = value; }
         public Action OnHpChanged { get => onHpChanged; set => onHpChanged = value; }
 
