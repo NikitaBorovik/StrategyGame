@@ -16,7 +16,9 @@ namespace App.World.WorldGrid
         [SerializeField]
         private Grid tilemap;
         [SerializeField]
-        private List<Tile> restrictedTiles;
+        private List<Tile> noBuildingTiles;
+        [SerializeField]
+        private List<Tile> noBuildingAndWalkingTiles;
         private int width;
         private int heigth;
 
@@ -24,7 +26,9 @@ namespace App.World.WorldGrid
         public Vector3Int StartPos { get => startPos; set => startPos = value; }
         public Vector3Int EndPos { get => endPos; set => endPos = value; }
         public Grid Tilemap { get => tilemap;}
-        public List<Tile> RestrictedTiles { get => restrictedTiles;}
+        public List<Tile> NoBuildingTiles { get => noBuildingTiles;}
+        public List<Tile> NoBuildingAndWalkingTiles { get => noBuildingAndWalkingTiles;}
+
         private void Start()
         {
             this.width = EndPos.x - StartPos.x;
@@ -48,21 +52,7 @@ namespace App.World.WorldGrid
                 }
             }
         }
-        //private void Start()
-        //{
-        //    this.width = EndPos.x - StartPos.x;
-        //    this.heigth = EndPos.y - StartPos.y;
-        //    Debug.Log("End " + EndPos);
-        //    Debug.Log("Start " + StartPos);
-        //    Grid = new Cell[width, heigth];
-        //    for (int i = 0; i < width; i++)
-        //    {
-        //        for(int j = 0; j < heigth; j++)
-        //        {
-        //            Grid[i, j] = new Cell(i, j);
-        //        }
-        //    }
-        //}
+        
         public Cell GetCellAt(int x, int y)
         {
             if(x < 0 || y < 0) return null;

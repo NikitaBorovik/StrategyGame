@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GolemDataSO 2
   m_EditorClassIdentifier: 
   maxHealth: 250
-  damage: 50
-  speed: 1
+  damage: 20
+  speed: 0.75
   attackRange: 0.5
-  bounty: 50
+  bounty: 30
   resistances:
   - attribute: 0
     resistance: 0.25

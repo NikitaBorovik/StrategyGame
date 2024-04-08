@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LivingArmorDataSO 2
   m_EditorClassIdentifier: 
   maxHealth: 100
-  damage: 50
+  damage: 10
   speed: 1
   attackRange: 0.5
-  bounty: 50
+  bounty: 10
   resistances:
   - attribute: 1
     resistance: 0.5

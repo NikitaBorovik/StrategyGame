@@ -5,6 +5,7 @@ using App.World.Enemies.States;
 using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class Projectile : MonoBehaviour, IObjectPoolItem
     private float velocity;
     private float damage;
     private DamageAttribute damageAttribute;
-    private Transform target;
+    private Enemy target;
     private Rigidbody2D rb;
 
     public string PoolObjectID => poolObjectID;
@@ -28,9 +29,9 @@ public class Projectile : MonoBehaviour, IObjectPoolItem
             objectPool.ReturnToPool(this);
             return;
         }
-        rb.velocity = (target.position - transform.position).normalized * velocity;
-        transform.right = (target.position - transform.position).normalized;
-        if ((target.position - transform.position).magnitude < 0.1f)
+        rb.velocity = (target.transform.position - transform.position).normalized * velocity;
+        transform.right = (target.transform.position - transform.position).normalized;
+        if ((target.transform.position - transform.position).magnitude < 0.1f)
         {
             HitTarget();
         }
@@ -44,15 +45,24 @@ public class Projectile : MonoBehaviour, IObjectPoolItem
             Debug.Log("Hitting target without health component");
         else
         {
-            health.TakeDamage(damage);
+            health.TakeDamage(DecreaseDamageForEnemy(target, damage));
         }
     }
+    private float DecreaseDamageForEnemy(Enemy enemy, float damageToDeal)
+    {
+        var resist = enemy.Data.resistances.FirstOrDefault(resistance => resistance.attribute == damageAttribute);
+        if (resist != null)
+        {
+            return damageToDeal * (1 - resist.resistance); 
+        }
+        return damageToDeal;
+    }
 
-    public void Init(Transform target, Vector3 position, float velocity, float damage, DamageAttribute damageAttribute)
+    public void Init(Enemy target, Vector3 position, float velocity, float damage, DamageAttribute damageAttribute)
     {
         this.target = target;
         transform.position = position;
-        transform.right = (target.position - transform.position).normalized;
+        transform.right = (target.transform.position - transform.position).normalized;
         this.velocity = velocity;
         this.damage = damage;
         this.damageAttribute = damageAttribute;

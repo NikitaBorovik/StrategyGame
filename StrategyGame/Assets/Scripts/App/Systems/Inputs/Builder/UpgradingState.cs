@@ -31,7 +31,11 @@ public class UpgradingState : IState
         buildingSystem.OnClick -= OnMouseClicked;
         buildingSystem.OnMouseMoved -= OnMouseMoved;
         if (selectedBuilding != null)
+        {
             selectedBuilding.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
+            selectedBuilding.GetComponent<PlaceableBuilding>().Clickable = true;
+        }
+            
     }
 
     public void Update()

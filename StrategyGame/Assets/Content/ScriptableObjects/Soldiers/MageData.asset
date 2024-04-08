@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda07d2fee191dd498f6d9aed67010e2, type: 3}
   m_Name: MageData
   m_EditorClassIdentifier: 
-  damage: 0
-  attackSpeed: 0
+  damage: 40
+  attackSpeed: 0.5
   projectileSpeed: 5
-  levelDamageMultiplier: 0
-  levelAttackSpeedMultiplier: 0
-  levelProjectileSpeedMultiplier: 0
+  levelDamageMultiplier: 1.5
+  levelAttackSpeedMultiplier: 1
+  levelProjectileSpeedMultiplier: 1.2
   attribute: 2
   attackSound: {fileID: 8300000, guid: 26ac99b1b7aaa4f4a830d7cfd57a93e6, type: 3}

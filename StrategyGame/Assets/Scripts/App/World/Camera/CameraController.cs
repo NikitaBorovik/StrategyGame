@@ -26,6 +26,11 @@ namespace App.World.Cameras
         private PolygonCollider2D cameraConfiner;
         private float zoomDistance;
 
+        private void Awake()
+        {
+            Camera.main.eventMask = LayerMask.GetMask("UI");
+        }
+
         public int CameraMovementZoneWidth { get => cameraMovementZoneWidth; }
 
         public void ChangeZoom(float axisValue)

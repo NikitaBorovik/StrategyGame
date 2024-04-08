@@ -66,7 +66,12 @@ namespace App.World.Buildings.PlaceableBuildings.Spikes
             {
                 Health targetHealth = targets[i].gameObject.GetComponent<Health>();
                 if (targetHealth != null)
+                {
                     targetHealth.TakeDamage(damage);
+
+                    Debug.Log(damage);
+                }
+                    
             }
 
         }

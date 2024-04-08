@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3249b27b01689794ab12ffd233dbfbc9, type: 3}
   m_Name: OgreDataSO
   m_EditorClassIdentifier: 
-  maxHealth: 150
-  damage: 35
-  speed: 1
+  maxHealth: 200
+  damage: 8
+  speed: 0.8
   attackRange: 0.5
-  bounty: 50
+  bounty: 10
   resistances:
   - attribute: 2
     resistance: 0.5

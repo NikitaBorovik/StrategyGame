@@ -18,10 +18,7 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
     {
         //[SerializeField]
         //private GameObject selectWarriorButtons;
-        [SerializeField]
-        private int maxSoldiersNumber;
-        [SerializeField]
-        private int soldierPrice;
+        
         [SerializeField]
         private List<Transform> soldierPlaces;
         [SerializeField]
@@ -31,9 +28,8 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
         [SerializeField]
         private List<GameObject> objectsToReveal;
         [SerializeField]
-        private float attackRange;
-        [SerializeField]
-        private float levelAttackRangeMultiplier;
+        private TowerDataSO extendedData;
+
         [SerializeField]
         private AudioSource audioSource;
         private float curAttackRange;
@@ -43,20 +39,20 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
         private List<Enemy> detectedEnemies;
         private Enemy currentTarget;
 
-        public int MaxSoldiersNumber { get => maxSoldiersNumber;}
+
         public int SoldiersNumber { get => soldiersNumber; set => soldiersNumber = value; }
         public List<Transform> SoldierPlaces { get => soldierPlaces;}
         public Enemy CurrentTarget { get => currentTarget; set => currentTarget = value; }
         public List<Enemy> DetectedEnemies { get => detectedEnemies; set => detectedEnemies = value; }
-        public int SoldierPrice { get => soldierPrice;}
         public AudioSource AudioSource { get => audioSource;}
+        public TowerDataSO ExtendedData { get => extendedData;}
 
         public override void Init(Vector2 position, CellGrid cellGrid, PlayerMoney playerMoney)
         {
             base.Init(position, cellGrid, playerMoney);
             soldiers = new List<Soldier>();
             DetectedEnemies = new List<Enemy>();
-            curAttackRange = attackRange;
+            curAttackRange = ExtendedData.attackRange;
             enemyDetector.Collider2D.radius = curAttackRange;
             attackRangeField.transform.localScale = new Vector3(curAttackRange, curAttackRange, 1);
             cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 1f ),
@@ -73,7 +69,7 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
 
             cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * BasicData.size), 
                 (transform.position.y + 0.5f * BasicData.size)), curAttackRange, soldier.Attribute);
-            PlayerMoney.Money -= SoldierPrice;
+            PlayerMoney.Money -= ExtendedData.soldierPrice;
             notifyGridWeightChanged?.Invoke();
         }
 
@@ -115,7 +111,7 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
                 (transform.position.y + 0.5f * BasicData.size)), curAttackRange, soldier.Attribute);
             }
 
-            curAttackRange *= levelAttackRangeMultiplier;
+            curAttackRange += ExtendedData.levelAttackRangeIncrementor;
 
             foreach (Soldier soldier in soldiers)
             {
@@ -153,7 +149,7 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
                 //TODO ADD OBJECT POOL
                 GameObject.Destroy(soldier.gameObject);
             }
-            curAttackRange = attackRange;
+            curAttackRange = ExtendedData.attackRange;
             soldiersNumber = 0;
             notifyGridWeightChanged?.Invoke();
         }

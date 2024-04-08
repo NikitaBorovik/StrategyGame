@@ -4,6 +4,7 @@ using App.World.Enemies.States;
 using App.World.WorldGrid;
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace App.World.Enemies
@@ -119,6 +120,52 @@ namespace App.World.Enemies
         public void DestroySequence()
         {
             GoToDyingState();
+        }
+        //void OnDrawGizmos()
+        //{
+        //    if (!Application.isPlaying)
+        //        return;
+
+
+        //    foreach (Cell current in pathfinding.closedCells)
+        //    {
+        //        Vector2 position = pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + pathfinding.cellGrid.StartPos.x, current.Y + pathfinding.cellGrid.StartPos.y + 1, 5));
+        //        Handles.Label(position, current.F.ToString());
+        //        if (current.ParentCell != null)
+        //        {
+        //            Gizmos.DrawLine(pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + pathfinding.cellGrid.StartPos.x, current.Y + pathfinding.cellGrid.StartPos.y + 1)) + new Vector3(0.5f, -0.5f),
+        //                pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.ParentCell.X + pathfinding.cellGrid.StartPos.x, current.ParentCell.Y + pathfinding.cellGrid.StartPos.y + 1)) + new Vector3(0.5f, -0.5f));
+
+        //            DrawArrowHead(pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + pathfinding.cellGrid.StartPos.x, current.Y + pathfinding.cellGrid.StartPos.y + 1)) + new Vector3(0.5f, -0.5f),
+        //                pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.ParentCell.X + pathfinding.cellGrid.StartPos.x, current.ParentCell.Y + pathfinding.cellGrid.StartPos.y + 1)) + new Vector3(0.5f, -0.5f));
+        //        }
+
+        //    }
+        //    for (int i = 0; i < pathfinding.openCells.Count; i++)
+        //    {
+        //        Cell current = pathfinding.openCells.container[i + 1];
+        //        Vector2 position = pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + pathfinding.cellGrid.StartPos.x, current.Y + pathfinding.cellGrid.StartPos.y + 1, 5));
+        //        Handles.Label(position, current.F.ToString());
+        //        if (current.ParentCell != null)
+        //        {
+        //            Gizmos.DrawLine(pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + pathfinding.cellGrid.StartPos.x, current.Y + pathfinding.cellGrid.StartPos.y + 1)) + new Vector3(0.5f,-0.5f),
+        //                pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.ParentCell.X + pathfinding.cellGrid.StartPos.x, current.ParentCell.Y + pathfinding.cellGrid.StartPos.y + 1)) + new Vector3(0.5f,-0.5f));
+
+        //            DrawArrowHead(pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.X + pathfinding.cellGrid.StartPos.x, current.Y + pathfinding.cellGrid.StartPos.y + 1)) + new Vector3(0.5f, -0.5f),
+        //                pathfinding.cellGrid.Tilemap.CellToWorld(new Vector3Int(current.ParentCell.X + pathfinding.cellGrid.StartPos.x, current.ParentCell.Y + pathfinding.cellGrid.StartPos.y + 1)) + new Vector3(0.5f, -0.5f));
+        //        }
+        //    }
+        //}
+        private void DrawArrowHead(Vector3 from, Vector3 to)
+        {
+            const float arrowHeadSize = 0.25f;
+
+            Vector3 direction = (to - from).normalized;
+            Vector3 right = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 + 15, 0) * Vector3.forward;
+            Vector3 left = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 - 15, 0) * Vector3.forward;
+
+            Gizmos.DrawRay(to, right * arrowHeadSize);
+            Gizmos.DrawRay(to, left * arrowHeadSize);
         }
     }
 

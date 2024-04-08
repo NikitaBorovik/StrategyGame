@@ -52,12 +52,12 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
         {
 
             Tower parentTower = GetComponentInParent<Tower>();
-            if(parentTower.SoldierPlaces.Count <= parentTower.SoldiersNumber || parentTower.PlayerMoney.Money < parentTower.SoldierPrice)
+            if(parentTower.SoldierPlaces.Count <= parentTower.SoldiersNumber || parentTower.PlayerMoney.Money < parentTower.ExtendedData.soldierPrice)
             {
                 parentTower.AudioSource.PlayOneShot(parentTower.AudioSource.clip);
                 return;
             }
-            if (parentTower.MaxSoldiersNumber > parentTower.SoldiersNumber)
+            if (parentTower.ExtendedData.maxSoldiersNumber > parentTower.SoldiersNumber)
             {
                 GameObject instantiatedSoldier = GameObject.Instantiate(soldier.gameObject);
                 instantiatedSoldier.transform.parent = parentTower.gameObject.transform;

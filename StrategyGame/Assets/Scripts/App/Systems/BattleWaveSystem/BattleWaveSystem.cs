@@ -33,8 +33,6 @@ namespace App.Systems.BattleWaveSystem
         public void NotifyEnemyDied(Enemy enemy)
         {
             playerMoney.Money += enemy.Data.bounty;
-            Debug.Log(enemies);
-            Debug.Log(currentWaveNumber);
             if(--enemies <= 0 && currentWaveNumber >= waves.Count)
             {
                 Debug.Log("You won!");
@@ -44,7 +42,15 @@ namespace App.Systems.BattleWaveSystem
 
         private IEnumerator SpawnAllWaves()
         {
-            for(int i = 0; i < waves.Count; i++)
+            for (int i = 0; i < waves.Count; i++)
+            {
+                foreach(Subwave subwave in waves[i].subwaves)
+                {
+                    enemies += subwave.enemyNumber;
+                }
+            }
+
+            for (int i = 0; i < waves.Count; i++)
             {
                 yield return SpawnWave(waves[i]);
                 currentWaveNumber++;

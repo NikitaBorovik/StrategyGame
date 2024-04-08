@@ -12,11 +12,11 @@ namespace App.World.WorldGrid
     
     public class GridPathfinding 
     {
-        private CellGrid cellGrid;
-        private PQueue<Cell> openCells;
-        private HashSet<Cell> closedCells;
-        private List<AttributeResistance> attachedResistances;
-        private const int BASIC_ATTRIBUTE_WEIGHT = 1;
+        public CellGrid cellGrid;
+        public PQueue<Cell> openCells;
+        public HashSet<Cell> closedCells;
+        public List<AttributeResistance> attachedResistances;
+        public const float BASIC_ATTRIBUTE_WEIGHT = 1.5f;
 
         public GridPathfinding(CellGrid grid)
         {
@@ -68,17 +68,12 @@ namespace App.World.WorldGrid
                     newG = AddWeightsFromCell(newG, neighbour);
                     if (newG < neighbour.G)
                     {
-
+                        neighbour.G = newG;
+                        neighbour.ParentCell = cell;
+                        neighbour.H = ShortestDistance(neighbour, finish);
                         if (!openCells.Contains(neighbour))
                         {
-                            neighbour.G = newG;
-                            neighbour.ParentCell = cell;
-                            neighbour.H = ShortestDistance(neighbour, finish);
                             openCells.Enqueue(neighbour);
-                        }
-                        else
-                        {
-                            //Debug.Log("dead");
                         }
                     }
                 }
@@ -132,7 +127,7 @@ namespace App.World.WorldGrid
                         continue;
                     
                     Tile tile = (Tile)cellGrid.Tilemap.GetComponentInChildren<Tilemap>().GetTile(new Vector3Int(cell.X + i + cellGrid.StartPos.x, cell.Y + j + cellGrid.StartPos.y));
-                    if (tile != null && cellGrid.RestrictedTiles.Contains(tile))
+                    if (tile != null && cellGrid.NoBuildingAndWalkingTiles.Contains(tile))
                         continue;
 
                     if(i == j || i == -j)
@@ -151,9 +146,9 @@ namespace App.World.WorldGrid
         {
             Tile neighbour1 = (Tile)cellGrid.Tilemap.GetComponentInChildren<Tilemap>().GetTile(new Vector3Int(cell.X + i + cellGrid.StartPos.x, cell.Y + cellGrid.StartPos.y));
             Tile neighbour2 = (Tile)cellGrid.Tilemap.GetComponentInChildren<Tilemap>().GetTile(new Vector3Int(cell.X + cellGrid.StartPos.x, cell.Y + j + cellGrid.StartPos.y));
-            if (neighbour1 != null && cellGrid.RestrictedTiles.Contains(neighbour1))
+            if (neighbour1 != null && cellGrid.NoBuildingAndWalkingTiles.Contains(neighbour1))
                 return false;
-            if (neighbour2 != null && cellGrid.RestrictedTiles.Contains(neighbour2))
+            if (neighbour2 != null && cellGrid.NoBuildingAndWalkingTiles.Contains(neighbour2))
                 return false;
             return true;
         }

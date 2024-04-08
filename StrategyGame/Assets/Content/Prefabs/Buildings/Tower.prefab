@@ -484,8 +484,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicData: {fileID: 11400000, guid: 7fa0b86b7aec5e246a405445809508a0, type: 2}
   healthComponent: {fileID: -686269460299807576}
-  maxSoldiersNumber: 3
-  soldierPrice: 10
   soldierPlaces:
   - {fileID: 3473634944986627164}
   - {fileID: 8122942049132660642}
@@ -495,8 +493,7 @@ MonoBehaviour:
   objectsToReveal:
   - {fileID: 3015219686595673848}
   - {fileID: 2154246152893479140}
-  attackRange: 5
-  levelAttackRangeMultiplier: 2
+  extendedData: {fileID: 11400000, guid: b7eb61c97d0509745b149947917b2ce7, type: 2}
   audioSource: {fileID: -3340317386171888635}
 --- !u!210 &8165025847183083355
 SortingGroup:
@@ -801,7 +798,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_SortAtRoot: 0
 --- !u!114 &2633785176528830587
 MonoBehaviour:
@@ -826,7 +823,7 @@ GameObject:
   - component: {fileID: 3206816001298656530}
   - component: {fileID: 2923726731294300952}
   - component: {fileID: 1784719030247628878}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MouseInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

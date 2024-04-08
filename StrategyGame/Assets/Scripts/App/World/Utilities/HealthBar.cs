@@ -23,7 +23,6 @@ namespace App.World.Utilities
 
         private void ScaleHealthbarFill()
         {
-            Debug.Log(health.CurHP / health.MaxHP);
             fill.transform.localScale = new Vector3(health.CurHP / health.MaxHP, 1);
         }
 

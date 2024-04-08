@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace App.Systems.MoneySystem
@@ -8,6 +9,14 @@ namespace App.Systems.MoneySystem
     {
         [SerializeField]
         private int money;
+        [SerializeField]
+        private TextMeshProUGUI moneyTextCounter;
+
+        private void Awake()
+        {
+            if (moneyTextCounter != null)
+                moneyTextCounter.text = money.ToString();
+        }
 
         public int Money 
         {
@@ -18,7 +27,8 @@ namespace App.Systems.MoneySystem
             set
             {
                 money = value;
-                Debug.Log(money);
+                if (moneyTextCounter != null)
+                    moneyTextCounter.text = money.ToString();
             }
         }
     }

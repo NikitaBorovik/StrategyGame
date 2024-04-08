@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda07d2fee191dd498f6d9aed67010e2, type: 3}
   m_Name: ArcherData
   m_EditorClassIdentifier: 
-  damage: 25
-  attackSpeed: 0
+  damage: 15.5
+  attackSpeed: 1.3
   projectileSpeed: 5
-  levelDamageMultiplier: 1.1
-  levelAttackSpeedMultiplier: 5
-  levelProjectileSpeedMultiplier: 2
+  levelDamageMultiplier: 1.2
+  levelAttackSpeedMultiplier: 1.25
+  levelProjectileSpeedMultiplier: 1.3
   attribute: 0
   attackSound: {fileID: 8300000, guid: 53fcdbee346d870419b193237d033c96, type: 3}

@@ -96,14 +96,11 @@ namespace App.Systems.Inputs.Builder
             bool newCanBuild = true;
             
 
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(new Vector2(pos.x + tilemap.cellSize.x * 0.5f * buildingData.size, pos.y + tilemap.cellSize.y * 0.5f * buildingData.size), new Vector2(buildingData.size / 2, buildingData.size / 2), 0f, LayerMask.GetMask("Building"));
-            foreach(Collider2D collider in colliders)
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(new Vector2(pos.x + tilemap.cellSize.x * 0.5f * buildingData.size, pos.y + tilemap.cellSize.y * 0.5f * buildingData.size), 
+                new Vector2(buildingData.size / 2, buildingData.size / 2), 0f, LayerMask.GetMask(new string[]{"Building","MainCastle"}));
+            if (colliders.Length != 0)
             {
-                if (collider.gameObject.layer == LayerMask.NameToLayer("Building"))
-                {
-                    newCanBuild = false;
-                    break;
-                }
+                newCanBuild = false;
             }
             if (OverlapRestrictedTiles(new Vector3Int((int)pos.x, (int)pos.y)))
             {
@@ -130,7 +127,7 @@ namespace App.Systems.Inputs.Builder
                         Debug.Log("Unexistent tile");
                         return true;
                     }
-                    if (cellGrid.RestrictedTiles.Contains(tile))
+                    if (cellGrid.NoBuildingTiles.Contains(tile) || cellGrid.NoBuildingAndWalkingTiles.Contains(tile))
                         return true;
                 }
             }

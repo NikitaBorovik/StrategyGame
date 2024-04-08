@@ -42,7 +42,7 @@ namespace App.World.WorldGrid
         {
             int comp = F.CompareTo(other.F);
             if (comp == 0)
-                comp = H.CompareTo(other.H);
+                comp = G.CompareTo(other.G);
 
             return comp;
         }

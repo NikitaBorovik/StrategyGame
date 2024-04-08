@@ -40,6 +40,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
             if (currentTarget == null)
             {
                 isIdle = true;
+                attacking = false;
                 animator.SetBool("isIdle", isIdle);
             }
             else if(!attacking)
@@ -55,6 +56,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
         {
             AttackDamage = data.damage;
             AttackSpeed = data.attackSpeed;
+            animator.speed = AttackSpeed;
             ProjectileSpeed = data.projectileSpeed;
             Attribute = data.attribute;
             initialised = true;
@@ -67,6 +69,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
             AttackDamage *= data.levelDamageMultiplier;
             AttackSpeed *= data.levelAttackSpeedMultiplier;
             ProjectileSpeed *= data.levelProjectileSpeedMultiplier;
+            animator.speed = AttackSpeed;
         }
         public void Attack()
         {
@@ -79,7 +82,7 @@ namespace App.World.Buildings.Towers.TowerSoldiers
             Projectile instantiatedProjectile = objectPool.GetObjectFromPool(projectileScript.PoolObjectID, projectilePrefab)
                 .GetGameObject().GetComponent<Projectile>();
             if(currentTarget != null)
-                instantiatedProjectile.Init(currentTarget.transform, transform.position, ProjectileSpeed, AttackDamage, data.attribute);
+                instantiatedProjectile.Init(currentTarget, transform.position, ProjectileSpeed, AttackDamage, data.attribute);
             RefreshCanAttack();
         }
         private void RefreshCanAttack()

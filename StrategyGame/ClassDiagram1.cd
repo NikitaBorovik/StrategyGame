@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="App.Systems.Inputs.Builder.BuildingState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQCBBAAAAAAAAAAAABEAgAAgBAEAAYEIAAAAAAAQAI=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\Builder\BuildingState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.Systems.Inputs.Builder.BuildingSystem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAQTBCEEAgQgBEAACAAABIASAhACXAIAQERCBQAAQQQ=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\Builder\BuildingSystem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.Systems.Inputs.Builder.InputIdleState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\Builder\InputIdleState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DestroyingState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABAAAAAJIAAAAAABAAAAAABAEAAQAIAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\Builder\DestroyingState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UpgradingState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABAAAAAIIAAAAAAAAAAAAABAEAAQEIAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\Builder\UpgradingState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SoundsSystem" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAEAEAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Sounds\SoundsSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameEndScreen" Collapsed="true">
+    <Position X="14" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAQIAA=</HashCode>
+      <FileName>Assets\Scripts\App\UI\GameEndScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PQueue&lt;T&gt;" Collapsed="true">
+    <Position X="10.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BABAAAAAAAABAAACAAAAAAQAAAABBCAAQAAAAAFQAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Utilities\PQueue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projectile" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAEAAAgAAEIABAAQAgAAAAAAAAAAwCAEAAEAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\TowerSoldiers\Projectile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AttributeResistance" Collapsed="true">
+    <Position X="22.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Enemies\AttributeResistance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyDyingState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAgABAAAAAAAAAAAAEAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Enemies\States\EnemyDyingState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CellBorder" Collapsed="true">
+    <Position X="25.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAIAAAAAAAAAIAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Utilities\CellBorder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.Systems.Inputs.Inputs" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAEAAAAAAAAAAAAAAAgAAQIAAAAAAAACAIEAAEA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\Inputs.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.Systems.Inputs.MouseOptionSelector" Collapsed="true">
+    <Position X="11.75" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAIBAIAAAQAAAAAAAAAAAAAAAAAIAAACAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\MouseOptionSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.Systems.Menu.MenuOptionsSystem" Collapsed="true">
+    <Position X="11.75" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAECQBAAgAEAIAAEA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Menu\MenuOptionsSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.Systems.MoneySystem.PlayerMoney" Collapsed="true">
+    <Position X="20.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\MoneySystem\PlayerMoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.UI.Buttons.ButtonDisableOnPause" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\App\UI\Buttons\ButtonDisableOnPause.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.UI.Buttons.LevelSelectionButton" Collapsed="true">
+    <Position X="9.5" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAACAQAAACAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\UI\Buttons\LevelSelectionButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.UI.Buttons.SelectMouseOptionButton" Collapsed="true">
+    <Position X="14" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EQAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\UI\Buttons\SelectMouseOptionButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.UI.PauseController" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAIAAAAAAAAAAACAAAAAAAgAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\App\UI\PauseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.UI.Tutorial.TutorialDataSO" Collapsed="true">
+    <Position X="7.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\UI\TutorialScreen\TutorialDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.UI.Tutorial.TutorialScreen" Collapsed="true">
+    <Position X="9.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACQAACAAACQAAAAAAAAAAAAAAEAAggAABEA=</HashCode>
+      <FileName>Assets\Scripts\App\UI\TutorialScreen\TutorialScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.Utilities.DisableSelf" Collapsed="true">
+    <Position X="24" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Utilities\DisableSelf.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.BuildingsSO.BuildingData" Collapsed="true">
+    <Position X="7.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAARAAAAAAAAAAAAAIAAAACAABAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\BuildingsSO\BuildingData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.MainCastle" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAACAAAAACAAAAAAAAAABAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\MainCastle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.PlaceableBuilding" Collapsed="true">
+    <Position X="20.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAEAIAQAgCAEBsBAAgACEgAAABAAgCAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\PlaceableBuilding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.Spikes.Spike" Collapsed="true">
+    <Position X="20.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABYBAAAAAAgAAEAAAgAAAAAAAAAAAIAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Spikes\Spike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.Spikes.SpikesDataSO" Collapsed="true">
+    <Position X="10.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAEAAAAAAAAAAACAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Spikes\SpikesDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.Towers.SelectWarriorButton" Collapsed="true">
+    <Position X="14" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAACAAAABAAAAEEAAAAAYAIAAAAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\SelectWarriorButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.Towers.Tower" Collapsed="true">
+    <Position X="18.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>lAIAAIwAACA0AQEAJAIgEICSABBIEAgIAAACAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\Tower.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.Towers.TowerEnemyDetector" Collapsed="true">
+    <Position X="18" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAABAAAAAAAAAAEAAAAAAAAACAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\TowerEnemyDetector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.Towers.TowerMouseInteractor" Collapsed="true">
+    <Position X="18" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAQIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\TowerMouseInteractor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.Towers.TowerSoldiers.Soldier" Collapsed="true">
+    <Position X="22.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQCAAABEBACABAAAgBAEAARAJQAEAIAAAQSEABAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\TowerSoldiers\Soldier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.Towers.TowerSoldiers.SoldierData" Collapsed="true">
+    <Position X="9" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAAiBAAAgAAAAAAIAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\TowerSoldiers\SoldierData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.Walls.Wall" Collapsed="true">
+    <Position X="22.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAgAAAAAABAAAAIAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Walls\Wall.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.World.Buildings.PlaceableBuildings.Walls.WallDataSO" Collapsed="true">
+    <Position X="9" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Walls\WallDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Cameras.CameraController" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAgAAAEAAAEABAAAQAAgAAAAAFAAAAAAIIAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Camera\CameraController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Enemies.Enemy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQQIQAEAEECAAAIgABBIIAA0AIBAERIIAQgSQAQAGAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Enemies\Enemy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.World.Enemies.EnemyDataSO" Collapsed="true">
+    <Position X="10.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEIAAAAiAAABAAAAAIAAAAAAQAAAAABAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Enemies\EnemyDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Enemies.Health" Collapsed="true">
+    <Position X="18.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAQAAAAAAAAAAAAQAAEAAADBAAAAQBBAAAwQAAgEA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Enemies\Health.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Enemies.States.EnemyAttackState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAAAAAgABAAAAAAACAAIAEAAAAJAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Enemies\States\EnemyAttackState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.World.Enemies.States.EnemyIdleState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Enemies\States\EnemyIdleState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.World.Enemies.States.EnemyMovingState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAQIQEAAAAAAgABABAAAAAAAAAAEAAAAIAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Enemies\States\EnemyMovingState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.World.ObjectPool" Collapsed="true">
+    <Position X="24" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAggAAAAgAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\ObjectPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.ObjectsContainer" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgoBAAAAAQAQAAAAAAIAAAAAgAAEAIAABBEAAAIYAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\ObjectsContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.Utilities.HealthBar" Collapsed="true">
+    <Position X="17" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAIAAgAAAAACAg=</HashCode>
+      <FileName>Assets\Scripts\App\World\Utilities\HealthBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.WorldGrid.Cell" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAQIAAAQAAAAEAAIQARgGEAAYAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\WorldGrid\Cell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.World.WorldGrid.CellGrid" Collapsed="true">
+    <Position X="9" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAgAiACIAAAAAQACAGAoAgBgAAAAAAAAAAAAABAI=</HashCode>
+      <FileName>Assets\Scripts\App\World\WorldGrid\CellGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.World.WorldGrid.GridPathfinding" Collapsed="true">
+    <Position X="12.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAQBEAAMAAEAAQAAAAAAUAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\WorldGrid\GridPathfinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.App" Collapsed="true">
+    <Position X="0.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAABAAAACAAAAAAQABAAAAAAAAAABAEAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\App.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.StateMachine" Collapsed="true">
+    <Position X="0.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAACBAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\StateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.Systems.BattleWaveSystem.BattleWaveSystem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAQAAAIAAIAASAAABAABCAIAIAEA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\BattleWaveSystem\BattleWaveSystem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="App.Systems.BattleWaveSystem.SpawnerSystem" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEMAAAAAAAAABAAAAgGAIBAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\BattleWaveSystem\SpawnerSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.Systems.BattleWaveSystem.Subwave" Collapsed="true">
+    <Position X="27.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAEAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\BattleWaveSystem\Subwave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App.Systems.BattleWaveSystem.Wave" Collapsed="true">
+    <Position X="25.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\BattleWaveSystem\Wave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="INotifyBuilt" Collapsed="true">
+    <Position X="10.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\Builder\INotifyBuilt.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="App.Systems.Inputs.IMouseOptionHandler" Collapsed="true">
+    <Position X="8.25" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\IMouseOptionHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="App.World.Buildings.PlaceableBuildings.Towers.ISoldierHolder" Collapsed="true">
+    <Position X="4.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\ISoldierHolder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="App.World.Buildings.PlaceableBuildings.Towers.IToggleAttackRangeVision" Collapsed="true">
+    <Position X="0.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\Buildings\PlaceableBuildings\Towers\IToggleAttackRangeVision.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="App.World.IDestroyable" Collapsed="true">
+    <Position X="6.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\IDestroyable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="App.World.IObjectPoolItem" Collapsed="true">
+    <Position X="3" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAgAAAAAAAAAAgAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\App\World\IObjectPoolItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="App.IState" Collapsed="true">
+    <Position X="12" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\IState.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="App.Systems.BattleWaveSystem.INotifyEnemyDied" Collapsed="true">
+    <Position X="13.75" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\BattleWaveSystem\INotifyEnemyDied.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="App.Systems.Inputs.MouseOption" Collapsed="true">
+    <Position X="2.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABBAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\App\Systems\Inputs\MouseOptionSelector.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="App.World.WorldGrid.DamageAttribute" Collapsed="true">
+    <Position X="0.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAgAgAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\App\World\WorldGrid\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
