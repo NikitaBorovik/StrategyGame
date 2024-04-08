@@ -38,10 +38,10 @@ namespace App.Systems.Inputs.Builder
         public AudioClip WrongActionSound { get => wrongActionSound;}
         public AudioSource AudioSource { get => audioSource;}
 
-        public event Action OnClick;
-        public event Action OnMouseMoved;
-        public event Action OnAltHold;
-        public event Action OnBuilt;
+        public Action OnClick;
+        public Action OnMouseMoved;
+        public Action OnAltHold;
+        public Action OnBuilt;
         public void Init(GameObject worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding,ObjectPool objectPool, PlayerMoney playerMoney)
         {
             this.worldGrid = worldGrid;

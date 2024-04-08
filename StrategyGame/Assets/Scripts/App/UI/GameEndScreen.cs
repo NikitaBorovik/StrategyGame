@@ -12,6 +12,7 @@ public class GameEndScreen : MonoBehaviour
     
     public void EndGame()
     {
+        Time.timeScale = 0f;
         pauser.SetActive(false);
         toAppear.GetComponent<Animator>().SetBool("isIdle", false);
         toAppear.GetComponent<Animator>().SetBool("isVisible", true);
