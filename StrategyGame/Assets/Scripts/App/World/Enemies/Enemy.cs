@@ -79,7 +79,7 @@ namespace App.World.Enemies
             }
             objectPool.ReturnToPool(this);
         }
-        private void Update()
+        private void FixedUpdate()
         {
             stateMachine.State.Update();
         }

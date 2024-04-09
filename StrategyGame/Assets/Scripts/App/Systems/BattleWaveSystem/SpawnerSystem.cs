@@ -5,6 +5,7 @@ using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace App.Systems.BattleWaveSystem
 {
@@ -18,9 +19,12 @@ namespace App.Systems.BattleWaveSystem
         private INotifyBuilt notifyBuilt;
 
         [SerializeField]
-        private List<Vector3> spawningPoints;
-        
+        private List<PointRange> spawningPoints;
 
+        public void FixedUpdate()
+        {
+            enemiesPathfinding.RefreshIterations();
+        }
 
         public void Init(ObjectPool pool, Transform enemyPrimaryTarget,CellGrid cellGrid, INotifyEnemyDied notifyEnemyDied, INotifyBuilt notifyBuilt)
         {
@@ -40,10 +44,17 @@ namespace App.Systems.BattleWaveSystem
                 return;
             }
             int random = Random.Range(0, spawningPoints.Count);
-            Vector3 pos = spawningPoints[random];
+            PointRange range = spawningPoints[random];
+            Vector3 pos = new Vector3(Random.Range(range.rangeStart.x, range.rangeEnd.x+1), Random.Range(range.rangeStart.y, range.rangeEnd.y+1));
             Enemy instantiatedEnemy = pool.GetObjectFromPool(enemyScript.PoolObjectID, enemy).GetGameObject().GetComponent<Enemy>();
             instantiatedEnemy.Init(enemyPrimaryTarget, notifyEnemyDied, notifyBuilt, enemiesPathfinding, pos);
         }
     }
+}
 
+[System.Serializable]
+public class PointRange
+{
+    public Vector3Int rangeStart;
+    public Vector3Int rangeEnd;
 }

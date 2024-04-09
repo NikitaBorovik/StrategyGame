@@ -1,3 +1,4 @@
+using App.World.WorldGrid;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,33 +10,33 @@ namespace App.World.WorldGrid
     {
         private int x;
         private int y;
-        private float g = 100000;
-        private float h = 0;
-        private Dictionary<DamageAttribute,int> attributes;
+        private int g = 10000000;
+        private int h = 0;
+        private List<AffectingAttributeCounts> attributes;
         private Cell parentCell;
 
         public Cell(int x, int y)
         {
             this.X = x;
             this.Y = y;
-            this.attributes = new Dictionary<DamageAttribute, int>();
-            attributes.Add(DamageAttribute.piercing, 0);
-            attributes.Add(DamageAttribute.bludgeoning, 0);
-            attributes.Add(DamageAttribute.magic, 0);
-            attributes.Add(DamageAttribute.fortified, 0);
+            this.attributes = new List<AffectingAttributeCounts>();
+            attributes.Add(new AffectingAttributeCounts(DamageAttribute.piercing, 0));
+            attributes.Add(new AffectingAttributeCounts(DamageAttribute.bludgeoning, 0));
+            attributes.Add(new AffectingAttributeCounts(DamageAttribute.magic, 0));
+            attributes.Add(new AffectingAttributeCounts(DamageAttribute.fortified, 0));
         }
         public void ResetValues()
         {
             parentCell = null;
-            G = Single.PositiveInfinity;
+            G = 10000000;
             h = 0;
         }
-        public Dictionary<DamageAttribute, int> Attributes { get => attributes;}
+        public List<AffectingAttributeCounts> Attributes { get => attributes;}
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
-        public float G { get => g; set => g = value; }
-        public float H { get => h; set => h = value; }
-        public float F { get => h + g;}
+        public int G { get => g; set => g = value; }
+        public int H { get => h; set => h = value; }
+        public int F { get => h + g;}
         public Cell ParentCell { get => parentCell; set => parentCell = value; }
 
         public int CompareTo(Cell other)
@@ -57,3 +58,14 @@ namespace App.World.WorldGrid
     }
 }
 
+public class AffectingAttributeCounts
+{
+    public DamageAttribute attribute;
+    public int count;
+
+    public AffectingAttributeCounts(DamageAttribute attribute, int count)
+    {
+        this.attribute = attribute;
+        this.count = count;
+    }
+}

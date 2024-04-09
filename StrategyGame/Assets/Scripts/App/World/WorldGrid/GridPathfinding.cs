@@ -2,6 +2,7 @@ using App.Utilities;
 using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -12,22 +13,26 @@ namespace App.World.WorldGrid
     
     public class GridPathfinding 
     {
+        //TODO MAKE PRIVATE
         public CellGrid cellGrid;
         public PQueue<Cell> openCells;
         public HashSet<Cell> closedCells;
         public List<AttributeResistance> attachedResistances;
-        public const float BASIC_ATTRIBUTE_WEIGHT = 1.5f;
+        public const int BASIC_ATTRIBUTE_WEIGHT = 2; //1.5f
+        private const int MAXIMUM_ITERATIONS_PER_FRAME = 30;
+        private int processedIterations;
 
         public GridPathfinding(CellGrid grid)
         {
             this.cellGrid = grid;
+            processedIterations = 0;
         }
 
         public Stack<Vector3> ProceedPathfinding(Vector3 startF, Vector3 endF, List<AttributeResistance> resistances)
         {
+            processedIterations++;
             if (cellGrid == null)
                 return null;
-            Debug.Log("Processing");
             cellGrid.ResetData();
             attachedResistances = new List<AttributeResistance>(resistances);
             openCells = new PQueue<Cell>();
@@ -63,7 +68,7 @@ namespace App.World.WorldGrid
                     {
                         continue;
                     }
-                    float newG = ShortestDistance(neighbour, cell) + cell.G;
+                    int newG = ShortestDistance(neighbour, cell) + cell.G;
                     
                     newG = AddWeightsFromCell(newG, neighbour);
                     if (newG < neighbour.G)
@@ -80,17 +85,28 @@ namespace App.World.WorldGrid
             }
             return null;
         }
-        private float AddWeightsFromCell(float to, Cell neighbour)
+        public bool CanProcess()
         {
-            foreach (DamageAttribute attribute in neighbour.Attributes.Keys)
+            return processedIterations < MAXIMUM_ITERATIONS_PER_FRAME;
+        }
+
+        public void RefreshIterations()
+        {
+            processedIterations = 0;
+        }
+        private int AddWeightsFromCell(int to, Cell neighbour)
+        {
+            
+            foreach (AffectingAttributeCounts attribute in neighbour.Attributes)
             {
-                float multiplier = 1f;
-                foreach(AttributeResistance attributeResistance in attachedResistances)
+                int multiplier = 100;
+
+                foreach (AttributeResistance attributeResistance in attachedResistances)
                 {
-                    if (attributeResistance.attribute == attribute)
-                        multiplier -= attributeResistance.resistance;
+                    if (attributeResistance.attribute == attribute.attribute)
+                        multiplier -= (int)(attributeResistance.resistance * 100);
                 }
-                to += neighbour.Attributes[attribute] * BASIC_ATTRIBUTE_WEIGHT * multiplier;
+                to += attribute.count * BASIC_ATTRIBUTE_WEIGHT * multiplier; //attribute.count 
             }
             return to;
         }
@@ -108,11 +124,11 @@ namespace App.World.WorldGrid
             }
             return path;
         }
-        private float ShortestDistance(Cell cell1, Cell cell2)
+        private int ShortestDistance(Cell cell1, Cell cell2)
         {
             int distanceX = Mathf.Abs(cell1.X - cell2.X);
             int distanceY = Mathf.Abs(cell1.Y - cell2.Y);
-            return Mathf.Abs(distanceX - distanceY) + 1.4f * Mathf.Min(distanceX, distanceY);
+            return 100 * Mathf.Abs(distanceX - distanceY) + 140 * Mathf.Min(distanceX, distanceY);
         }
 
         private List<Cell> SurroundingCells(Cell cell, Cell finish)

@@ -2,6 +2,7 @@ using App;
 using App.World.WorldGrid;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace App.World.Enemies.States
@@ -13,8 +14,9 @@ namespace App.World.Enemies.States
         private Stack<Vector3> way;
         private Vector3 currentWaypoint;
         private Vector3 actualTargetPosition;
-
         private bool atFinalPoint = false;
+        private bool awaitingPathRecalculation = false;
+
         public EnemyMovingState(Enemy parent)
         {
             this.pathfinding = parent.Pathfinding;
@@ -28,15 +30,21 @@ namespace App.World.Enemies.States
         {
             SetEnterAnimationParameters();
             atFinalPoint = false;
-            way = pathfinding.ProceedPathfinding(parent.transform.position, actualTargetPosition, parent.Data.resistances);
-            if(way != null && way.Count != 0)
+
+            if (way == null || pathfinding.CanProcess())
             {
-                CurrentWaypoint = way.Pop();
+                way = pathfinding.ProceedPathfinding(parent.transform.position, actualTargetPosition, parent.Data.resistances);
             }
             else
             {
-                CurrentWaypoint = actualTargetPosition;
+                //Debug.Log("Refused to get path");
+                awaitingPathRecalculation = true;
             }
+
+            if (way != null && way.Count != 0)
+                CurrentWaypoint = way.Pop();
+            else
+                CurrentWaypoint = actualTargetPosition;
         }
 
         public void Exit()
@@ -47,6 +55,12 @@ namespace App.World.Enemies.States
 
         public void Update()
         {
+            if (awaitingPathRecalculation && pathfinding.CanProcess())
+            {
+                way = pathfinding.ProceedPathfinding(parent.transform.position, actualTargetPosition, parent.Data.resistances);
+                awaitingPathRecalculation = false;
+            }
+
             RaycastHit2D raycast = Physics2D.Raycast(parent.transform.position, (CurrentWaypoint - parent.transform.position).normalized, parent.Data.attackRange, LayerMask.GetMask("BuildingPhysicalCollider"));
             if (raycast)
             {
@@ -56,6 +70,7 @@ namespace App.World.Enemies.States
             }
             if (atFinalPoint)
                 return;
+
             if (Vector3.Distance(parent.transform.position, CurrentWaypoint) > 0.1f)
             {
                 parent.RigidBody.velocity = (CurrentWaypoint - parent.transform.position).normalized * parent.Data.speed;
@@ -64,7 +79,7 @@ namespace App.World.Enemies.States
             {
                 CurrentWaypoint = way.Pop();
             }
-            else if(CurrentWaypoint != actualTargetPosition)
+            else if (CurrentWaypoint != actualTargetPosition)
             {
                 CurrentWaypoint = actualTargetPosition;
             }
@@ -73,7 +88,7 @@ namespace App.World.Enemies.States
                 parent.RigidBody.velocity = Vector2.zero;
                 atFinalPoint = true;
             }
-            if(parent.RigidBody.velocity.x >= 0)
+            if (parent.RigidBody.velocity.x >= 0)
                 parent.Animator.SetBool("IsFacingRight", true);
             else
                 parent.Animator.SetBool("IsFacingRight", false);
