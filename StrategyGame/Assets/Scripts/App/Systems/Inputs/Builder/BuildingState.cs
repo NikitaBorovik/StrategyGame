@@ -81,7 +81,7 @@ namespace App.Systems.Inputs.Builder
                 var interfaceBuilding = toBuild as IToggleAttackRangeVision;
                 if (interfaceBuilding != null)
                 {
-                    buildingSystem.BuildingsWithAttackRange.Add(interfaceBuilding);
+                    buildingSystem.AddToBuildingsWithAttackRange(interfaceBuilding);
                 }
 
                 buildingSystem.AudioSource.PlayOneShot(buildingSystem.BuildSound);

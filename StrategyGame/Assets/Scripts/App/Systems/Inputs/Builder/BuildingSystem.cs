@@ -10,7 +10,7 @@ namespace App.Systems.Inputs.Builder
     {
         private StateMachine stateMachne;
         private GameObject worldGrid;
-        private Camera camera;
+        private Camera mainCamera;
         private GameObject selectedCellBorder;
         private GameObject previewBuilding;
         private List<IToggleAttackRangeVision> buildingsWithAttackRange;
@@ -20,6 +20,7 @@ namespace App.Systems.Inputs.Builder
         private DestroyingState destroyingState;
         private InputIdleState idleState;
         private UpgradingState upgradingState;
+        private bool altButtonPressed = false;
 
         [SerializeField]
         private AudioSource audioSource;
@@ -29,10 +30,9 @@ namespace App.Systems.Inputs.Builder
         private AudioClip wrongActionSound;
 
         public GameObject WorldGrid { get => worldGrid;}
-        public Camera Camera { get => camera;}
+        public Camera Camera { get => mainCamera;}
         public GameObject SelectedCellBorder { get => selectedCellBorder;}
         public GameObject PreviewBuilding { get => previewBuilding;}
-        public List<IToggleAttackRangeVision> BuildingsWithAttackRange { get => buildingsWithAttackRange; }
         public PlayerMoney PlayerMoney { get => playerMoney;}
         public AudioClip BuildSound { get => buildSound; set => buildSound = value; }
         public AudioClip WrongActionSound { get => wrongActionSound;}
@@ -45,7 +45,7 @@ namespace App.Systems.Inputs.Builder
         public void Init(GameObject worldGrid, Camera camera, GameObject selectedCellBorder,GameObject previewBuilding,ObjectPool objectPool, PlayerMoney playerMoney)
         {
             this.worldGrid = worldGrid;
-            this.camera = camera;
+            this.mainCamera = camera;
             this.selectedCellBorder = selectedCellBorder;
             this.previewBuilding = previewBuilding;
             this.playerMoney = playerMoney;
@@ -111,11 +111,23 @@ namespace App.Systems.Inputs.Builder
             OnBuilt -= action;
         }
 
+        public void AddToBuildingsWithAttackRange(IToggleAttackRangeVision building)
+        {
+            buildingsWithAttackRange.Add(building);
+            building.SetAttackRangeVision(altButtonPressed);
+        }
+        public void RemoveFromBuildingsWithAttackRange(IToggleAttackRangeVision building)
+        {
+            buildingsWithAttackRange.Remove(building);
+            building.SetAttackRangeVision(false);
+        }
+
         private void ToggleTowerRangeVision()
         {
-            foreach(IToggleAttackRangeVision building in BuildingsWithAttackRange)
+            altButtonPressed = !altButtonPressed;
+            foreach(IToggleAttackRangeVision building in buildingsWithAttackRange)
             {
-                building.ToggleAttackRangeVision();
+                building.SetAttackRangeVision(altButtonPressed);
             }
         }
 

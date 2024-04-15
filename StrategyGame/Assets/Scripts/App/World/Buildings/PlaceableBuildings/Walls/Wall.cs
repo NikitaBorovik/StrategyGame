@@ -27,7 +27,6 @@ namespace App.World.Buildings.PlaceableBuildings.Walls
             PlayerMoney.Money -= BasicData.upgradePrice;
             Level++;
             HealthComponent.MaxHP *= extendedData.levelUpHpMultiplier;
-            Debug.Log("health");
             HealthComponent.CurHP = HealthComponent.MaxHP;
             GetComponent<SpriteRenderer>().sprite = extendedData.spritesForLevels[Level];
             cellGrid.AddAttributeToCells(new Vector2((transform.position.x + 0.5f * BasicData.size), (transform.position.y + 0.5f * BasicData.size)), 0.5f, DamageAttribute.fortified);
@@ -37,7 +36,6 @@ namespace App.World.Buildings.PlaceableBuildings.Walls
             HealthComponent.MaxHP = BasicData.health;
             for(int i = 0; i <= Level; i++)
             {
-                Debug.Log("Removing");
                 cellGrid.RemoveAttributeFromCells(new Vector2((transform.position.x + 0.5f * BasicData.size), (transform.position.y + 0.5f * BasicData.size)), 0.5f, DamageAttribute.fortified);
             }
             GetComponent<SpriteRenderer>().sprite = extendedData.spritesForLevels[0];

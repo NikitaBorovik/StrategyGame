@@ -35,7 +35,7 @@ namespace App.Systems.BattleWaveSystem
             enemiesPathfinding = new GridPathfinding(cellGrid);
         }
 
-        public void Spawn(GameObject enemy)
+        public void Spawn(GameObject enemy, List<Enemy> toStore)
         {
             Enemy enemyScript = enemy.GetComponent<Enemy>();
             if (enemyScript == null)
@@ -48,6 +48,7 @@ namespace App.Systems.BattleWaveSystem
             Vector3 pos = new Vector3(Random.Range(range.rangeStart.x, range.rangeEnd.x+1), Random.Range(range.rangeStart.y, range.rangeEnd.y+1));
             Enemy instantiatedEnemy = pool.GetObjectFromPool(enemyScript.PoolObjectID, enemy).GetGameObject().GetComponent<Enemy>();
             instantiatedEnemy.Init(enemyPrimaryTarget, notifyEnemyDied, notifyBuilt, enemiesPathfinding, pos);
+            toStore.Add(instantiatedEnemy);
         }
     }
 }

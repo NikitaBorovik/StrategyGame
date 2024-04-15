@@ -15,7 +15,9 @@ namespace App.World.Enemies
         private List<SpriteRenderer> deletable;
         private Coroutine blinking;
         private float blinkingDuration = 0.1f;
+        private float regenerationAmount = 0f;
         private Action onHpChanged;
+
 
         public float CurHP 
         {
@@ -27,12 +29,16 @@ namespace App.World.Enemies
             {
                 if(value < 0)
                     curHP = 0;
-                else
+                else if (value > MaxHP) 
+                    curHP = MaxHP;
+                else    
                     curHP = value;
+                OnHpChanged?.Invoke();
             }
         }
         public float MaxHP { get => maxHP; set => maxHP = value; }
         public Action OnHpChanged { get => onHpChanged; set => onHpChanged = value; }
+        public float RegenerationAmount { get => regenerationAmount; set => regenerationAmount = value; }
 
         public void Awake()
         {
@@ -41,6 +47,14 @@ namespace App.World.Enemies
             foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
             {
                 renderers.Add(spriteRenderer);
+            }
+        }
+
+        private void Update()
+        {
+            if (regenerationAmount > 0)
+            {
+                CurHP += regenerationAmount * Time.deltaTime;
             }
         }
         public void TakeDamage(float damage)
@@ -53,7 +67,7 @@ namespace App.World.Enemies
                     destroyable.DestroySequence();
             }
             Blink();
-            OnHpChanged?.Invoke();
+            
         }
 
         private IEnumerator BlinkCoroutine()

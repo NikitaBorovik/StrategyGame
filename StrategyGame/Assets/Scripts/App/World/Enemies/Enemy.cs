@@ -29,6 +29,8 @@ namespace App.World.Enemies
         private Animator animator;
         [SerializeField]
         private AudioSource audioSource;
+        [SerializeField]
+        private GameObject stats;
 
         private EnemyMovingState movingState;
         private EnemyAttackState attackState;
@@ -65,29 +67,7 @@ namespace App.World.Enemies
             stateMachine.Init(movingState);
             notifyBuilt.Subscribe(GoToMovingState);
         }
-        private void Attack()
-        {
-            if(stateMachine.State == attackState)
-                attackState.Attack();
-        }
-        private void Die()
-        {
-            notifyBuilt.Unsubscribe(GoToMovingState);
-            foreach (INotifyEnemyDied notifyEnemyDied in notifyDiedlist)
-            {
-                notifyEnemyDied.NotifyEnemyDied(this);
-            }
-            objectPool.ReturnToPool(this);
-        }
-        private void FixedUpdate()
-        {
-            stateMachine.State.Update();
-        }
-        private void OnDisable()
-        {
-            notifyBuilt.Unsubscribe(GoToMovingState);
-        }
-
+        
         public void GoToMovingState()
         {
             stateMachine.ChangeState(movingState);
@@ -121,6 +101,34 @@ namespace App.World.Enemies
         {
             GoToDyingState();
         }
+        public void SetStatsVisibility(bool visible)
+        {
+            if(stats != null)
+                stats.SetActive(visible);
+        }
+        private void Attack()
+        {
+            if (stateMachine.State == attackState)
+                attackState.Attack();
+        }
+        private void Die()
+        {
+            notifyBuilt.Unsubscribe(GoToMovingState);
+            foreach (INotifyEnemyDied notifyEnemyDied in notifyDiedlist)
+            {
+                notifyEnemyDied.NotifyEnemyDied(this);
+            }
+            objectPool.ReturnToPool(this);
+        }
+        private void FixedUpdate()
+        {
+            stateMachine.State.Update();
+        }
+        private void OnDisable()
+        {
+            notifyBuilt.Unsubscribe(GoToMovingState);
+        }
+
         //void OnDrawGizmos()
         //{
         //    if (!Application.isPlaying)
@@ -156,17 +164,17 @@ namespace App.World.Enemies
         //        }
         //    }
         //}
-        private void DrawArrowHead(Vector3 from, Vector3 to)
-        {
-            const float arrowHeadSize = 0.25f;
+        //private void DrawArrowHead(Vector3 from, Vector3 to)
+        //{
+        //    const float arrowHeadSize = 0.25f;
 
-            Vector3 direction = (to - from).normalized;
-            Vector3 right = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 + 15, 0) * Vector3.forward;
-            Vector3 left = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 - 15, 0) * Vector3.forward;
+        //    Vector3 direction = (to - from).normalized;
+        //    Vector3 right = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 + 15, 0) * Vector3.forward;
+        //    Vector3 left = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 - 15, 0) * Vector3.forward;
 
-            Gizmos.DrawRay(to, right * arrowHeadSize);
-            Gizmos.DrawRay(to, left * arrowHeadSize);
-        }
+        //    Gizmos.DrawRay(to, right * arrowHeadSize);
+        //    Gizmos.DrawRay(to, left * arrowHeadSize);
+        //}
     }
 
 }

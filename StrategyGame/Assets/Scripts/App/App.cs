@@ -18,7 +18,7 @@ namespace App
         [SerializeField]
         private SpawnerSystem spawnerSystem;
         [SerializeField]
-        private BattleWaveSystem battleWaveSystem;
+        private BattleSystem battleWaveSystem;
         [SerializeField]
         private BuildingSystem buildingSystem;
         [SerializeField]
@@ -29,7 +29,7 @@ namespace App
         private void Start()
         {
             buildingSystem.Init(objectsContainer.WorldGrid, objectsContainer.MainCamera, objectsContainer.SelectedCellBorder, objectsContainer.PreviewBuilding, objectPool, playerMoney);
-            inputs.Init(buildingSystem,objectsContainer.CameraController, objectsContainer.Pauser);
+            inputs.Init(buildingSystem, battleWaveSystem, objectsContainer.CameraController, objectsContainer.Pauser);
             spawnerSystem.Init(objectPool, objectsContainer.EnemyPrimaryTarget,objectsContainer.WorldGrid.GetComponent<CellGrid>(), battleWaveSystem, buildingSystem);
             battleWaveSystem.Init(spawnerSystem, playerMoney, objectsContainer.VictoryScreen);
         }

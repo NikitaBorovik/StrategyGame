@@ -79,15 +79,9 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
             UpgradeTower();
             UpgradeSoldiers();
         }
-        public void ToggleAttackRangeVision()
+        public void SetAttackRangeVision(bool value)
         {
-            if (attackRangeField != null)
-            {
-                if (attackRangeField.activeSelf)
-                    attackRangeField.SetActive(false);
-                else
-                    attackRangeField.SetActive(true);
-            }
+            attackRangeField.SetActive(value);
         }
 
         public void NotifyEnemyDied(Enemy enemy)

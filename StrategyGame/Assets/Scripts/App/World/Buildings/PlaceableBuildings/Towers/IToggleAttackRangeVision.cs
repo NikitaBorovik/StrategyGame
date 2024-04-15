@@ -6,7 +6,7 @@ namespace App.World.Buildings.PlaceableBuildings.Towers
 {
     public interface IToggleAttackRangeVision
     {
-        void ToggleAttackRangeVision();
+        void SetAttackRangeVision(bool value);
     }
 
 }

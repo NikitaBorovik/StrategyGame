@@ -552,6 +552,7 @@ MonoBehaviour:
   rigidBody: {fileID: -4973923632685704990}
   animator: {fileID: 4542820529604600206}
   audioSource: {fileID: 6575412093297398333}
+  stats: {fileID: 1993004763133124638}
 --- !u!70 &3573587767126223422
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -49,7 +49,7 @@ public class DestroyingState : IState
             var interfaceBuilding = selectedBuilding.GetComponent<PlaceableBuilding>() as IToggleAttackRangeVision;
 
             if (interfaceBuilding != null)
-                buildingInteractor.BuildingsWithAttackRange.Remove(interfaceBuilding);
+                buildingInteractor.RemoveFromBuildingsWithAttackRange(interfaceBuilding);
             var build = selectedBuilding.GetComponent<PlaceableBuilding>();
             buildingInteractor.PlayerMoney.Money += (int)(build.BasicData.price * build.HealthComponent.CurHP / build.HealthComponent.MaxHP);
             objectPool.ReturnToPool(selectedBuilding.GetComponent<PlaceableBuilding>());

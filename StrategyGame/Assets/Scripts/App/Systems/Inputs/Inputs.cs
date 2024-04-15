@@ -1,3 +1,4 @@
+using App.Systems.BattleWaveSystem;
 using App.Systems.Inputs.Builder;
 using App.UI;
 using App.World;
@@ -10,15 +11,17 @@ namespace App.Systems.Inputs
     public class Inputs : MonoBehaviour, IMouseOptionHandler
     {
         private BuildingSystem processor;
+        private BattleSystem battleSystem;
         private CameraController cameraController;
         [SerializeField]
         private MouseOptionSelector mouseSelector;
         [SerializeField]
         private GameObject waypoint;
         private PauseController pauseController;
-        public void Init(BuildingSystem buildingInteractor, CameraController cameraController, PauseController pauseController)
+        public void Init(BuildingSystem buildingInteractor, BattleSystem battleSystem, CameraController cameraController, PauseController pauseController)
         {
             processor = buildingInteractor;
+            this.battleSystem = battleSystem;
             this.cameraController = cameraController;
             mouseSelector.MouseInputHandler = this;
             this.pauseController = pauseController;
@@ -49,6 +52,7 @@ namespace App.Systems.Inputs
             if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.LeftAlt))
             {
                 processor.OnAltButtonHold();
+                battleSystem.ToggleEnemyStats();
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {

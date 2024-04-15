@@ -15,7 +15,8 @@ namespace App.World.Buildings
         private Health healthComponent;
         [SerializeField]
         private int health;
-
+        [SerializeField]
+        private float regenerationamount = 1f;
         public void DestroySequence()
         {
             defeatedScreen.EndGame();
@@ -25,6 +26,7 @@ namespace App.World.Buildings
         {
             healthComponent.MaxHP = health;
             healthComponent.CurHP = health;
+            healthComponent.RegenerationAmount = regenerationamount;
         }
 
 
